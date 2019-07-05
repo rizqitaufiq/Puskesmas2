@@ -168,9 +168,14 @@ class TargetController extends Controller
     public function destroy($id)
     {
         if($this->checkakun()==true){
-            $indikator = Targetumur::findOrFail($id);
-            $indikator->delete();
-            return redirect('dashboard/target')->with('alert-success', 'Indikator Berhasil di Hapus');
+            $data = DB::table('data')->where('nama_targetumur', $id)->get();
+            if(count($data) < 0){
+                $data->delete();
+            }
+            
+            $targetumur = Targetumur::findOrFail($id);
+            $targetumur->delete();
+            return redirect('dashboard/target')->with('alert-success', 'Target Umur Berhasil di Hapus');
         }
         else{
             return redirect('dashboard');

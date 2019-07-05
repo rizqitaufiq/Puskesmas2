@@ -54,7 +54,6 @@
                                     <th>Nama</th>
                                     <th>E-mail</th>
                                     <th>Puskesmas</th>
-                                    <!-- <th>Posisi</th> -->
                                     <th>Diverifikasi</th>
                                     <th>Action</th>
                                 </tr>
@@ -84,8 +83,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div><!-- .animated -->
 </div><!-- .content -->

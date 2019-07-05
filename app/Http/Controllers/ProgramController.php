@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Program;
 use App\Indikator;
+use App\Data;
+use App\Targetumur;
 
 class ProgramController extends Controller
 {
@@ -151,6 +154,20 @@ class ProgramController extends Controller
     public function destroy($id)
     {
         if($this->checkakun()==true){
+            $data = DB::table('data')->where('nama_program', $id)->get();
+            if(count($data) < 0){
+                $data->delete();
+            }
+            
+            $targetumur = DB::table('targetumur')->where('nama_program', $id)->get();
+            if(count($targetumur) < 0){
+                $targetumur->delete();
+            }
+
+            $indikator = DB::table('indikator')->where('nama_program', $id)->get();
+            if(count($indikator) < 0){
+                $indikator->delete();
+            }
             $program = Program::findOrFail($id);
             $program->delete();
             return redirect('dashboard/program')->with('alert-success', 'Program Berhasil di Hapus');

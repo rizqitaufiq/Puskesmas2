@@ -169,6 +169,16 @@ class IndikatorController extends Controller
     public function destroy($id)
     {
          if($this->checkakun()==true){
+            $data = DB::table('data')->where('nama_indikator', $id)->get();
+            if(count($data) < 0){
+                $data->delete();
+            }
+            
+            $targetumur = DB::table('targetumur')->where('nama_indikator', $id)->get();
+            if(count($targetumur) < 0){
+                $targetumur->delete();
+            }
+
             $indikator = Indikator::findOrFail($id);
             $indikator->delete();
             return redirect('dashboard/indikator')->with('alert-success', 'Indikator Berhasil di Hapus');

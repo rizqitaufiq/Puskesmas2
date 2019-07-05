@@ -82,7 +82,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Create</button>
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Tambah</button>
                 <a href="{{ route('program.index')}}" class="btn btn-danger waves-effect waves-light m-r-10">Batal</a>
             </form>
                     </div>
