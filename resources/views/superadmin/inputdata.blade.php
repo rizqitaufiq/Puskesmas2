@@ -17,7 +17,7 @@
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>
                             <li><a href="#">Masukkan Data</a></li>
-                            <li class="active">SKDN</li>
+                            <li class="active">{{$program}}</li>
                         </ol>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                 
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Tambah Data SKDN</strong>
+                        <strong class="card-title">Tambah Data {{$program}}</strong>
                     </div>
                     <div class="card-body">
                         <form class="form p-t-20" method="POST" action="{{ route('data.store') }}" enctype="multipart/form-data">
@@ -108,6 +108,7 @@
 			                        <input type="number" id="tahun" name="tahun" placeholder="Masukkan Tahun" class="form-control" required>
 			                    </div>
 			                </div>
+                            <input type="number" id="nama_program" name="program" value="{{$id[0]->id}}" hidden>
 			                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Input</button>
 			                <a href="{{ route('data.input')}}" class="btn btn-danger waves-effect waves-light m-r-10">Cancel</a>
 			            </form>

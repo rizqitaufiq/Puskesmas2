@@ -73,7 +73,7 @@ class DataController extends Controller
             if(Auth::user()->pos == 'admin'){
                $data = Data::all()->where('nama_targetumur', $request->target);
                if(count($data) === 0){
-                    echo "tidak ada";
+                    echo $request->get('program');
                }
                else{
                     return redirect('dashboard/data/input')->with('alert-danger','Data sudah ada');
@@ -221,8 +221,9 @@ class DataController extends Controller
             if(Auth::user()->pos == 'admin'){
                 $extends = 'superadmin.layouts.template';
                 $section = 'konten';
-                $indikator = Indikator::all();
-                return view('superadmin.inputdata', compact('section', 'extends', 'indikator'));
+                $id = DB::table('program')->where('nama_program', $program)->get();
+                $indikator = DB::table('indikator')->where('nama_program', $id[0]->id)->get();
+                return view('superadmin.inputdata', compact('section', 'extends', 'indikator', 'program', 'id'));
             }
             else{
                 return redirect('dashboard');
@@ -243,7 +244,7 @@ class DataController extends Controller
                 $value = $request->get('value');
                 // $dependent = $request->get('dependent');
                 $data = DB::table('targetumur')
-                ->where('nama_indikator', '3')
+                ->where('nama_indikator', $value)
                 ->get();
                 $output = '<option value="">Pilih salah satu</option>';
                 foreach($data as $row){
