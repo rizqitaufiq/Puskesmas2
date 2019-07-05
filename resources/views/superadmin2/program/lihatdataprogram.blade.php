@@ -51,6 +51,10 @@
                         <strong class="card-title">Data Program</strong>
                     </div>
                     <div class="card-body">
+                        <div>
+                            <a href="{{route('program.create')}}" class="btn btn-primary"> Tambah Program </a><br><br>
+                        </div>
+                        
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr align="center">
@@ -72,14 +76,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                                <tr>
-                                    <td align ="center">{{$a+=1}}</td>
-                                    <td align ="center">KADARZI</td>
-                                    <td align ="center"><a href="{{route('program.edit', " class="btn btn-warning">Edit</a> 
-                                        <a href="#" class="btn btn-danger">delete</></td>
-                                </tr>
-                               
-                            </tbody>
+                                </tbody>
                         </table>
                     </div>
                 </div>

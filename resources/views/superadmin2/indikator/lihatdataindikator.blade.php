@@ -43,6 +43,9 @@
                         <strong class="card-title">Data Indikator</strong>
                     </div>
                     <div class="card-body">
+                         <div>
+                            <a href="{{route('indikator.create')}}" class="btn btn-primary"> Tambah Indikator </a><br><br>
+                        </div>
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr align="center">
@@ -64,17 +67,8 @@
                                     <td align ="center"><a href="{{route('indikator.edit', $indikator->id)}}" class="btn btn-warning">ubah</a> 
                                         <a href="indikator/{{ $indikator->id }}/delete" class="btn btn-danger">hapus</a></td>
                                 </tr>
-                                
                                 @endforeach
-                                <tr>
-                                    <td align ="center">{{$a+=1}}</td>
-                                    <td align ="center">SKDN</td>
-                                    <td align ="center">D/S</td>
-                                    <td align ="center"><a href="{{route('indikator.edit', 1)}}" class="btn btn-warning">Edit</a> 
-                                        <a href="#" class="btn btn-danger">delete</></td>
-                                </tr>
-
-                            </tbody>
+                                </tbody>
                         </table>
                     </div>
                 </div>

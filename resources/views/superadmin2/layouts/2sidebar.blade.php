@@ -24,40 +24,19 @@
 
 
                     <li class="menu-title">Data</li><!-- /.menu-title -->
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Lihat Data</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-medkit"></i><a href="{{route('skdn.datapus')}}">&nbsp SKDN</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('kadarzi.datapus')}}">&nbsp KADARZI</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('pmt.datapus')}}">&nbsp PMT</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('ttd.datapus')}}">&nbsp TAMBAH DARAH</a></li>
-                        </ul>
-                    </li>
                     <li>
                         <a href="{{route('data.index')}}"> <i class="menu-icon fa fa-tasks"></i>Lihat Data </a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Program</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-medkit"></i><a href="{{route('program.index')}}">&nbsp Program</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('program.create')}}">&nbsp Tambah</a></li>
-                        </ul>
+                    <li>
+                        <a href="{{route('program.index')}}"> <i class="menu-icon fa fa-tasks"></i>Program </a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Indikator</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-medkit"></i><a href="{{route('indikator.index')}}">&nbsp Indikator</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('indikator.create')}}">&nbsp Tambah</a></li>
-                        </ul>
+                    <li>
+                        <a href="{{route('indikator.index')}}"> <i class="menu-icon fa fa-tasks"></i>Indikator </a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Target Umur</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-medkit"></i><a href="{{route('target.index')}}">&nbsp Target Umur</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('target.create')}}">&nbsp Tambah Target</a></li>
-                        </ul>
+                    <li>
+                        <a href="{{route('target.index')}}"> <i class="menu-icon fa fa-tasks"></i>Target Umur </a>
                     </li>
+                    
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Laporan</a>
                         <ul class="sub-menu children dropdown-menu">

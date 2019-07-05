@@ -43,6 +43,9 @@
                         <strong class="card-title">Data Target Umur</strong>
                     </div>
                     <div class="card-body">
+                         <div>
+                            <a href="{{route('target.create')}}" class="btn btn-primary"> Tambah Target Umur </a><br><br>
+                        </div>
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr align="center">

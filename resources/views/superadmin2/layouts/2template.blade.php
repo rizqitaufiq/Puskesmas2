@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Dashboard Admin</title>
+    <title>Form Evaluasi Program | Dashboard Admin</title>
     <meta name="description" content="Puskesmas">
     <meta name="viewport" content="width=device-width, initial-scale=0.46">
     <meta name="csrf-token" content="{{ csrf_token() }}">
