@@ -7,22 +7,13 @@
                     <a href="{{route('dashboard.index')}}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
                     <li class="menu-title">data User</li><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Puskesmas</a>
-                        <ul class="sub-menu children dropdown-menu">                            
-                        <li><i class="fa fa-list"></i><a href="{{route('puskesmas.index')}}">&nbsp Puskesmas</a></li>
-                            <li><i class="fa fa-user"></i><a href="{{route('puskesmas.create')}}">&nbsp Tambah</a></li>
-                        </ul>
+                    <li>
+                        <a href="{{route('puskesmas.index')}}"> <i class="menu-icon fa fa-hospital-o"></i>Puskesmas </a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Users</a>
-                        <ul class="sub-menu children dropdown-menu">                            
-                        <li><i class="fa fa-list"></i><a href="{{route('datauser')}}">&nbsp Data User</a></li>
-                            <li><i class="fa fa-user"></i><a href="{{route('dashboard.create')}}">&nbsp Tambah User</a></li>
-                        </ul>
+                    <li>
+                        <a href="{{route('datauser')}}"> <i class="menu-icon fa fa-user"></i>User </a>
                     </li>
-
-
+                    
                     <li class="menu-title">Data</li><!-- /.menu-title -->
                     <li>
                         <a href="{{route('data.index')}}"> <i class="menu-icon fa fa-tasks"></i>Lihat Data </a>

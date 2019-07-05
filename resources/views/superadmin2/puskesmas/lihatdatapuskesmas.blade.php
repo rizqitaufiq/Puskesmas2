@@ -43,6 +43,9 @@
                         <strong class="card-title">Data Puskesmas</strong>
                     </div>
                     <div class="card-body">
+                         <div>
+                            <a href="{{route('puskesmas.create')}}" class="btn btn-primary"> Tambah Puskesmas </a><br><br>
+                        </div>
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr align="center">

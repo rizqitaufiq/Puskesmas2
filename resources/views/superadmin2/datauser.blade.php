@@ -44,6 +44,9 @@
                         <strong class="card-title">Data User</strong>
                     </div>
                     <div class="card-body">
+                         <div>
+                            <a href="{{route('dashboard.create')}}" class="btn btn-primary"> Tambah User </a><br><br>
+                        </div>
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr align="center">
