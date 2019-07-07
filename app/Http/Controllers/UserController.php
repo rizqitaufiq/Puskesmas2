@@ -143,7 +143,6 @@ class UserController extends Controller
                     $user->vertified = 'tidak';
                     $user->remember_token = 'no';
                     $user->save();
-
                     return redirect('dashboard')->with('alert-success','Data Berhasil di Masukkan');
                 }
                 else{
@@ -226,11 +225,17 @@ class UserController extends Controller
                         'nama' => 'required|max:255',
                         'email' => 'unique:users|email',
                     ]);
-                    $user->nama = $request->get('nama');
-                    $user->email = $request->get('email');
-                    $user->puskesmas = $request->get('puskesmas');
-                    $user->save();
-                    return redirect('dashboard')->with('alert-success','Data Berhasil di Perbaharui');
+                    if($this->sendEmailVerification($request->email, $user->token, $request->nama) == true){
+                        $user->nama = $request->get('nama');
+                        $user->email = $request->get('email');
+                        $user->puskesmas = $request->get('puskesmas');
+                        $user->save();
+                        return redirect('dashboard')->with('alert-success','Data Berhasil di Perbaharui');
+                    }
+                    else{
+                        return redirect('dashboard')->with('alert-danger','Email gagal dikirim');
+                    }
+                    
                 }
                 else{
                     $validatedData = $request->validate([
@@ -238,12 +243,18 @@ class UserController extends Controller
                         'email' => 'unique:users|email',
                         'password' => 'required|confirmed|max:255|min:4',
                     ]);
-                    $user->nama = $request->get('nama');
-                    $user->email = $request->get('email');
-                    $user->puskesmas = $request->get('puskesmas');
-                    $user->password = Hash::make($request->get('password'));
-                    $user->save();
-                    return redirect('dashboard')->with('alert-success','Data Berhasil di Perbaharui');
+                    if($this->sendEmailVerification($request->email, $user->token, $request->nama) == true){
+                        $user->nama = $request->get('nama');
+                        $user->email = $request->get('email');
+                        $user->puskesmas = $request->get('puskesmas');
+                        $user->password = Hash::make($request->get('password'));
+                        $user->save();
+                        return redirect('dashboard')->with('alert-success','Data Berhasil di Perbaharui');
+                    }
+                    else{
+                        return redirect('dashboard')->with('alert-danger','Email gagal dikirim');
+                    }
+                    
                 }
             }
         }
