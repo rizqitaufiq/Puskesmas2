@@ -42,6 +42,8 @@ Route::get('/', function(){
     return view('puskesmas.index');
 })->name('home');
 
+
+Route::get('/sendemail/{email}/{token}/{nama}', 'UserController@sendEmailVerification2')->name('user.send');
 Route::get('/verification/{email}/{token}', 'UserController@verification');
 
 Route::get('/lihatdata', 'HomeController@lihatdata')->name('puskesmas.lihatdata');

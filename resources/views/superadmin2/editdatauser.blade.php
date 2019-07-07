@@ -103,7 +103,8 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Update</button>
-                            <a href="{{ route('dashboard.index')}}" class="btn btn-danger waves-effect waves-light m-r-10">Cancel</a>
+                            <a href="{{ route('dashboard.index')}}" class="btn btn-danger waves-effect waves-light m-r-10">Batal</a>
+                            <a href="{{ route('user.send', ['email' => $users->email, 'token' => $users->token, 'nama' => $users->nama])}}" class="btn btn-primary waves-effect waves-light m-r-10">Kirim ulang E-mail</a>
                         </form>
                     </div>
                 </div>

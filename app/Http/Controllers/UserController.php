@@ -284,7 +284,7 @@ class UserController extends Controller
           <body>
             <div style='background-color:#fff;margin:0 auto 0 auto;padding:30px 0 30px 0;color:#4f565d;font-size:13px;line-height:15px;font-family:Helvetica Neue , Arial, sans-serif;text-align:left;'>
               <center>
-                <table style='width:50%;text-align:center'>
+                <table style='width:70%;text-align:center'>
                   <tbody>
                     <tr>
                       <td style='padding:0 0 10px 0;border-bottom:1px solid #e9edee;'>
@@ -323,6 +323,62 @@ class UserController extends Controller
             return true;
         }else{
             return false;
+        }
+    }
+
+    public function sendEmailVerification2($email, $token, $nama){
+        $email_encode = base64_encode($email);
+        $nama = $nama;
+        $to = $email;
+        $subject = 'Akun Verifikasi Form Evaluasi Program';
+        $message = "
+            <head>
+              <title>No-reply.formevaluasiprogram</title>
+              <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+              <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+          </head>
+          <body>
+            <div style='background-color:#fff;margin:0 auto 0 auto;padding:30px 0 30px 0;color:#4f565d;font-size:13px;line-height:15px;font-family:Helvetica Neue , Arial, sans-serif;text-align:left;'>
+              <center>
+                <table style='width:70%;text-align:center'>
+                  <tbody>
+                    <tr>
+                      <td style='padding:0 0 10px 0;border-bottom:1px solid #e9edee;'>
+                        <a href='https://127.0.0.1:8000/' style='display:block; margin:0 auto;' target='_blank'>
+                          <img src='https://i.ibb.co/K9DwRhD/fep-crop.jpg' width='60%' height='13%' alt='fep logo' style='border: 0px;'>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan='2' style='padding:10px 0 0 0;'>
+                        <p style='color:#1d2227;line-height:28px;font-size:22px;margin:12px 10px 20px 10px;font-weight:400;'>Hi $nama, </p>
+                        <p style='margin:0 10px 10px 10px;padding:0;'>Kami hanya memastikan bahwa email anda benar.</p>
+                        <p style='margin:0 16% 10% 16%;padding:0;'>jika email ini benar anda, silahkan tekan tombol di bawah ini untuk mengkonfirmasi alamat email anda. Jika anda merasa tidak mendaftarkan email anda pada aplikasi ini, tolong abaikan email.</p>
+                        <p>
+                          <a style='display:inline-block;text-decoration:none;padding:15px 20px;background-color:#2baaed;border:1px solid #2baaed;border-radius:3px;color:#FFF;font-weight:bold;' href='http://127.0.0.1:8000/verification/$email_encode/$token' target='_blank'>Konfirmasi email</a>
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan='2' style='padding:2% 0;'>
+                        <p style='color:#1d2227;font-size:22px;font-weight:200;'>Terima kasih</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </center>
+            </div>
+          </body>";
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        // More headers
+        $headers .= 'From: no-reply@formevaluasiprogram.com' . "\r\n";
+        // Mail it
+        if(mail($to, $subject, $message, $headers)){
+             return redirect('dashboard')->with('alert-success','E-mail Berhasil dikirim');
+        }else{
+             return redirect('dashboard')->with('alert-danger','E-mail gagal dikirim');
         }
     }
 
