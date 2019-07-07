@@ -96,7 +96,7 @@ class DataController extends Controller
      */
     public function show($id)
     {
-        
+        //
     }
 
     /**

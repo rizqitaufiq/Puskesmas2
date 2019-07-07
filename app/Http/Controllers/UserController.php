@@ -12,6 +12,13 @@ use App\Puskesmas;
 
 class UserController extends Controller
 {
+    public function where($email){
+    if(User::where('email', $email)->exists()){
+        return true;
+    }else{
+        return false;
+    }
+  }
     /**
      * Display a listing of the resource.
      *
@@ -115,24 +122,30 @@ class UserController extends Controller
     public function store(Request $request)
     {
         if($this->checkakun() == true){
-            $validatedData = $request->validate([
-                'nama' => 'required|max:255',
-                'email' => 'unique:users|email',
-                'password' => 'required|confirmed|max:255|min:4',
-            ]);
-            $token = md5(uniqid(rand(), true));
-            $user= new User();
-            $user->nama=$request->get('nama');
-            $user->email=$request->get('email');
-            $user->puskesmas=$request->get('puskesmas');
-            $user->password = Hash::make($request->get('password'));
-            $user->pos=$request->get('pos');
-            $user->token = $token;
-            $user->vertified = 'ya';
-            $user->remember_token = 'no';
-            $user->save();
+            if($this->where($request->get('email')) == true){
+                return redirect('dashboard')->with('alert-danger', 'Email sudah terdaftar');
+            }
+            else{
+                $validatedData = $request->validate([
+                    'nama' => 'required|max:255',
+                    'email' => 'unique:users|email',
+                    'password' => 'required|confirmed|max:255|min:4',
+                ]);
+                $token = md5(uniqid(rand(), true));
+                $user= new User();
+                $user->nama=$request->get('nama');
+                $user->email=$request->get('email');
+                $user->puskesmas=$request->get('puskesmas');
+                $user->password = Hash::make($request->get('password'));
+                $user->pos=$request->get('pos');
+                $user->token = $token;
+                $user->vertified = 'ya';
+                $user->remember_token = 'no';
+                $user->save();
 
-            return redirect('dashboard')->with('alert-success','Data Berhasil di Masukkan');
+                return redirect('dashboard')->with('alert-success','Data Berhasil di Masukkan');
+            }
+            
         }
         else{
             return redirect('dashboard');
