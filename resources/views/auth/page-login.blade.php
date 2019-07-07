@@ -50,9 +50,17 @@
                                 </div>
                                 @endif
                                 @if(\Session::has('alert-success'))
-                                    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+                                    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show" style="color: black;">
                                         <span class="badge badge-pill badge-success">Success</span>
                                         {{Session::get('alert-success')}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                @elseif(\Session::has('alert-danger'))
+                                    <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
+                                        <span class="badge badge-pill badge-danger">Gagal</span>
+                                        {{Session::get('alert-danger')}}
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
