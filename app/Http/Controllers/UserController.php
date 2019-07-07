@@ -288,8 +288,8 @@ class UserController extends Controller
                   <tbody>
                     <tr>
                       <td style='padding:0 0 10px 0;border-bottom:1px solid #e9edee;'>
-                        <a href='https://www.aremafc.com/' style='display:block; margin:0 auto;' target='_blank'>
-                          <img src='https://i.ibb.co/f045xMD/Udacity-Email-Logo-1.png' width='60%' height='13%' alt='Aremafc logo' style='border: 0px;'>
+                        <a href='https://127.0.0.1:8000/' style='display:block; margin:0 auto;' target='_blank'>
+                          <img src='https://i.ibb.co/K9DwRhD/fep-crop.jpg' width='60%' height='13%' alt='fep logo' style='border: 0px;'>
                         </a>
                       </td>
                     </tr>
