@@ -24,7 +24,6 @@ class CreateDataTable extends Migration
             $table->integer('total_sasaran');
             $table->integer('target_sasaran');
             $table->integer('tahun');
-            $table->string('nilai');
             $table->string('adequasi_effort');
             $table->string('adequasi_peformance');
             $table->string('progress');

@@ -235,7 +235,7 @@ class DataController extends Controller
         
     }
 
-     public function fetch(Request $request)
+    public function fetch(Request $request)
     {
     //www.webslesson.info/2018/03/ajax-dynamic-dependent-dropdown-in-laravel.html
         if(Auth::check()){
