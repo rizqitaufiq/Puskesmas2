@@ -113,7 +113,7 @@
 		                            	@endforeach
 		                            </tbody>
 		                        </table>
-		                        <a href="{{route('skdn.chart')}}" class="btn btn-primary">&nbsp Chart &nbsp</a>
+		                        <a href="{{route('data.indi.chart', ['id' => $id, 'nama' => $nama, 'indi' => $indikator->idindikator])}}" class="btn btn-primary">&nbsp Chart &nbsp</a>
 		                    </div>
 		                </div>
 		            </div>
