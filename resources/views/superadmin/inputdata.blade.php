@@ -77,28 +77,28 @@
 			                    <label class="control-label">Target Pencapaian</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-users"></i></div>
-			                        <input type="number" id="target_pencapaian" name="target_pencapaian" placeholder="Masukkan Target Pencapaian" class="form-control" required>
+			                        <input type="number" id="target_pencapaian" min="0" max="100" name="target_pencapaian" placeholder="Masukkan Target Pencapaian" class="form-control" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">
 			                    <label for="exampleInputuname">Pencapaian</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-bar-chart-o"></i></div>
-			                        <input name="pencapaian" type="number" class="form-control" id="exampleInputuname" placeholder="Masukkan Pencapaian" required>
+			                        <input name="pencapaian" type="number" step="any" min="0" max="100" class="form-control" id="exampleInputuname" placeholder="Masukkan Pencapaian" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">
 			                    <label class="control-label">Total Sasaran</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
-			                        <input type="number" id="total_sasaran" name="total_sasaran" placeholder="Masukkan Total Sasaran" class="form-control" required>
+			                        <input type="number" id="total_sasaran" min="0" max="100" name="total_sasaran" placeholder="Masukkan Total Sasaran" class="form-control" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">
 			                    <label class="control-label">Target Sasaran</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-bullseye"></i></div>
-			                        <input id="target_sasaran" type="number" class="form-control" name="target_sasaran" placeholder="Masukkan Target Sasaran" required>
+			                        <input id="target_sasaran" type="number" min="0" max="100" class="form-control" name="target_sasaran" placeholder="Masukkan Target Sasaran" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">

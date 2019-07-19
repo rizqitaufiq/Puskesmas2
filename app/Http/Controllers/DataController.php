@@ -71,9 +71,40 @@ class DataController extends Controller
     {
         if(Auth::check()){
             if(Auth::user()->pos == 'admin'){
-               $data = Data::all()->where('nama_targetumur', $request->target);
+               $data = Data::all()->where('nama_indikator', $request->indikator)->where('tahun', $request->tahun);
                if(count($data) === 0){
-                    echo $request->get('program');
+                // dd($request->all());
+                $id = Auth::user()->puskesmas;
+
+                $adquef = $request->get('pencapaian')/$request->get('target_pencapaian')*100;
+                $adqupef = $adquef-100;
+
+                if($request->get('pencapaian') <= $request->get('target_pencapaian')){
+                    $hasil = "Tidak Tercapai";
+                }
+                else{
+                    $hasil = "Tercapai";
+                }
+
+                $data = new Data();
+                $data->nama_puskesmas = $id;
+                $data->nama_program = $request->get('program');
+                $data->nama_indikator = $request->get('indikator');
+                $data->nama_targetumur = $request->get('target');
+                $data->target_pencapaian = $request->get('target_pencapaian');
+                $data->pencapaian = $request->get('pencapaian');
+                $data->total_sasaran = $request->get('total_sasaran');
+                $data->target_sasaran = $request->get('target_sasaran');
+                $data->tahun = $request->get('tahun');                
+                $data->adequasi_effort =$adquef;
+                $data->adequasi_peformance = $adqupef;
+                $data->progress = rand(1,100);
+                $data->sensitivitas = rand(1,100);
+                $data->spesifitas = rand(1,100);
+                $data->hasil = $hasil;
+
+                $data->save();
+                return redirect('dashboard/data')->with('alert-success', 'Data berhasil dimasukkan');
                }
                else{
                     return redirect('dashboard/data/input')->with('alert-danger','Data sudah ada');
