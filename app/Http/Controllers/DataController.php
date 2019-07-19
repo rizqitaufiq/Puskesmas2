@@ -76,8 +76,8 @@ class DataController extends Controller
                 // dd($request->all());
                 $id = Auth::user()->puskesmas;
 
-                $adquef = $request->get('pencapaian')/$request->get('target_pencapaian')*100;
-                $adqupef = $adquef-100;
+                $adquef = round($request->get('pencapaian')/$request->get('target_pencapaian')*100, 2);
+                $adqupef = round($adquef-100);
 
                 if($request->get('pencapaian') <= $request->get('target_pencapaian')){
                     $hasil = "Tidak Tercapai";
@@ -199,9 +199,10 @@ class DataController extends Controller
                     ->where('data.nama_puskesmas', $id)
                     ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
                     ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
-                    ->select('indikator.id as idindikator', 'data.id','indikator.nama_indikator AS indikator', 'targetumur.nama_targetumur AS targetumur', 'data.nama_indikator', 'data.nama_targetumur')
+                    ->select('indikator.id as idindikator','indikator.nama_indikator AS indikator', 'targetumur.nama_targetumur AS targetumur', 'data.nama_indikator', 'data.nama_targetumur')
+                    ->distinct()
                     ->get();
-                // echo $indikator;
+                 // dd($indikator);
                 $data = Data::all()->where('nama_program', $program[0]->id)->where('nama_puskesmas', $id);
                 return view('superadmin2.data.lihatdata', compact('id', 'nama','extends', 'section', 'indikator', 'data'));
             }
@@ -216,7 +217,8 @@ class DataController extends Controller
                     ->where('data.nama_puskesmas', $id)
                     ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
                     ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
-                    ->select('indikator.id as idindikator', 'data.id','indikator.nama_indikator AS indikator', 'targetumur.nama_targetumur AS targetumur', 'data.nama_indikator', 'data.nama_targetumur')
+                    ->select('indikator.id as idindikator','indikator.nama_indikator AS indikator', 'targetumur.nama_targetumur AS targetumur', 'data.nama_indikator', 'data.nama_targetumur')
+                    ->distinct()
                     ->get();
                 // echo $indikator;
                 $data = Data::all()->where('nama_program', $program[0]->id)->where('nama_puskesmas', $id);
@@ -244,7 +246,8 @@ class DataController extends Controller
                 ->where('data.nama_puskesmas', $id)
                 ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
                 ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
-                ->select('data.id', 'indikator.nama_indikator as indikator', 'targetumur.nama_targetumur as targetumur')
+                ->select('indikator.nama_indikator as indikator', 'targetumur.nama_targetumur as targetumur')
+                ->distinct()
                 ->get();
                  $data = Data::all()->where('nama_indikator', $indi)->where('nama_puskesmas', $id);
 
