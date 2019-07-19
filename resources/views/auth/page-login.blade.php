@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="{{ asset('../../admin/image/png')}}" sizes="16x16" href="{{ asset('../../admin/images/favicon.png')}}">
-    <title>Form Evalusasi Program - Login</title>
+    <title>Form Evalusasi Program | Login</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('../../admin/css/lib/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
