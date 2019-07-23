@@ -435,7 +435,7 @@ class DataController extends Controller
                 $extends = 'superadmin.layouts.template';
                 $section = 'konten';
 
-                $id = Auth::user()->id;
+                $id = Auth::user()->puskesmas;
                 $data = DB::table('data')
                     ->where('nama_puskesmas', $id)
                     ->select('tahun')->distinct()->get();

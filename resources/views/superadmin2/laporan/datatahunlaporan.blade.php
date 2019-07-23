@@ -55,11 +55,13 @@
                                 @php
                                     $a = 0;
                                 @endphp
+                                @foreach($data as $data2)
                                 <tr>
                                     <td align ="center">{{$a+=1}}</td>
-                                    <td align ="center">2011</td>
+                                    <td align ="center">{{$data2->tahun}}</td>
                                     <td align ="center"><a href="{{route('user.print.data')}}" class="btn btn-warning">Lihat</a> </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
