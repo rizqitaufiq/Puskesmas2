@@ -425,4 +425,28 @@ class DataController extends Controller
             }
         }
     }
+
+    public function laporandatatahun(){
+        if(Auth::check()){
+            if(Auth::user()->pos == 'super'){
+
+            }
+            elseif(Auth::user()->pos == 'admin'){
+                $extends = 'superadmin.layouts.template';
+                $section = 'konten';
+
+                $id = Auth::user()->id;
+                $data = DB::table('data')
+                    ->where('nama_puskesmas', $id)
+                    ->select('tahun')->distinct()->get();
+                return view('superadmin2.laporan.datatahunlaporan', compact('extends', 'section', 'data'));
+            }
+            else{
+                return redirect('dashboard');
+            }
+        }
+        else{
+            return redirect('dashboard');
+        }
+    }
 }
