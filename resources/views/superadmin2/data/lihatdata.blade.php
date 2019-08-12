@@ -113,6 +113,13 @@
 		                            	@endforeach
 		                            </tbody>
 		                        </table>
+		                        <form action="{{route('data.indi.chart2')}}" method="post">
+                                      @csrf
+                                      <input type="text" name="id" value="{{$id}}" hidden>
+                                      <input type="text" name="nama" value="{{$nama}}" hidden>
+                                      <input type="text" name="indi" value="{{$indikator->idindikator}}" hidden>
+                                      <button class="btn btn-danger" type="submit">Chart</button>
+                                </form>
 		                        <a href="{{route('data.indi.chart', ['id' => $id, 'nama' => $nama, 'indi' => $indikator->idindikator])}}" class="btn btn-primary">&nbsp Chart &nbsp</a>
 		                    </div>
 		                </div>

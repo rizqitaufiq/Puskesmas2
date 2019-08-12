@@ -449,4 +449,88 @@ class DataController extends Controller
             return redirect('dashboard');
         }
     }
+
+    public function chart2(Request $request){
+        if(Auth::check()){
+            $check = Program::where('nama_program', $request->nama)->get();
+            if(count($check) === 0){
+                $prg = '0';
+            }
+            else{
+                $prg = $check[0]->id;
+            }
+            $data = Data::all()->where('nama_puskesmas', $request->id)->where('nama_indikator', $request->indi)->where('nama_program', $prg);
+            if(count($data) === 0){
+                return view('errors/404');
+            }
+            else{
+                if(Auth::user()->pos == 'super'){
+                    $extends = 'superadmin2.layouts.2template';
+                    $section = 'konten2';
+
+                    $program = Program::where('nama_program', $request->nama)->get();
+
+                    $indikator = DB::table('data')
+                    ->where('data.nama_indikator', $request->indi)
+                    ->where('data.nama_puskesmas', $request->id)
+                    ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
+                    ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
+                    ->select('indikator.nama_indikator as indikator', 'targetumur.nama_targetumur as targetumur')
+                    ->distinct()
+                    ->get();
+                     $data = Data::all()->where('nama_indikator', $request->indi)->where('nama_puskesmas', $request->id);
+
+                     $label = $indikator[0]->indikator;
+                     // echo $indikator;
+                     $dataindikator = array();
+                     $datatarget = array();
+                     $datatahun = array();
+                     foreach ($data as $data2) {
+                         array_push($dataindikator, $data2->pencapaian);
+                         array_push($datatarget, $data2->target_pencapaian);
+                         array_push($datatahun, $data2->tahun);
+                     }
+                     // print_r($datatarget);
+                     return view('superadmin2.data.chartindikator', compact('id', 'label', 'program', 'indikator', 'datatahun', 'dataindikator', 'datatarget', 'extends', 'section'));
+
+                }
+                elseif (Auth::user()->pos == 'admin') {
+                    $id = Auth::user()->puskesmas;
+                    $extends = 'superadmin.layouts.template';
+                    $section = 'konten';
+
+                    $program = Program::where('nama_program', $nama)->get();
+
+                    $indikator = DB::table('data')
+                    ->where('data.nama_indikator', $request->indi)
+                    ->where('data.nama_puskesmas', $id)
+                    ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
+                    ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
+                    ->select( 'indikator.nama_indikator as indikator', 'targetumur.nama_targetumur as targetumur')
+                    ->distinct()
+                    ->get();
+                     $data = Data::all()->where('nama_indikator', $indi)->where('nama_puskesmas', $id);
+
+                     $label = $indikator[0]->indikator;
+                     // echo $indikator;
+                     $dataindikator = array();
+                     $datatarget = array();
+                     $datatahun = array();
+                     foreach ($data as $data2) {
+                         array_push($dataindikator, $data2->pencapaian);
+                         array_push($datatarget, $data2->target_pencapaian);
+                         array_push($datatahun, $data2->tahun);
+                     }
+                     // print_r($datatarget);
+                     return view('superadmin2.data.chartindikator', compact('id', 'label', 'program', 'indikator', 'datatahun', 'dataindikator', 'datatarget', 'extends', 'section'));
+                }
+                else{
+                    return redirect('dashboard');
+                }    
+            }
+            
+        }else{
+            return redirect('dashboard');
+        }
+    }
 }

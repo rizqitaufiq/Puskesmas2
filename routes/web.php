@@ -123,7 +123,8 @@ Route::get('dashboard/data/{id}/dataprogram', 'DataController@dataprog')->name('
 Route::get('dashboard/data/{id}/{nama}', 'DataController@data')->name('data.data');
 Route::get('dashboard/data/{id}/{nama}/{indi}', 'DataController@chart')->name('data.indi.chart');
 Route::get('dashboard/laporan/datatahun', 'DataController@laporandatatahun')->name('laporan.datatahun');
-
+//contoh pakai post
+Route::post('dashboard/data/chart', 'DataController@chart2')->name('data.indi.chart2');
 
 
 // Route::get('dashboard/kadarzi/printdata', 'KadarziController@printdata')->name('kadarzi.printdata');
