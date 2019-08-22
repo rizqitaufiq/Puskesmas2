@@ -46,8 +46,10 @@ Route::get('/', function(){
 Route::get('/sendemail/{email}/{token}/{nama}', 'UserController@sendEmailVerification2')->name('user.send');
 Route::get('/verification/{email}/{token}', 'UserController@verification');
 
-Route::get('/lihatdata', 'HomeController@lihatdata')->name('puskesmas.lihatdata');
-Route::get('/{id}/listprogram', 'HomeController@listprogram')->name('puskesmas.listprogram');
+Route::get('data', 'HomeController@lihatdata')->name('puskesmas.lihatdata');
+Route::get('data/{id}/dataprogram', 'HomeController@listprogram')->name('puskesmas.listprogram');
+Route::get('data/{id}/{nama}', 'HomeController@dataprogram')->name('puskesmas.data');
+Route::get('data/{id}/{nama}/{indi}', 'HomeController@chart')->name('puskesmas.data.chart');
 
 Route::get('/listprogram/skdn', 'SkdnController@lihatdata')->name('listprogram.skdn');
 Route::get('/listprogram/kadarzi', 'KadarziController@lihatdata')->name('listprogram.kadarzi');

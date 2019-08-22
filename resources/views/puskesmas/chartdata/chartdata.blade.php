@@ -17,7 +17,7 @@
 	        labels: ['2011', '2012', '2013', '2014', '2015', '2016', '2017'],
 	        datasets: [{
 
-	            label: 'Menimbang Berat Badan Secara teratur (Bayi)',
+	            label: 'Menimbanga Berat Badan Secara teratur (Bayi)',
                 fill: false,
 	            // backgroundColor: 'rgb(255, 99, 132)',
 	            borderColor: 'rgb(0,191,255)',
