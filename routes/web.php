@@ -51,6 +51,8 @@ Route::get('data/{id}/dataprogram', 'HomeController@listprogram')->name('puskesm
 Route::get('data/{id}/{nama}', 'HomeController@dataprogram')->name('puskesmas.data');
 Route::get('data/{id}/{nama}/{indi}', 'HomeController@chart')->name('puskesmas.data.chart');
 
+Route::get('/dashboard/data/input/skdn/skdn', 'SkdnController@input')->name('skdn.input');
+
 Route::get('/listprogram/skdn', 'SkdnController@lihatdata')->name('listprogram.skdn');
 Route::get('/listprogram/kadarzi', 'KadarziController@lihatdata')->name('listprogram.kadarzi');
 Route::get('/listprogram/ttd', 'TtdController@lihatdata')->name('listprogram.ttd');
@@ -79,10 +81,6 @@ Route::get('/dashboard/edituser/{id}', 'UserController@edit');
 Route::get('/dashboard/datauser', 'UserController@datauser')->name('datauser');
 Route::post('/dashboard/store', 'UserController@store')->name('dashboard.store');
 Route::put('/dashboard/update/{id}', 'UserController@update')->name('dashboard.update');
-
-
-
-
 
 Route::get('dashboard/laporan', 'UserController@printdata')->name('user.printdata');
 Route::get('dashboard/laporan/datatahun', 'UserController@datatahun')->name('user.print.datatahun');

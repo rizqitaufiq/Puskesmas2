@@ -192,4 +192,19 @@ class SkdnController extends Controller
         }   
     }
 
+    public function input(){
+        if(Auth::check() == true){
+            if(Auth::user()->pos == 'super'){
+                return redirect('dashboard');
+            }
+            else if(Auth::user()->pos == 'admin'){
+                $extends = 'superadmin.layouts.template';
+                $section = 'konten';
+                return view('superadmin.inputskdn', compact('extends', 'section'));
+            }
+        }else{
+            return view('puskesmas.index');
+        }
+    }
+
 }

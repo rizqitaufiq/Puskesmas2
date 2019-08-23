@@ -17,7 +17,7 @@
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>
                             <li><a href="#">Masukkan Data</a></li>
-                            <li class="active">{{$program}}</li>
+                            <li class="active">Data S K D N</li>
                         </ol>
                     </div>
                 </div>
@@ -47,63 +47,37 @@
                 
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Tambah Data {{$program}}</strong>
+                        <strong class="card-title">Tambah Data S K D N</strong>
                     </div>
                     <div class="card-body">
-                        @if($program == 'SKDN')
-                        <div>
-                            <a href="{{route ('skdn.input')}}" class="btn btn-primary"> Tambah S K D N </a><br><br>
-                        </div>
-                        @endif
                         <form class="form p-t-20" method="POST" action="{{ route('data.store') }}" enctype="multipart/form-data">
 			                {{ csrf_field() }}
 			                <div class="form-group">
-			                    <label for="exampleInputuname">Indikator</label>
+			                    <label for="exampleInputuname">Data S</label>
 			                    <div class="input-group">
-			                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
-			                        <select name="indikator" id="nama_indikator" class="form-control dynamic" data-dependent="nama_targetumur" required>
-			                        	<option value="">Pilih salah satu</option>
-			                        	@foreach($indikator as $indikator)
-											<option value="{{$indikator->id}}">{{$indikator->nama_indikator}}</option>
-										@endforeach
-									</select>
-			                    </div>
-			                </div>
-			                <div class="form-group">
-			                    <label for="exampleInputuname">Target</label>
-			                    <div class="input-group">
-			                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
-			                        <select name="target" id="nama_targetumur" class="form-control" required>
-			                        	<option value="">Pilih salah satu</option>
-									</select>
-			                    </div>
+                                    <div class="input-group-addon"><i class="fa fa-users"></i></div>
+                                    <input type="number" id="data_s" step="any" name="data_s" placeholder="Masukkan Data S" class="form-control" required>
+                                </div>
 			                </div>
 			                <div class="form-group has-success">
-			                    <label class="control-label">Target Pencapaian</label>
+			                    <label class="control-label">Data K</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-users"></i></div>
-			                        <input type="number" id="target_pencapaian" step="any" name="target_pencapaian" placeholder="Masukkan Target Pencapaian" class="form-control" required>
+			                        <input type="number" id="data_k" step="any" name="data_k" placeholder="Masukkan Data K" class="form-control" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">
-			                    <label for="exampleInputuname">Pencapaian</label>
+			                    <label for="exampleInputuname">Data D</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-bar-chart-o"></i></div>
-			                        <input name="pencapaian" type="number" step="any" class="form-control" id="exampleInputuname" placeholder="Masukkan Pencapaian" required>
+			                        <input name="data_d" type="number" step="any" class="form-control" id="data_d" placeholder="Masukkan Data D" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">
-			                    <label class="control-label">Total Sasaran</label>
+			                    <label class="control-label">Data N</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
-			                        <input type="number" id="total_sasaran" name="total_sasaran" placeholder="Masukkan Total Sasaran" class="form-control" required>
-			                    </div>
-			                </div>
-			                <div class="form-group">
-			                    <label class="control-label">Target Sasaran</label>
-			                    <div class="input-group">
-			                        <div class="input-group-addon"><i class="fa fa-bullseye"></i></div>
-			                        <input id="target_sasaran" type="number" class="form-control" name="target_sasaran" placeholder="Masukkan Target Sasaran" required>
+			                        <input type="number" id="data_n" name="data_n" placeholder="Masukkan Data N" class="form-control" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">
@@ -113,7 +87,7 @@
 			                        <input type="number" id="tahun" name="tahun" placeholder="Masukkan Tahun" class="form-control" required>
 			                    </div>
 			                </div>
-                            <input type="number" id="nama_program" name="program" value="{{$id[0]->id}}" hidden>
+                            <input type="number" id="nama_program" name="program" value="" hidden>
 			                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Input</button>
 			                <a href="{{ route('data.input')}}" class="btn btn-danger waves-effect waves-light m-r-10">Cancel</a>
 			            </form>
@@ -125,27 +99,4 @@
 </div><!-- .content -->
 
 <div class="clearfix"></div>
-<script>
-$(document).ready(function(){
-    $('.dynamic').change(function(){
-        if($(this).val() != ''){
-            var select = $(this).attr("id");
-            var value = $(this).val();
-            var dependent = $(this).data('dependent');
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url:"{{ route('data.fetch') }}",
-                method:"POST",
-                data:{select:select, value:value, _token:_token, dependent:dependent},
-                success:function(result){
-                    $('#'+dependent).html(result);
-                }
-            })
-        }
-    });
-    $('#nama_indikator').change(function(){
-        $('#nama_targetumur').html('<option value="">Pilih salah satu</option>');
-    });
-});
-</script>
 @stop

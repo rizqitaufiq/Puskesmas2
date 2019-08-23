@@ -34,7 +34,9 @@
         <!-- Right Panel -->
         <div id="right-panel" class="right-panel">
             @include('superadmin.layouts.header')
+            
             @yield('konten')
+            <div class="clearfix"></div>
             @include('superadmin.layouts.footer')
         </div>
         <!-- /#right-panel -->

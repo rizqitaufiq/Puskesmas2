@@ -43,7 +43,7 @@
                         <strong class="card-title">Data Indikator</strong>
                     </div>
                     <div class="card-body">
-                         <div>
+                        <div>
                             <a href="{{route('indikator.create')}}" class="btn btn-primary"> Tambah Indikator </a><br><br>
                         </div>
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
