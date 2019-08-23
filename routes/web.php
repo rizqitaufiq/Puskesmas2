@@ -126,6 +126,7 @@ Route::get('dashboard/laporan/datatahun2', 'DataController@laporandatatahun')->n
 //contoh pakai post
 Route::post('dashboard/data/chart', 'DataController@chart2')->name('data.indi.chart2');
 
+Route::get('dashboard/{id}/{nama}/edit', 'DataController@edit')->name('data.edit2');
 
 // Route::get('dashboard/kadarzi/printdata', 'KadarziController@printdata')->name('kadarzi.printdata');
 // Route::get('dashboard/pmt/printdata', 'PmtController@printdata')->name('pmt.printdata');

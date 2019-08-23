@@ -67,43 +67,42 @@ class DataController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         if(Auth::check()){
             if(Auth::user()->pos == 'admin'){
                $data = Data::all()->where('nama_indikator', $request->indikator)->where('tahun', $request->tahun)->where('nama_puskesmas', Auth::user()->puskesmas);
-               if(count($data) === 0){
-                // dd($request->all());
-                $id = Auth::user()->puskesmas;
-                $adquef = round($request->get('pencapaian')/$request->get('target_pencapaian')*100, 2);
-                $adqupef = round($adquef-100);
+                if(count($data) === 0){
+                    // dd($request->all());
+                    $id = Auth::user()->puskesmas;
+                    $adquef = round($request->get('pencapaian')/$request->get('target_pencapaian')*100, 2);
+                    $adqupef = round($adquef-100);
 
-                if($request->get('pencapaian') <= $request->get('target_pencapaian')){
-                    $hasil = "Tidak Tercapai";
-                }
-                else{
-                    $hasil = "Tercapai";
-                }
+                    if($request->get('pencapaian') <= $request->get('target_pencapaian')){
+                        $hasil = "Tidak Tercapai";
+                    }
+                    else{
+                        $hasil = "Tercapai";
+                    }
 
-                $data = new Data();
-                $data->nama_puskesmas = $id;
-                $data->nama_program = $request->get('program');
-                $data->nama_indikator = $request->get('indikator');
-                $data->nama_targetumur = $request->get('target');
-                $data->target_pencapaian = $request->get('target_pencapaian');
-                $data->pencapaian = $request->get('pencapaian');
-                $data->total_sasaran = $request->get('total_sasaran');
-                $data->target_sasaran = $request->get('target_sasaran');
-                $data->tahun = $request->get('tahun');                
-                $data->adequasi_effort =$adquef;
-                $data->adequasi_peformance = $adqupef;
-                $data->progress = rand(1,100);
-                $data->sensitivitas = rand(1,100);
-                $data->spesifitas = rand(1,100);
-                $data->hasil = $hasil;
+                    $data = new Data();
+                    $data->nama_puskesmas       = $id;
+                    $data->nama_program         = $request->get('program');
+                    $data->nama_indikator       = $request->get('indikator');
+                    $data->nama_targetumur      = $request->get('target');
+                    $data->target_pencapaian    = $request->get('target_pencapaian');
+                    $data->pencapaian           = $request->get('pencapaian');
+                    $data->total_sasaran        = $request->get('total_sasaran');
+                    $data->target_sasaran       = $request->get('target_sasaran');
+                    $data->tahun                = $request->get('tahun');                
+                    $data->adequasi_effort      = $adquef;
+                    $data->adequasi_peformance  = $adqupef;
+                    $data->progress             = "-";
+                    $data->sensitivitas         = "-";
+                    $data->spesifitas           = "-";
+                    $data->hasil                = "-";
 
-                $data->save();
-                return redirect('dashboard/data')->with('alert-success', 'Data berhasil dimasukkan');
+                    $data->save();
+                    return redirect('dashboard/data')->with('alert-success', 'Data berhasil dimasukkan');
                }
                else{
                     return redirect('dashboard/data/input')->with('alert-danger','Data sudah ada');
@@ -137,7 +136,41 @@ class DataController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(Auth::check() == true){
+            if(Auth::user()->pos == 'admin'){
+                $extends = 'superadmin.layouts.template';
+                $section = 'konten';        
+                $id_prog = DB::table('data')->where('id', $id)->select('nama_program')->get();
+                $program = DB::table('program')->where('id', $id_prog[0]->nama_program)->get();
+                
+                $data = DB::table('data')
+                ->where('data.id', $id)
+                ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
+                ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
+                ->select('data.id', 'indikator.nama_indikator', 'targetumur.nama_targetumur', 'data.target_pencapaian', 'data.pencapaian', 'data.target_sasaran', 'data.total_sasaran', 'data.tahun')
+                ->get();
+                return view('superadmin.editdata', compact('id', 'program', 'data', 'extends', 'section'));
+            }
+            elseif(Auth::user()->pos == 'super'){
+                $extends = 'superadmin2.layouts.2template';
+                $section = 'konten2';
+                $id_prog = DB::table('data')->where('id', $id)->select('nama_program')->get();
+                $program = DB::table('program')->where('id', $id_prog[0]->nama_program)->get();
+                $data = DB::table('data')
+                ->where('data.id', $id)
+                ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
+                ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
+                ->select('data.id', 'indikator.nama_indikator', 'targetumur.nama_targetumur', 'data.target_pencapaian', 'data.pencapaian', 'data.target_sasaran', 'data.total_sasaran', 'data.tahun')
+                ->get();
+                return view('superadmin.editdata', compact('id', 'program', 'data', 'extends', 'section'));
+            }
+            else{
+                return redirect('dashboard');    
+            }
+        }
+        else{
+            return redirect('dashboard');
+        }
     }
 
     /**
@@ -149,7 +182,53 @@ class DataController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(Auth::check() == true){
+            if(Auth::user()->pos == 'admin'){
+            // $id = Auth::user()->puskesmas;
+                $adquef = round($request->get('pencapaian')/$request->get('target_pencapaian')*100, 2);
+                $adqupef = round($adquef-100);  
+
+                $data = Data::findOrFail($id);
+                $data->target_pencapaian    = $request->get('target_pencapaian');
+                $data->pencapaian           = $request->get('pencapaian');
+                $data->total_sasaran        = $request->get('total_sasaran');
+                $data->target_sasaran       = $request->get('target_sasaran');             
+                $data->adequasi_effort      = $adquef;
+                $data->adequasi_peformance  = $adqupef;
+                $data->progress             = "-";
+                $data->sensitivitas         = "-";
+                $data->spesifitas           = "-";
+                $data->hasil                = "-";
+
+                $data->save();
+                return redirect('dashboard/data')->with('alert-success', 'Data berhasil diubah');  
+            }
+            elseif(Auth::user()->pos == 'super'){
+                $adquef = round($request->get('pencapaian')/$request->get('target_pencapaian')*100, 2);
+                $adqupef = round($adquef-100);  
+
+                $data = Data::findOrFail($id);
+                $data->target_pencapaian    = $request->get('target_pencapaian');
+                $data->pencapaian           = $request->get('pencapaian');
+                $data->total_sasaran        = $request->get('total_sasaran');
+                $data->target_sasaran       = $request->get('target_sasaran');             
+                $data->adequasi_effort      = $adquef;
+                $data->adequasi_peformance  = $adqupef;
+                $data->progress             = "-";
+                $data->sensitivitas         = "-";
+                $data->spesifitas           = "-";
+                $data->hasil                = "-";
+
+                $data->save();
+                return redirect('dashboard/data')->with('alert-success', 'Data berhasil diubah');
+            }
+            else{
+                return redirect('dashboard');
+            }
+        }
+        
+        
+
     }
 
     /**

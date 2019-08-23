@@ -15,20 +15,10 @@ class CreateSkdnTable extends Migration
     {
         Schema::create('skdn', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('indikator')->nullable();
-            $table->string('target')->nullable();
-            $table->integer('target_pencapaian')->nullable();
-            $table->integer('pencapaian')->nullable();
-            $table->integer('total_sasaran')->nullable();
-            $table->integer('targer_sasaran')->nullable();
-            $table->integer('tahun')->nullable();
-            $table->string('nilai')->nullable();
-            $table->string('adequasi_effort')->nullable();
-            $table->string('adequasi_peformance')->nullable();
-            $table->string('progress')->nullable();
-            $table->string('sensitivitas')->nullable();
-            $table->string('spesifitas')->nullable();
-            $table->string('hasil')->nullable();
+            $table->integer('S')->nullable();
+            $table->integer('K')->nullable();
+            $table->integer('D')->nullable();
+            $table->integer('N')->nullable();
             $table->timestamps();
         });
     }

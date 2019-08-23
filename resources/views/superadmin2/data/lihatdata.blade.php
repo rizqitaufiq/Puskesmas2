@@ -222,7 +222,7 @@
 			                                    <td>{{$data2->sensitivitas}}</td>
 			                                    <td>{{$data2->spesifitas}}</td>
 			                                    <td align ="center">
-			                                    	<a href="{{route('skdn.edit', 1)}}" class="btn btn-warning btn-sm">&nbsp Edit &nbsp</a>
+			                                    	<a href="{{route('data.edit2', ['id' => $data2->id, 'nama'=> $nama])}}" class="btn btn-warning btn-sm">&nbsp Edit &nbsp</a>
 			                                    	<a href="javascript:void(0)" class="btn btn-danger btn-sm delete" id_delete="{{ $data2->id }}">delete</a>
 			                                        <!-- <form action="{{action('SkdnController@destroy', 1)}}" method="post">
 				                                      @csrf
