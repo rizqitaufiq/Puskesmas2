@@ -4,9 +4,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 	    $("table[id^='TABLE']").DataTable( {
-	        "scrollCollapse": false,
-	        "searching": true,
-	        "paging": true,
+	        "scrollCollapse"	: false,
+	        "searching"			: true,
+	        "paging"			: true,
 	    } );
 	} );
 
@@ -71,61 +71,37 @@
 	                            <div class="mx-auto d-block">
 	                                <table id="skdnTABLE_1" class="table">
 			                            <thead>
-			                                <tr align="center">
+			                                <tr align="center" style="font-size: 14px">
 			                                    <th>tahun</th>
-			                                    <th>S</th>
-			                                    <th>K</th>
-			                                    <th>D</th>
-			                                    <th>N</th>
-			                                    <th>Action</th>
+			                                    <th> S</th>
+			                                    <th> K</th>
+			                                    <th> D</th>
+			                                    <th> N</th>
+			                                    <th colspan="2">Action</th>
 			                                </tr>
 			                            </thead>
 			                            <tbody>
-			                                <tr>
-			                                    <td>2011</td>
-			                                    <td>96</td>
-			                                    <td>96</td>
-			                                    <td>96</td>
-			                                    <td>96</td>
-			                                    <td align ="center"><a href="{{route('skdn.edit', 1)}}" class="btn btn-warning">&nbsp Edit &nbsp</a> 
-			                                        <form action="{{action('SkdnController@destroy', 1)}}" method="post">
+							                @foreach($skdn as $skdn2)
+			                                <tr align="center" style="font-size: 12px">
+			                                    <td>{{$skdn2->tahun}}</td>
+			                                    <td>{{$skdn2->Data_S}}</td>
+			                                    <td>{{$skdn2->Data_K}}</td>
+			                                    <td>{{$skdn2->Data_D}}</td>
+			                                    <td>{{$skdn2->Data_N}}</td>
+			                                    <td style="width: 1%; padding-right: 0; padding-left: 2"><a href="{{route('skdn.edit', $skdn2->id)}}" class="btn btn-warning btn-sm">&nbsp Edit &nbsp</a></td>
+			                                    <td style="width: 1%; padding-right: 0; padding-left: 2">
+			                                        <form action="{{action('SkdnController@destroy', $skdn2->id)}}" method="post">
 				                                      @csrf
 				                                      <input name="_method" type="hidden" value="DELETE">
-				                                      <button class="btn btn-danger" type="submit">Delete</button>
+				                                      <button class="btn btn-danger btn-sm" type="submit">Delete</button>
 				                                    </form>
+
 				                                </td>
 			                                </tr>
-			                                <tr>
-			                                    <td>2012</td>
-			                                    <td>81</td>
-			                                    <td>81</td>
-			                                    <td>81</td>
-			                                    <td>81</td>
-			                                    <td align ="center"><a href="{{route('skdn.edit', 1)}}" class="btn btn-warning">&nbsp Edit &nbsp</a> 
-			                                        <form action="{{action('SkdnController@destroy', 1)}}" method="post">
-				                                      @csrf
-				                                      <input name="_method" type="hidden" value="DELETE">
-				                                      <button class="btn btn-danger" type="submit">Delete</button>
-				                                    </form>
-				                                </td>
-			                                </tr>
-			                                <tr>
-			                                    <td>2013</td>
-			                                    <td>60</td>
-			                                    <td>60</td>
-			                                    <td>60</td>
-			                                    <td>60</td>
-			                                    <td align ="center"><a href="{{route('skdn.edit', 1)}}" class="btn btn-warning">&nbsp Edit &nbsp</a> 
-			                                        <form action="{{action('SkdnController@destroy', 1)}}" method="post">
-				                                      @csrf
-				                                      <input name="_method" type="hidden" value="DELETE">
-				                                      <button class="btn btn-danger" type="submit">Delete</button>
-				                                    </form>
-				                                </td>
-			                                </tr>
+			                                @endforeach
 			                            </tbody>
 			                        </table>
-	                                <div class="location text-sm-center"></div>
+			                        <hr>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -137,38 +113,87 @@
 	                        </div>
 	                        <div class="card-body">
 	                            <div class="mx-auto d-block">
-	                                <h5 class="text-sm-center mt-2 mb-1">Steven Lee</h5>
 	                                <div class="row">
 					                    <div class="col">
-					                        <section class="card">
-					                            <div class="card-body text-secondary">.col</div>
+					                        <section class="card" style="margin-bottom: 5%">
+					                            <div class="card-body text-secondary">
+					                            	<table class="table" style="margin-bottom: 0px">
+					                            		<thead>
+					                            			<tr align="center" style="font-size: 14px">
+					                            				<th>Data S</th>
+					                            			</tr>
+					                            		</thead>
+					                            		<tbody>
+					                            			<tr align="center" style="font-size: 12px">
+					                            				<td>5%</td>
+					                            				<td></td>
+					                            			</tr>
+					                            		</tbody>
+					                            	</table>
+					                            </div>
 					                        </section>
 					                    </div>
 					                    <div class="col">
-					                        <section class="card">
-					                            <div class="card-body text-secondary">.col</div>
+					                        <section class="card" style="margin-bottom: 5%">
+					                            <div class="card-body text-secondary">
+					                            	<table class="table" style="margin-bottom: 0px">
+					                            		<thead>
+					                            			<tr align="center" style="font-size: 14px">
+					                            				<th>Data K</th>
+					                            			</tr>
+					                            		</thead>
+					                            		<tbody>
+					                            			<tr align="center" style="font-size: 12px">
+					                            				<td>62%</td>
+					                            				<td></td>
+					                            			</tr>
+					                            		</tbody>
+					                            	</table>
+					                            </div>
 					                        </section>
 					                    </div>
 					                    <div class="col">
-					                        <section class="card">
-					                            <div class="card-body text-secondary">.col</div>
+					                        <section class="card" style="margin-bottom: 5%">
+					                            <div class="card-body text-secondary">
+					                            	<table class="table" style="margin-bottom: 0px">
+					                            		<thead>
+					                            			<tr align="center" style="font-size: 14px">
+					                            				<th>Data D</th>
+					                            			</tr>
+					                            		</thead>
+					                            		<tbody>
+					                            			<tr align="center" style="font-size: 12px">
+					                            				<td>15%</td>
+					                            				<td></td>
+					                            			</tr>
+					                            		</tbody>
+					                            	</table>
+					                            </div>
 					                        </section>
 					                    </div>
 					                    <div class="col">
-					                        <section class="card">
-					                            <div class="card-body text-secondary">.col</div>
+					                        <section class="card" style="margin-bottom: 5%">
+					                            <div class="card-body text-secondary">
+					                            	<table class="table" style="margin-bottom: 0px">
+					                            		<thead>
+					                            			<tr align="center" style="font-size: 14px">
+					                            				<th>Data N</th>
+					                            			</tr>
+					                            		</thead>
+					                            		<tbody>
+					                            			<tr align="center" style="font-size: 12px">
+					                            				<td>57%</td>
+					                            				<td></td>
+					                            			</tr>
+					                            		</tbody>
+					                            	</table>
+					                            </div>
 					                        </section>
 					                    </div>
 					                </div>
-	                                <div class="location text-sm-center"><i class="fa fa-map-marker"></i> California, United States</div>
+	                                
 	                            </div>
-	                            <hr>
-	                            <div class="card-text text-sm-center">
-	                                <a href="#"><i class="fa fa-facebook pr-1"></i></a>
-	                                <a href="#"><i class="fa fa-twitter pr-1"></i></a>
-	                                <a href="#"><i class="fa fa-linkedin pr-1"></i></a>
-	                                <a href="#"><i class="fa fa-pinterest pr-1"></i></a>
-	                            </div>
+	                            
 	                        </div>
 	                    </div>
 	                </div>
@@ -187,42 +212,46 @@
 	                    </a>
 	                    <div id="collapse{{$b.$i}}" class="collapse hide">
 		                    <div class="card-body">
-		                        <table id="{{$b.$i}}" class="table table-striped table-bordered">
+		                        <table id="{{$b.$i}}" class="table">
 		                        	@php
 					                    $a = 0;
 					                @endphp
+					                
 		                            <thead>
-		                                <tr align="center">
+		                                <tr align="center" style="font-size: 14px">
 		                                	<th>No</th>
 		                                    <th>tahun</th>
-		                                    <th>Target Pencapaian</th>
 		                                    <th>Pencapaian</th>
+		                                    <th>Target Pencapaian</th>
 		                                    <th>Total Sasaran</th>
 		                                    <th>Target Sasaran</th>
 		                                    <th>Adequasi Effort</th>
 		                                    <th>Adequasi Performance</th>
 		                                    <th>sensitivitas</th>
 		                                    <th>spesifitas</th>
-		                                    <th>Action</th>
+		                                    <th colspan="2">Action</th>
 		                                </tr>
 		                            </thead>
+		                        	
 		                            <tbody>
 		                            	@foreach($data as $data2)
 		                            		@if($data2->nama_indikator == $indikator->nama_indikator &&
 		                            		$data2->nama_targetumur == $indikator->nama_targetumur)
-		                            		<tr>
-		                            			<td align ="center">{{$a+=1}}</td>
+		                            		<tr align="center" style="font-size: 12px">
+		                            			<td>{{$a+=1}}</td>
 			                                    <td>{{$data2->tahun}}</td>
-			                                    <td>{{$data2->target_pencapaian}}</td>
 			                                    <td>{{$data2->pencapaian}}</td>
+			                                    <td>{{$data2->target_pencapaian}}</td>
 			                                    <td>{{$data2->total_sasaran}}</td>
 			                                    <td>{{$data2->target_sasaran}}</td>
 			                                    <td>{{$data2->adequasi_effort}}</td>
 			                                    <td>{{$data2->adequasi_peformance}}</td>
 			                                    <td>{{$data2->sensitivitas}}</td>
 			                                    <td>{{$data2->spesifitas}}</td>
-			                                    <td align ="center">
+			                                    <td style="width: 1%; padding-right: 5%; padding-left:0">
 			                                    	<a href="{{route('data.edit2', ['id' => $data2->id, 'nama'=> $nama])}}" class="btn btn-warning btn-sm">&nbsp Edit &nbsp</a>
+			                                    </td>
+			                                    <td style="width: 1%; padding-right: 5%; padding-left: 0">
 			                                    	<a href="javascript:void(0)" class="btn btn-danger btn-sm delete" id_delete="{{ $data2->id }}">delete</a>
 			                                        <!-- <form action="{{action('SkdnController@destroy', 1)}}" method="post">
 				                                      @csrf
@@ -246,7 +275,7 @@
                                       <input type="text" name="indi" value="{{$indikator->idindikator}}" hidden>
                                       <button class="btn btn-danger" type="submit">Chart</button>
                                 </form> -->
-		                        <a href="{{route('data.indi.chart', ['id' => $id, 'nama' => $nama, 'indi' => $indikator->idindikator])}}" class="btn btn-primary">&nbsp Chart &nbsp</a>
+		                        <a href="{{route('data.indi.chart', ['id' => $id, 'nama' => $nama, 'indi' => $indikator->idindikator])}}" class="btn btn-primary btn-sm">&nbsp Chart &nbsp</a>
 		                    </div>
 		                </div>
 		            </div>

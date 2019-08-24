@@ -15,10 +15,12 @@ class CreateSkdnTable extends Migration
     {
         Schema::create('skdn', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('S')->nullable();
-            $table->integer('K')->nullable();
-            $table->integer('D')->nullable();
-            $table->integer('N')->nullable();
+            $table->string('nama_puskesmas')->nullable();
+            $table->integer('tahun')->nullable();
+            $table->string('Data_S')->nullable();
+            $table->string('Data_K')->nullable();
+            $table->string('Data_D')->nullable();
+            $table->string('Data_N')->nullable();
             $table->timestamps();
         });
     }

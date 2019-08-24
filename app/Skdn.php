@@ -9,6 +9,6 @@ class Skdn extends Model
     protected $table = 'skdn';
     protected $primaryKey = 'id';
     protected $fillable = [
-      'id', 'indikator', 'target', 'target_pencapaian', 'pencapaian', 'total_sasaran', 'targer_sasaran', 'tahun', 'nilai'
+      'id', 'nama_puskesmas', 'Data_S', 'Data_K', 'Data_D', 'Data_N'
     ];
 }

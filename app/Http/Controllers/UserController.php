@@ -13,11 +13,11 @@ use App\Puskesmas;
 class UserController extends Controller
 {
     public function where($email){
-    if(User::where('email', $email)->exists()){
-        return true;
-    }else{
-        return false;
-    }
+        if(User::where('email', $email)->exists()){
+            return true;
+        }else{
+            return false;
+        }
   }
     /**
      * Display a listing of the resource.

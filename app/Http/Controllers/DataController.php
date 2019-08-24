@@ -10,16 +10,11 @@ use App\Program;
 use App\Targetumur;
 use App\User;
 use App\Data;
+use App\Skdn;
 
 class DataController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+    public function index(){
         if(Auth::check()){
             if(Auth::user()->pos == 'super'){
                 $extends = 'superadmin2.layouts.2template';
@@ -51,22 +46,8 @@ class DataController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
+    public function create(){}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request){
         if(Auth::check()){
             if(Auth::user()->pos == 'admin'){
@@ -75,7 +56,7 @@ class DataController extends Controller
                     // dd($request->all());
                     $id = Auth::user()->puskesmas;
                     $adquef = round($request->get('pencapaian')/$request->get('target_pencapaian')*100, 2);
-                    $adqupef = round($adquef-100);
+                    $adqupef = round($adquef-100, 2);
 
                     if($request->get('pencapaian') <= $request->get('target_pencapaian')){
                         $hasil = "Tidak Tercapai";
@@ -117,26 +98,10 @@ class DataController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    public function show($id){}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        if(Auth::check() == true){
+    public function edit($id){
+        if(Auth::check()){
             if(Auth::user()->pos == 'admin'){
                 $extends = 'superadmin.layouts.template';
                 $section = 'konten';        
@@ -173,16 +138,8 @@ class DataController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        if(Auth::check() == true){
+    public function update(Request $request, $id){
+        if(Auth::check()){
             if(Auth::user()->pos == 'admin'){
             // $id = Auth::user()->puskesmas;
                 $adquef = round($request->get('pencapaian')/$request->get('target_pencapaian')*100, 2);
@@ -195,10 +152,6 @@ class DataController extends Controller
                 $data->target_sasaran       = $request->get('target_sasaran');             
                 $data->adequasi_effort      = $adquef;
                 $data->adequasi_peformance  = $adqupef;
-                $data->progress             = "-";
-                $data->sensitivitas         = "-";
-                $data->spesifitas           = "-";
-                $data->hasil                = "-";
 
                 $data->save();
                 return redirect('dashboard/data')->with('alert-success', 'Data berhasil diubah');  
@@ -214,10 +167,6 @@ class DataController extends Controller
                 $data->target_sasaran       = $request->get('target_sasaran');             
                 $data->adequasi_effort      = $adquef;
                 $data->adequasi_peformance  = $adqupef;
-                $data->progress             = "-";
-                $data->sensitivitas         = "-";
-                $data->spesifitas           = "-";
-                $data->hasil                = "-";
 
                 $data->save();
                 return redirect('dashboard/data')->with('alert-success', 'Data berhasil diubah');
@@ -226,20 +175,14 @@ class DataController extends Controller
                 return redirect('dashboard');
             }
         }
-        
-        
-
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id){
+        if(Auth::check()){
+            $data = Data::findOrFail($id);
+            $data->delete();
+            return redirect('dashboard/data')->with('alert-success', 'Data Berhasil di Hapus');
+        }
     }
 
     public function dataprog($id){
@@ -292,9 +235,12 @@ class DataController extends Controller
                         ->select('indikator.id as idindikator','indikator.nama_indikator AS indikator', 'targetumur.nama_targetumur AS targetumur', 'data.nama_indikator', 'data.nama_targetumur')
                         ->distinct()
                         ->get();
-                     // dd($indikator);
+                    $skdn = Skdn::all()->where('nama_puskesmas', $id);
                     $data = Data::all()->where('nama_program', $program[0]->id)->where('nama_puskesmas', $id);
-                    return view('superadmin2.data.lihatdata', compact('id', 'nama','extends', 'section', 'indikator', 'data'));
+
+                    //Perhitungan progres
+
+                    return view('superadmin2.data.lihatdata', compact('skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
                 }
                 elseif(Auth::user()->pos == 'admin'){
                     $id = Auth::user()->puskesmas;
@@ -311,9 +257,10 @@ class DataController extends Controller
                         ->distinct()
                         ->get();
                     // echo $indikator;
+                    $skdn = Skdn::all()->where('nama_puskesmas', $id);
                     $data = Data::all()->where('nama_program', $program[0]->id)->where('nama_puskesmas', $id);
 
-                    return view('superadmin2.data.lihatdata', compact('id', 'nama','extends', 'section', 'indikator', 'data'));
+                    return view('superadmin2.data.lihatdata', compact('skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
                 }
                 else{
                     return redirect('dashboard');

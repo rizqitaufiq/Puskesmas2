@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Skdn;
 
 class SkdnController extends Controller
 {
@@ -25,7 +26,7 @@ class SkdnController extends Controller
             return view('superadmin2.lihatdata.lihatdataskdn', compact('extends', 'section'));
         }
         else{
-            return view('puskesmas.index');
+            return redirect('dashboard');
         }
     }
 
@@ -47,7 +48,7 @@ class SkdnController extends Controller
             return view('superadmin2.entrydata.inputskdn', compact('extends', 'section'));
         }
         else{
-            return view('puskesmas.index');
+            return redirect('dashboard');
         }
     }
 
@@ -59,7 +60,24 @@ class SkdnController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect('dashboard/skdn')->with('alert-success','Data Berhasil di Masukkan');
+        if(Auth::check()){
+            if(Auth::user()->pos == 'admin'){
+                $skdn = new Skdn();
+                $skdn->nama_puskesmas   = $request->get('nama_puskesmas');
+                $skdn->Data_S           = $request->get('data_s');
+                $skdn->Data_K           = $request->get('data_k');
+                $skdn->Data_D           = $request->get('data_d');
+                $skdn->Data_N           = $request->get('data_n');
+                $skdn->tahun            =$request->get('tahun');
+                $skdn->save();
+
+                return redirect('dashboard/data')->with('alert-success','Data Berhasil di Masukkan');
+            }
+            else{
+                return redirect('dashboard');
+            }
+        }
+        
     }
 
     /**
@@ -81,7 +99,26 @@ class SkdnController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(Auth::check()){
+            if(Auth::user()->pos == 'admin'){
+                $extends = 'superadmin.layouts.template';
+                $section = 'konten'; 
+
+                $skdn = Skdn::all();
+                return view('superadmin.editdataskdn', compact('id','skdn', 'extends', 'section'));
+            }
+            elseif(Auth::user()->pos == 'super'){
+                $extends = 'superadmin2.layouts.2template';
+                $section = 'konten2';
+
+                $skdn = Skdn::all();
+
+                return view('superadmin.editdataskdn', compact('id', 'skdn', 'extends', 'section'));
+            }
+        }
+        else{
+            return redirect('dashboard');
+        }
     }
 
     /**
@@ -93,7 +130,20 @@ class SkdnController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return redirect('dashboard/skdn')->with('alert-success','Data Berhasil di Ubah');
+        if(Auth::check()){
+            $data = Skdn::findOrFail($id);
+            $data->Data_S       = $request->get('data_s');
+            $data->Data_K       = $request->get('data_k');
+            $data->Data_D       = $request->get('data_d');
+            $data->Data_N       = $request->get('data_n');
+            $data->tahun        = $request->get('tahun');
+            $data->save();
+            return redirect('dashboard/data')->with('alert-success', 'Data berhasil diubah');
+        }
+        else{
+            return redirect('dashboard');
+        }
+        
     }
 
     /**
@@ -104,7 +154,14 @@ class SkdnController extends Controller
      */
     public function destroy($id)
     {
-        return redirect('dashboard/skdn')->with('alert-success','Data Berhasil di Hapus');
+        if(Auth::check()){
+            $data = Skdn::findOrFail($id);
+            $data->delete();
+            return redirect('dashboard/data')->with('alert-success', 'Data Berhasil di Hapus');
+        }
+        else{
+            return redirect('dashboard');
+        }
     }
     public function chart(){
         if(Auth::check() == true){

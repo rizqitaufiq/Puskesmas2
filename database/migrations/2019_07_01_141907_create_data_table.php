@@ -15,21 +15,21 @@ class CreateDataTable extends Migration
     {
         Schema::create('data', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama_puskesmas');
-            $table->string('nama_program');
-            $table->string('nama_indikator');
-            $table->string('nama_targetumur');
-            $table->integer('target_pencapaian');
-            $table->integer('pencapaian');
-            $table->integer('total_sasaran');
-            $table->integer('target_sasaran');
-            $table->integer('tahun');
-            $table->string('adequasi_effort');
-            $table->string('adequasi_peformance');
-            $table->string('progress');
-            $table->string('sensitivitas');
-            $table->string('spesifitas');
-            $table->string('hasil');
+            $table->string('nama_puskesmas')->nullable();;
+            $table->string('nama_program')->nullable();;
+            $table->string('nama_indikator')->nullable();;
+            $table->string('nama_targetumur')->nullable();;
+            $table->string('target_pencapaian')->nullable();;
+            $table->string('pencapaian')->nullable();;
+            $table->string('total_sasaran')->nullable();;
+            $table->string('target_sasaran')->nullable();;
+            $table->integer('tahun')->nullable();;
+            $table->string('adequasi_effort')->nullable();;
+            $table->string('adequasi_peformance')->nullable();;
+            $table->string('progress')->nullable();;
+            $table->string('sensitivitas')->nullable();;
+            $table->string('spesifitas')->nullable();;
+            $table->string('hasil')->nullable();;
             $table->timestamps();
         });
     }

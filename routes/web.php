@@ -138,7 +138,7 @@ Route::get('dashboard/{id}/{nama}/edit', 'DataController@edit')->name('data.edit
 // Route::get('dashboard/ttd/savedata', 'TtdController@savedata')->name('ttd.savedata');
 // Route::get('kadarzi/delete/{id}', 'KadarziController@destroy');
 
-Route::resource('dashboard/skdn', 'SkdnController');
+Route::resource('dashboard/program/skdn', 'SkdnController');
 Route::resource('dashboard/kadarzi', 'KadarziController');
 Route::resource('dashboard/pmt', 'PmtController');
 Route::resource('dashboard/ttd', 'TtdController');
