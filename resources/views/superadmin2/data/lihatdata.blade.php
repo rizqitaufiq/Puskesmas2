@@ -61,6 +61,7 @@
                 </div>
                 @endif
                 @if($nama == 'SKDN')
+<!-- data S K D dan N -->
                 <div class="row">
 	                <div class="col">
 						<div class="card">
@@ -106,10 +107,12 @@
 	                        </div>
 	                    </div>
 	                </div>
+	            </div>
+	            <div class="row">
 	                <div class="col">
 						<div class="card">
 	                        <div class="card-header">
-	                            <strong class="card-title mb-3">Progress</strong>
+	                            <strong class="card-title mb-3">Progress (5 tahun kedepan)</strong>
 	                        </div>
 	                        <div class="card-body">
 	                            <div class="mx-auto d-block">
@@ -125,7 +128,7 @@
 					                            		</thead>
 					                            		<tbody>
 					                            			<tr align="center" style="font-size: 12px">
-					                            				<td>5%</td>
+					                            				<td>{{$pts}}</td>
 					                            				<td></td>
 					                            			</tr>
 					                            		</tbody>
@@ -144,7 +147,7 @@
 					                            		</thead>
 					                            		<tbody>
 					                            			<tr align="center" style="font-size: 12px">
-					                            				<td>62%</td>
+					                            				<td>{{$ptk}}</td>
 					                            				<td></td>
 					                            			</tr>
 					                            		</tbody>
@@ -163,7 +166,7 @@
 					                            		</thead>
 					                            		<tbody>
 					                            			<tr align="center" style="font-size: 12px">
-					                            				<td>15%</td>
+					                            				<td>{{$ptd}}</td>
 					                            				<td></td>
 					                            			</tr>
 					                            		</tbody>
@@ -182,7 +185,7 @@
 					                            		</thead>
 					                            		<tbody>
 					                            			<tr align="center" style="font-size: 12px">
-					                            				<td>57%</td>
+					                            				<td>{{$ptn}}</td>
 					                            				<td></td>
 					                            			</tr>
 					                            		</tbody>
@@ -191,19 +194,148 @@
 					                        </section>
 					                    </div>
 					                </div>
-	                                
-	                            </div>
-	                            
+	                            </div>      
 	                        </div>
 	                    </div>
-	                </div>
+	                </div>	                
 	            </div>
+<!-- end data S K D dan N -->
                 @endif
+                
                 @php
                     $b = "TABLE_";
                     $i = 0;
                 @endphp
+<!-- tampilan skdn -->
+                @if($nama == 'SKDN')
                 @foreach($indikator as $indikator)
+	                <div class="card">
+	                	<a class="card-link" data-toggle="collapse" href="#collapse{{$b.$i+=1}}">
+		                    <div class="card-header">
+						    	<strong class="card-title">{{$indikator->indikator}} pada {{$indikator->targetumur}} </strong>	
+		                    </div>
+	                    </a>
+	                    <div id="collapse{{$b.$i}}" class="collapse hide">
+		                    <div class="card-body">
+		                        <table id="{{$b.$i}}" class="table">
+		                        	@php
+					                    $a = 0;
+					                @endphp
+					                
+		                            <thead>
+		                                <tr align="center" style="font-size: 14px">
+		                                	<th>No</th>
+		                                    <th>tahun</th>
+		                                    <th>Pencapaian</th>
+		                                    <th>Target Pencapaian</th>
+		                                    <th>Adequasi Effort</th>
+		                                    <th>Adequasi Performance</th>
+		                                    <!-- <th>sensitivitas</th>
+		                                    <th>spesifitas</th> -->
+		                                    <th colspan="2">Action</th>
+		                                </tr>
+		                            </thead>
+		                        	
+		                            <tbody>
+		                            	@foreach($data as $data2)
+		                            		@if($data2->nama_indikator == $indikator->nama_indikator &&
+		                            		$data2->nama_targetumur == $indikator->nama_targetumur)
+		                            		<tr align="center" style="font-size: 12px">
+		                            			<td>{{$a+=1}}</td>
+			                                    <td>{{$data2->tahun}}</td>
+			                                    <td>{{$data2->pencapaian}}</td>
+			                                    <td>{{$data2->target_pencapaian}}</td>
+			                                    <td>{{$data2->adequasi_effort}}%</td>
+			                                    <td>{{$data2->adequasi_peformance}}%</td>
+			                                    <!-- <td>{{$data2->sensitivitas}}</td>
+			                                    <td>{{$data2->spesifitas}}</td> -->
+			                                    <td style="width: 1%; padding-right: 5%; padding-left:0">
+			                                    	<a href="{{route('data.edit2', ['id' => $data2->id, 'nama'=> $nama])}}" class="btn btn-warning btn-sm">&nbsp Edit &nbsp</a>
+			                                    </td>
+			                                    <td style="width: 1%; padding-right: 5%; padding-left: 0">
+			                                    	<!-- <a href="javascript:void(0)" class="btn btn-danger btn-sm delete" id_delete="{{ $data2->id }}">delete</a> -->
+			                                        <form action="{{action('DataController@destroy', $data2->id)}}" method="post">
+				                                      @csrf
+				                                      <input name="_method" type="hidden" value="DELETE">
+				                                      <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+				                                    </form>
+				                                </td>
+			                                </tr>
+		                            		@endif
+		                            	@endforeach
+		                            </tbody>
+		                        </table>
+		                        <div class="row">
+					                    <div class="col">
+					                        <section class="card" style="margin-bottom: 5%">
+					                            <div class="card-body text-secondary">
+					                            	<h4 align="center" style="font-weight: bold"> Sensifitas</h4>
+					                            	<table class="table" style="margin-bottom: 0px">
+					                            		<thead>
+					                            			<tr align="center" style="font-size: 14px">
+					                            				<th>Tahun</th>
+					                            				<th>Hasil</th>
+					                            			</tr>
+					                            		</thead>
+					                            		<tbody>
+					                            			<tr align="center" style="font-size: 12px">
+					                            				<td>2017</td>
+					                            				<td>96%</td>
+					                            			</tr>
+					                            			<tr align="center" style="font-size: 12px">
+					                            				<td>2018</td>
+					                            				<td>94%</td>
+					                            			</tr>
+					                            		</tbody>
+					                            	</table>
+					                            </div>
+					                        </section>
+					                    </div>
+					                    <div class="col">
+					                        <section class="card" style="margin-bottom: 5%">
+					                            <div class="card-body text-secondary">
+					                            	<h4 align="center" style="font-weight: bold"> Spesifitas</h4>
+					                            	<table class="table" style="margin-bottom: 0px">
+					                            		<thead>
+					                            			<tr align="center" style="font-size: 14px">
+					                            				<th>Tahun</th>
+					                            				<th>Hasil</th>
+					                            			</tr>
+					                            		</thead>
+					                            		<tbody>
+					                            			<tr align="center" style="font-size: 12px">
+					                            				<td>2017</td>
+					                            				<td>96%</td>
+					                            			</tr>
+					                            			<tr align="center" style="font-size: 12px">
+					                            				<td>2018</td>
+					                            				<td>94%</td>
+					                            			</tr>
+					                            		</tbody>
+					                            	</table>
+					                            </div>
+					                        </section>
+					                    </div>
+					                </div>
+		                        <!-- <form id="dataDelete" action="" method="POST">
+		                        	{{ csrf_field() }}
+		                        	<input name="id_data" type="text" hidden>
+		                        </form> -->
+		                        <!-- <form action="{{route('data.indi.chart2')}}" method="post">
+                                      @csrf
+                                      <input type="text" name="id" value="{{$id}}" hidden>
+                                      <input type="text" name="nama" value="{{$nama}}" hidden>
+                                      <input type="text" name="indi" value="{{$indikator->idindikator}}" hidden>
+                                      <button class="btn btn-danger" type="submit">Chart</button>
+                                </form> -->
+		                        <a href="{{route('data.indi.chart', ['id' => $id, 'nama' => $nama, 'indi' => $indikator->idindikator])}}" class="btn btn-primary btn-sm">&nbsp Chart &nbsp</a>
+		                    </div>
+		                </div>
+		            </div>
+		            @endforeach
+<!-- end tampilan skdn -->
+		            @else
+		            @foreach($indikator as $indikator)
 	                <div class="card">
 	                	<a class="card-link" data-toggle="collapse" href="#collapse{{$b.$i+=1}}">
 		                    <div class="card-header">
@@ -244,30 +376,30 @@
 			                                    <td>{{$data2->target_pencapaian}}</td>
 			                                    <td>{{$data2->total_sasaran}}</td>
 			                                    <td>{{$data2->target_sasaran}}</td>
-			                                    <td>{{$data2->adequasi_effort}}</td>
-			                                    <td>{{$data2->adequasi_peformance}}</td>
+			                                    <td>{{$data2->adequasi_effort}}%</td>
+			                                    <td>{{$data2->adequasi_peformance}}%</td>
 			                                    <td>{{$data2->sensitivitas}}</td>
 			                                    <td>{{$data2->spesifitas}}</td>
 			                                    <td style="width: 1%; padding-right: 5%; padding-left:0">
 			                                    	<a href="{{route('data.edit2', ['id' => $data2->id, 'nama'=> $nama])}}" class="btn btn-warning btn-sm">&nbsp Edit &nbsp</a>
 			                                    </td>
 			                                    <td style="width: 1%; padding-right: 5%; padding-left: 0">
-			                                    	<a href="javascript:void(0)" class="btn btn-danger btn-sm delete" id_delete="{{ $data2->id }}">delete</a>
-			                                        <!-- <form action="{{action('SkdnController@destroy', 1)}}" method="post">
+			                                    	<!-- <a href="javascript:void(0)" class="btn btn-danger btn-sm delete" id_delete="{{ $data2->id }}">delete</a> -->
+			                                        <form action="{{action('DataController@destroy', $data2->id)}}" method="post">
 				                                      @csrf
 				                                      <input name="_method" type="hidden" value="DELETE">
-				                                      <button class="btn btn-danger" type="submit">Delete</button>
-				                                    </form> -->
+				                                      <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+				                                    </form>
 				                                </td>
 			                                </tr>
 		                            		@endif
 		                            	@endforeach
 		                            </tbody>
 		                        </table>
-		                        <form id="dataDelete" action="" method="POST">
+		                        <!-- <form id="dataDelete" action="" method="POST">
 		                        	{{ csrf_field() }}
 		                        	<input name="id_data" type="text" hidden>
-		                        </form>
+		                        </form> -->
 		                        <!-- <form action="{{route('data.indi.chart2')}}" method="post">
                                       @csrf
                                       <input type="text" name="id" value="{{$id}}" hidden>
@@ -280,6 +412,7 @@
 		                </div>
 		            </div>
 		            @endforeach
+		            @endif
 	            </div>
         </div>
     </div><!-- .animated -->

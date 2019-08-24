@@ -54,7 +54,57 @@
                         <div>
                             <a href="{{route ('skdn.input')}}" class="btn btn-primary"> Tambah S K D N </a><br><br>
                         </div>
-                        @endif
+                        <form class="form p-t-20" method="POST" action="{{ route('data.store') }}" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <label for="exampleInputuname">Indikator</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    <select name="indikator" id="nama_indikator" class="form-control dynamic" data-dependent="nama_targetumur" required>
+                                        <option value="">Pilih salah satu</option>
+                                        @foreach($indikator as $indikator)
+                                            <option value="{{$indikator->id}}">{{$indikator->nama_indikator}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputuname">Target</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    <select name="target" id="nama_targetumur" class="form-control" required>
+                                        <option value="">Pilih salah satu</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputuname">Pencapaian</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-bar-chart-o"></i></div>
+                                    <input name="pencapaian" type="number" step="any" class="form-control" id="exampleInputuname" placeholder="Masukkan Pencapaian" required>
+                                </div>
+                            </div>
+                            <div class="form-group has-success">
+                                <label class="control-label">Target Pencapaian</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-users"></i></div>
+                                    <input type="number" id="target_pencapaian" step="any" name="target_pencapaian" placeholder="Masukkan Target Pencapaian" class="form-control" required>
+                                </div>
+                            </div>
+                                <input type="text" step="any" id="total_sasaran" name="total_sasaran" placeholder="Masukkan Total Sasaran" class="form-control" value="-" hidden>
+                                <input id="target_sasaran" step="any" type="text" class="form-control" name="target_sasaran" placeholder="Masukkan Target Sasaran" value="-" hidden>
+                            <div class="form-group">
+                                <label class="control-label">Tahun</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                    <input type="number" id="tahun" name="tahun" placeholder="Masukkan Tahun" class="form-control" required>
+                                </div>
+                            </div>
+                            <input type="number" id="nama_program" name="program" value="{{$id[0]->id}}" hidden>
+                            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Input</button>
+                            <a href="{{ route('data.input')}}" class="btn btn-danger waves-effect waves-light m-r-10">Cancel</a>
+                        </form>
+                        @else
                         <form class="form p-t-20" method="POST" action="{{ route('data.store') }}" enctype="multipart/form-data">
 			                {{ csrf_field() }}
 			                <div class="form-group">
@@ -117,6 +167,7 @@
 			                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Input</button>
 			                <a href="{{ route('data.input')}}" class="btn btn-danger waves-effect waves-light m-r-10">Cancel</a>
 			            </form>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -18,7 +18,7 @@ class TargetController extends Controller
      */
     public function index()
     {
-        if($this->checkakun() == true){
+        if(Auth::check()){
             if(Auth::user()->pos == 'super'){
                 $data = DB::table('targetumur')
                     ->join('program', 'targetumur.nama_program', '=', 'program.id')

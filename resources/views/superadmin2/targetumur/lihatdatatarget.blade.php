@@ -46,14 +46,14 @@
                          <div>
                             <a href="{{route('target.create')}}" class="btn btn-primary"> Tambah Target Umur </a><br><br>
                         </div>
-                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <table id="bootstrap-data-table" class="table">
                             <thead>
                                 <tr align="center">
                                     <th>No</th>
                                     <th>Nama Program</th>
                                     <th>Nama Indikator</th>
                                     <th>Target Umur</th>
-                                    <th>Action</th>
+                                    <th colspan="2">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,7 +66,8 @@
                                     <td align ="center">{{$target->nama_program}}</td>
                                     <td align="center">{{$target->nama_indikator}}</td>
                                     <td align="center">{{$target->nama_targetumur}}</td>
-                                    <td align ="center"><a href="{{route('target.edit', $target->id)}}" class="btn btn-warning">ubah</a> 
+                                    <td align ="center"><a href="{{route('target.edit1', $target->id)}}" class="btn btn-warning">ubah</a> </td>
+                                    <td>
                                         <a href="target/{{ $target->id }}/delete" class="btn btn-danger">hapus</a></td>
                                 </tr>
                                 @endforeach

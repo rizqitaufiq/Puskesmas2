@@ -114,6 +114,7 @@ Route::post('dashboard/data/fetch', 'DataController@fetch')->name('data.fetch');
 Route::get('dashboard/program/{id}/delete', 'ProgramController@destroy');
 Route::get('dashboard/indikator/{id}/delete', 'IndikatorController@destroy');
 Route::get('dashboard/target/{id}/delete', 'TargetController@destroy');
+Route::get('dashboard/target/{id}/editdata', 'TargetController@edit')->name('target.edit1');
 Route::get('dashboard/puskesmas/{id}/delete', 'PuskesmasController@destroy');
 
 

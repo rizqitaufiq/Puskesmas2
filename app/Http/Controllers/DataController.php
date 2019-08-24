@@ -239,6 +239,9 @@ class DataController extends Controller
                     $data = Data::all()->where('nama_program', $program[0]->id)->where('nama_puskesmas', $id);
 
                     //Perhitungan progres
+                    $mintahun = Skdn::min('tahun');
+                    $maxtahun = Skdn::max('tahun');
+                    $data = DB::table('skdn')->where('tahun', min('tahun'))->get();
 
                     return view('superadmin2.data.lihatdata', compact('skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
                 }
@@ -259,8 +262,21 @@ class DataController extends Controller
                     // echo $indikator;
                     $skdn = Skdn::all()->where('nama_puskesmas', $id);
                     $data = Data::all()->where('nama_program', $program[0]->id)->where('nama_puskesmas', $id);
+                    //perhitungan progress
+                    $tahunmin = DB::table('skdn')->where('tahun', Skdn::min('tahun'))->get();
+                    $tahunmax = DB::table('skdn')->where('tahun', Skdn::max('tahun'))->get();
 
-                    return view('superadmin2.data.lihatdata', compact('skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
+                    //progress
+                    $rs = round(($tahunmax[0]->Data_S/ $tahunmin[0]->Data_S)-1, 2);
+                    $pts = round($tahunmin[0]->Data_S*pow((1+$rs), 5), 2);
+                    $rk = round(($tahunmax[0]->Data_K/ $tahunmin[0]->Data_K)-1, 2);
+                    $ptk = round($tahunmin[0]->Data_K*pow((1+$rk), 5), 2);
+                    $rd = round(($tahunmax[0]->Data_D/ $tahunmin[0]->Data_D)-1, 2);
+                    $ptd = round($tahunmin[0]->Data_D*pow((1+$rd), 5), 2);
+                    $rn = round(($tahunmax[0]->Data_N/ $tahunmin[0]->Data_N)-1, 2);
+                    $ptn = round($tahunmin[0]->Data_N*pow((1+$rn), 5), 2);
+
+                    return view('superadmin2.data.lihatdata', compact('pts', 'ptk', 'ptd', 'ptn','skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
                 }
                 else{
                     return redirect('dashboard');
