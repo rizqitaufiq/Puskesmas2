@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputuname">Target</label>
+                                <label for="exampleInputuname">Target Indikator</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-user"></i></div>
                                     <select name="target" id="nama_targetumur" class="form-control" required>
@@ -78,21 +78,21 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputuname">Pencapaian</label>
+                                <label for="exampleInputuname">Cakupan (%)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-bar-chart-o"></i></div>
-                                    <input name="pencapaian" type="number" step="any" class="form-control" id="exampleInputuname" placeholder="Masukkan Pencapaian" required>
+                                    <input name="target_pencapaian" type="number" step="any" class="form-control" id="target_pencapaian" placeholder="Masukkan Cakupan" required>
                                 </div>
                             </div>
                             <div class="form-group has-success">
-                                <label class="control-label">Target Pencapaian</label>
+                                <label class="control-label">Target (%)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-users"></i></div>
-                                    <input type="number" id="target_pencapaian" step="any" name="target_pencapaian" placeholder="Masukkan Target Pencapaian" class="form-control" required>
+                                    <input type="number" id="target_sasaran" step="any" name="target_sasaran" placeholder="Masukkan Target" class="form-control" required>
                                 </div>
                             </div>
                                 <input type="text" step="any" id="total_sasaran" name="total_sasaran" placeholder="Masukkan Total Sasaran" class="form-control" value="-" hidden>
-                                <input id="target_sasaran" step="any" type="text" class="form-control" name="target_sasaran" placeholder="Masukkan Target Sasaran" value="-" hidden>
+                                <input id="pencapaian" step="any" type="text" class="form-control" name="pencapaian" placeholder="Masukkan Target Sasaran" value="-" hidden>
                             <div class="form-group">
                                 <label class="control-label">Tahun</label>
                                 <div class="input-group">
@@ -120,7 +120,7 @@
 			                    </div>
 			                </div>
 			                <div class="form-group">
-			                    <label for="exampleInputuname">Target</label>
+			                    <label for="exampleInputuname">Target Indikator</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
 			                        <select name="target" id="nama_targetumur" class="form-control" required>
@@ -129,31 +129,31 @@
 			                    </div>
 			                </div>
                             <div class="form-group">
-                                <label for="exampleInputuname">Pencapaian</label>
+                                <label for="exampleInputuname">Pencapaian (N)</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-bar-chart-o"></i></div>
                                     <input name="pencapaian" type="number" step="any" class="form-control" id="exampleInputuname" placeholder="Masukkan Pencapaian" required>
                                 </div>
                             </div>
 			                <div class="form-group has-success">
-			                    <label class="control-label">Target Pencapaian</label>
+			                    <label class="control-label">Cakupan (%)</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-users"></i></div>
-			                        <input type="number" id="target_pencapaian" step="any" name="target_pencapaian" placeholder="Masukkan Target Pencapaian" class="form-control" required>
+			                        <input type="number" id="target_pencapaian" step="any" name="target_pencapaian" placeholder="Masukkan Cakupan" class="form-control" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">
-			                    <label class="control-label">Total Sasaran</label>
+			                    <label class="control-label">Jumlah Sasaran (N)</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
-			                        <input type="number" step="any" id="total_sasaran" name="total_sasaran" placeholder="Masukkan Total Sasaran" class="form-control" required>
+			                        <input type="number" step="any" id="total_sasaran" name="total_sasaran" placeholder="Masukkan Jumlah Sasaran" class="form-control" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">
-			                    <label class="control-label">Target Sasaran</label>
+			                    <label class="control-label">Target (%)</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-bullseye"></i></div>
-			                        <input id="target_sasaran" step="any" type="number" class="form-control" name="target_sasaran" placeholder="Masukkan Target Sasaran" required>
+			                        <input id="target_sasaran" step="any" type="number" class="form-control" name="target_sasaran" placeholder="Masukkan Target" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">

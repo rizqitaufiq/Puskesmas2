@@ -51,7 +51,8 @@ Route::get('data/{id}/dataprogram', 'HomeController@listprogram')->name('puskesm
 Route::get('data/{id}/{nama}', 'HomeController@dataprogram')->name('puskesmas.data');
 Route::get('data/{id}/{nama}/{indi}', 'HomeController@chart')->name('puskesmas.data.chart');
 
-Route::get('/dashboard/data/input/skdn/skdn', 'SkdnController@input')->name('skdn.input');
+Route::get('/dashboard/data/input/skdn/skdn', 'SkdnController@inputSkdn')->name('skdn.input');
+Route::get('/dashboard/data/input/kadarzi/{program}', 'SkdnController@inputKadarzi')->name('kadarzi.input');
 
 Route::get('/listprogram/skdn', 'SkdnController@lihatdata')->name('listprogram.skdn');
 Route::get('/listprogram/kadarzi', 'KadarziController@lihatdata')->name('listprogram.kadarzi');

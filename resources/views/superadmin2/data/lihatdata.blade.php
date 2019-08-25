@@ -226,8 +226,8 @@
 		                                <tr align="center" style="font-size: 14px">
 		                                	<th>No</th>
 		                                    <th>tahun</th>
-		                                    <th>Pencapaian</th>
-		                                    <th>Target Pencapaian</th>
+		                                    <th>Cakupan (%)</th>
+		                                    <th>Target (%)</th>
 		                                    <th>Adequasi Effort</th>
 		                                    <th>Adequasi Performance</th>
 		                                    <!-- <th>sensitivitas</th>
@@ -243,8 +243,8 @@
 		                            		<tr align="center" style="font-size: 12px">
 		                            			<td>{{$a+=1}}</td>
 			                                    <td>{{$data2->tahun}}</td>
-			                                    <td>{{$data2->pencapaian}}</td>
-			                                    <td>{{$data2->target_pencapaian}}</td>
+			                                    <td>{{$data2->target_pencapaian}}%</td>
+			                                    <td>{{$data2->target_sasaran}}%</td>
 			                                    <td>{{$data2->adequasi_effort}}%</td>
 			                                    <td>{{$data2->adequasi_peformance}}%</td>
 			                                    <!-- <td>{{$data2->sensitivitas}}</td>
@@ -353,14 +353,15 @@
 		                                <tr align="center" style="font-size: 14px">
 		                                	<th>No</th>
 		                                    <th>tahun</th>
-		                                    <th>Pencapaian</th>
-		                                    <th>Target Pencapaian</th>
-		                                    <th>Total Sasaran</th>
-		                                    <th>Target Sasaran</th>
+		                                    <th>Pencapaian (N)</th>
+		                                    <th>Cakupan (%)</th>
+		                                    <th>Jumlah Sasaran (N)</th>
+		                                    <th>Target (%)</th>
 		                                    <th>Adequasi Effort</th>
 		                                    <th>Adequasi Performance</th>
 		                                    <th>sensitivitas</th>
 		                                    <th>spesifitas</th>
+		                                    <th>Hasil</th>
 		                                    <th colspan="2">Action</th>
 		                                </tr>
 		                            </thead>
@@ -373,13 +374,14 @@
 		                            			<td>{{$a+=1}}</td>
 			                                    <td>{{$data2->tahun}}</td>
 			                                    <td>{{$data2->pencapaian}}</td>
-			                                    <td>{{$data2->target_pencapaian}}</td>
+			                                    <td>{{$data2->target_pencapaian}}%</td>
 			                                    <td>{{$data2->total_sasaran}}</td>
-			                                    <td>{{$data2->target_sasaran}}</td>
+			                                    <td>{{$data2->target_sasaran}}%</td>
 			                                    <td>{{$data2->adequasi_effort}}%</td>
 			                                    <td>{{$data2->adequasi_peformance}}%</td>
-			                                    <td>{{$data2->sensitivitas}}</td>
-			                                    <td>{{$data2->spesifitas}}</td>
+			                                    <td>{{$data2->sensitivitas}}%</td>
+			                                    <td>{{$data2->spesifitas}}%</td>
+			                                    < <td>{{$data2->hasil}}</td>
 			                                    <td style="width: 1%; padding-right: 5%; padding-left:0">
 			                                    	<a href="{{route('data.edit2', ['id' => $data2->id, 'nama'=> $nama])}}" class="btn btn-warning btn-sm">&nbsp Edit &nbsp</a>
 			                                    </td>

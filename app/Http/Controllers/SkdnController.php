@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Indikator;
+use App\Program;
 use App\Skdn;
 use App\Data;
 
@@ -69,7 +72,7 @@ class SkdnController extends Controller
                 $skdn->Data_K           = $request->get('data_k');
                 $skdn->Data_D           = $request->get('data_d');
                 $skdn->Data_N           = $request->get('data_n');
-                $skdn->tahun            =$request->get('tahun');
+                $skdn->tahun            = $request->get('tahun');
                 $skdn->save();
 
                 return redirect('dashboard/data')->with('alert-success','Data Berhasil di Masukkan');
@@ -250,18 +253,35 @@ class SkdnController extends Controller
         }   
     }
 
-    public function input(){
+    public function inputSkdn(){
         if(Auth::check() == true){
-            if(Auth::user()->pos == 'super'){
-                return redirect('dashboard');
-            }
-            else if(Auth::user()->pos == 'admin'){
+            if(Auth::user()->pos == 'admin'){
                 $extends = 'superadmin.layouts.template';
                 $section = 'konten';
                 return view('superadmin.inputskdn', compact('extends', 'section'));
             }
+            else{
+                return redirect('dashboard');
+            }
         }else{
-            return view('puskesmas.index');
+            return redirect('dashboard');
+        }
+    }
+
+    public function inputKadarzi($program){
+        if(Auth::check() == true){
+            if(Auth::user()->pos == 'admin'){
+                $extends = 'superadmin.layouts.template';
+                $section = 'konten';
+                $id = DB::table('program')->where('nama_program', $program)->get();
+                $indikator = DB::table('indikator')->where('nama_program', $id[0]->id)->get();
+                return view('superadmin.inputKadarzi', compact('id', 'indikator','extends', 'section'));
+            }
+            else{
+                return redirect('dashboard');
+            }
+        }else{
+            return redirect('dashboard');
         }
     }
 

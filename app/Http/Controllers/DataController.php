@@ -55,35 +55,76 @@ class DataController extends Controller
                 if(count($data) === 0){
                     // dd($request->all());
                     $id = Auth::user()->puskesmas;
-                    $adquef = round($request->get('pencapaian')/$request->get('target_pencapaian')*100, 2);
+                    // $adquef = round($request->get('pencapaian')/$request->get('target_pencapaian')*100, 2);
+                    $adquef = round($request->get('target_pencapaian')/$request->get('target_sasaran')*100, 2);
+                    // $adqupef = round($adquef-100, 2);
                     $adqupef = round($adquef-100, 2);
 
-                    if($request->get('pencapaian') <= $request->get('target_pencapaian')){
+                    if($request->get('target_sasaran') >= $request->get('target_pencapaian')){
                         $hasil = "Tidak Tercapai";
                     }
                     else{
                         $hasil = "Tercapai";
                     }
+                    //sensitivitas & spesifitas
+                    if($request->get('total_sasaran') === "-"){
+                        $total = $request->get('total_sasaran');
+                        $data = new Data();
+                        $data->nama_puskesmas       = $id;
+                        $data->nama_program         = $request->get('program');
+                        $data->nama_indikator       = $request->get('indikator');
+                        $data->nama_targetumur      = $request->get('target');
+                        $data->target_pencapaian    = $request->get('target_pencapaian');
+                        $data->pencapaian           = "-";
+                        $data->total_sasaran        = "-";
+                        $data->target_sasaran       = $request->get('target_sasaran');
+                        $data->tahun                = $request->get('tahun');                
+                        $data->adequasi_effort      = $adquef;
+                        $data->adequasi_peformance  = $adqupef;
+                        $data->progress             = "-";
+                        $data->sensitivitas         = "-";
+                        $data->spesifitas           = "-";
+                        $data->hasil                = $hasil;
 
-                    $data = new Data();
-                    $data->nama_puskesmas       = $id;
-                    $data->nama_program         = $request->get('program');
-                    $data->nama_indikator       = $request->get('indikator');
-                    $data->nama_targetumur      = $request->get('target');
-                    $data->target_pencapaian    = $request->get('target_pencapaian');
-                    $data->pencapaian           = $request->get('pencapaian');
-                    $data->total_sasaran        = $request->get('total_sasaran');
-                    $data->target_sasaran       = $request->get('target_sasaran');
-                    $data->tahun                = $request->get('tahun');                
-                    $data->adequasi_effort      = $adquef;
-                    $data->adequasi_peformance  = $adqupef;
-                    $data->progress             = "-";
-                    $data->sensitivitas         = "-";
-                    $data->spesifitas           = "-";
-                    $data->hasil                = "-";
+                        $data->save();
+                        return redirect('dashboard/data')->with('alert-success', 'Data berhasil dimasukkan');
+                    }else{
+                        $total = $request->get('total_sasaran');
+                        $jumlah_pencapaian_plus = round(($request->get('target_pencapaian')/100)*$request->get('total_sasaran'), 0);
+                        $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                        $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                        $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                        $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                        $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                        
+                        $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                        if($request->get('target_pencapaian') == 100){
+                            $spes               = "0";
+                        }else{
+                            $spes                   = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                        }
 
-                    $data->save();
-                    return redirect('dashboard/data')->with('alert-success', 'Data berhasil dimasukkan');
+                        $data = new Data();
+                        $data->nama_puskesmas       = $id;
+                        $data->nama_program         = $request->get('program');
+                        $data->nama_indikator       = $request->get('indikator');
+                        $data->nama_targetumur      = $request->get('target');
+                        $data->target_pencapaian    = $request->get('target_pencapaian');
+                        $data->pencapaian           = $request->get('pencapaian');
+                        $data->total_sasaran        = $request->get('total_sasaran');
+                        $data->target_sasaran       = $request->get('target_sasaran');
+                        $data->tahun                = $request->get('tahun');                
+                        $data->adequasi_effort      = $adquef;
+                        $data->adequasi_peformance  = $adqupef;
+                        $data->progress             = "-";
+                        $data->sensitivitas         = $sens;
+                        $data->spesifitas           = $spes;
+                        $data->hasil                = $hasil;
+
+                        $data->save();
+                        return redirect('dashboard/data')->with('alert-success', 'Data berhasil dimasukkan');
+                    }
+                    
                }
                else{
                     return redirect('dashboard/data/input')->with('alert-danger','Data sudah ada');
@@ -142,7 +183,7 @@ class DataController extends Controller
         if(Auth::check()){
             if(Auth::user()->pos == 'admin'){
             // $id = Auth::user()->puskesmas;
-                $adquef = round($request->get('pencapaian')/$request->get('target_pencapaian')*100, 2);
+                $adquef = round($request->get('target_pencapaian')/$request->get('target_sasaran')*100, 2);
                 $adqupef = round($adquef-100);  
 
                 $data = Data::findOrFail($id);
@@ -235,15 +276,38 @@ class DataController extends Controller
                         ->select('indikator.id as idindikator','indikator.nama_indikator AS indikator', 'targetumur.nama_targetumur AS targetumur', 'data.nama_indikator', 'data.nama_targetumur')
                         ->distinct()
                         ->get();
-                    $skdn = Skdn::all()->where('nama_puskesmas', $id);
                     $data = Data::all()->where('nama_program', $program[0]->id)->where('nama_puskesmas', $id);
 
-                    //Perhitungan progres
-                    $mintahun = Skdn::min('tahun');
-                    $maxtahun = Skdn::max('tahun');
-                    $data = DB::table('skdn')->where('tahun', min('tahun'))->get();
+                    $skdn = Skdn::all()->where('nama_puskesmas', $id);
+                    if(count($skdn) !== 0){
+                        $tahunmin = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', Skdn::min('tahun'))->get();
+                        $tahunmax = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', Skdn::max('tahun'))->get();
 
-                    return view('superadmin2.data.lihatdata', compact('skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
+                        //progress
+                        $rs = round(($tahunmax[0]->Data_S/ $tahunmin[0]->Data_S)-1, 2);
+                        $pts = round($tahunmin[0]->Data_S*pow((1+$rs), 5), 2);
+                        $rk = round(($tahunmax[0]->Data_K/ $tahunmin[0]->Data_K)-1, 2);
+                        $ptk = round($tahunmin[0]->Data_K*pow((1+$rk), 5), 2);
+                        $rd = round(($tahunmax[0]->Data_D/ $tahunmin[0]->Data_D)-1, 2);
+                        $ptd = round($tahunmin[0]->Data_D*pow((1+$rd), 5), 2);
+                        $rn = round(($tahunmax[0]->Data_N/ $tahunmin[0]->Data_N)-1, 2);
+                        $ptn = round($tahunmin[0]->Data_N*pow((1+$rn), 5), 2);
+
+                        return view('superadmin2.data.lihatdata', compact('pts', 'ptk', 'ptd', 'ptn','skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
+                    }
+                    else{
+                        // $skdn = collect(["id"=>0,"nama_puskesmas"=>"0","tahun"=>0,"Data_S"=>"0","Data_K"=>"0","Data_D"=>"0","Data_N"=>"0","created_at"=>"2019-08-24 13:31:49","updated_at"=>"2019-08-24 13:31:49"]);
+                        // $skdn = collect([['id'=> 0], ['nama_puskesmas'=>"0"], ['tahun' => "0"],
+                        //     ["Data_S"=>"0"], ["Data_K"=>"0"], ["Data_D"=>"0"], ["Data_N"=>"0"]]);
+                        $pts = 0;
+                        $ptk = 0;
+                        $ptd = 0;
+                        $ptn = 0;   
+                        return view('superadmin2.data.lihatdata', compact('pts', 'ptk', 'ptd', 'ptn','skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));   
+                    }
+                    //Perhitungan progres
+
+                    
                 }
                 elseif(Auth::user()->pos == 'admin'){
                     $id = Auth::user()->puskesmas;
@@ -263,8 +327,8 @@ class DataController extends Controller
                     $skdn = Skdn::all()->where('nama_puskesmas', $id);
                     $data = Data::all()->where('nama_program', $program[0]->id)->where('nama_puskesmas', $id);
                     //perhitungan progress
-                    $tahunmin = DB::table('skdn')->where('tahun', Skdn::min('tahun'))->get();
-                    $tahunmax = DB::table('skdn')->where('tahun', Skdn::max('tahun'))->get();
+                    $tahunmin = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', Skdn::min('tahun'))->get();
+                    $tahunmax = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', Skdn::max('tahun'))->get();
 
                     //progress
                     $rs = round(($tahunmax[0]->Data_S/ $tahunmin[0]->Data_S)-1, 2);
