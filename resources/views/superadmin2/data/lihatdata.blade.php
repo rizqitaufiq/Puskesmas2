@@ -112,13 +112,13 @@
 	                <div class="col">
 						<div class="card">
 	                        <div class="card-header">
-	                            <strong class="card-title mb-3">Progress (5 tahun kedepan)</strong>
+	                            <strong class="card-title mb-3">Progress {{$nama}}(5 tahun kedepan)</strong>
 	                        </div>
 	                        <div class="card-body">
 	                            <div class="mx-auto d-block">
 	                                <div class="row">
 					                    <div class="col">
-					                        <section class="card" style="margin-bottom: 5%">
+					                        <section class="" style="margin-bottom: 5%">
 					                            <div class="card-body text-secondary">
 					                            	<table class="table" style="margin-bottom: 0px">
 					                            		<thead>
@@ -129,7 +129,6 @@
 					                            		<tbody>
 					                            			<tr align="center" style="font-size: 12px">
 					                            				<td>{{$pts}}</td>
-					                            				<td></td>
 					                            			</tr>
 					                            		</tbody>
 					                            	</table>
@@ -137,7 +136,7 @@
 					                        </section>
 					                    </div>
 					                    <div class="col">
-					                        <section class="card" style="margin-bottom: 5%">
+					                        <section class="" style="margin-bottom: 5%">
 					                            <div class="card-body text-secondary">
 					                            	<table class="table" style="margin-bottom: 0px">
 					                            		<thead>
@@ -148,7 +147,6 @@
 					                            		<tbody>
 					                            			<tr align="center" style="font-size: 12px">
 					                            				<td>{{$ptk}}</td>
-					                            				<td></td>
 					                            			</tr>
 					                            		</tbody>
 					                            	</table>
@@ -156,7 +154,7 @@
 					                        </section>
 					                    </div>
 					                    <div class="col">
-					                        <section class="card" style="margin-bottom: 5%">
+					                        <section class="" style="margin-bottom: 5%">
 					                            <div class="card-body text-secondary">
 					                            	<table class="table" style="margin-bottom: 0px">
 					                            		<thead>
@@ -167,7 +165,6 @@
 					                            		<tbody>
 					                            			<tr align="center" style="font-size: 12px">
 					                            				<td>{{$ptd}}</td>
-					                            				<td></td>
 					                            			</tr>
 					                            		</tbody>
 					                            	</table>
@@ -175,7 +172,7 @@
 					                        </section>
 					                    </div>
 					                    <div class="col">
-					                        <section class="card" style="margin-bottom: 5%">
+					                        <section class="" style="margin-bottom: 5%">
 					                            <div class="card-body text-secondary">
 					                            	<table class="table" style="margin-bottom: 0px">
 					                            		<thead>
@@ -186,7 +183,6 @@
 					                            		<tbody>
 					                            			<tr align="center" style="font-size: 12px">
 					                            				<td>{{$ptn}}</td>
-					                            				<td></td>
 					                            			</tr>
 					                            		</tbody>
 					                            	</table>
@@ -201,7 +197,6 @@
 	            </div>
 <!-- end data S K D dan N -->
                 @endif
-                
                 @php
                     $b = "TABLE_";
                     $i = 0;
@@ -267,7 +262,7 @@
 		                        </table>
 		                        <div class="row">
 					                    <div class="col">
-					                        <section class="card" style="margin-bottom: 5%">
+					                        <section class="" style="margin-bottom: 5%">
 					                            <div class="card-body text-secondary">
 					                            	<h4 align="center" style="font-weight: bold"> Sensifitas</h4>
 					                            	<table class="table" style="margin-bottom: 0px">
@@ -278,21 +273,21 @@
 					                            			</tr>
 					                            		</thead>
 					                            		<tbody>
+					                            			@foreach($spsn as $sp)
+					                            			@if($sp['indikator'] == $indikator->nama_indikator)
 					                            			<tr align="center" style="font-size: 12px">
-					                            				<td>2017</td>
-					                            				<td>96%</td>
+					                            				<td>{{$sp['tahun']}}</td>
+					                            				<td>{{$sp['sens']}}%</td>
 					                            			</tr>
-					                            			<tr align="center" style="font-size: 12px">
-					                            				<td>2018</td>
-					                            				<td>94%</td>
-					                            			</tr>
+					                            			@endif
+					                            			@endforeach
 					                            		</tbody>
 					                            	</table>
 					                            </div>
 					                        </section>
 					                    </div>
 					                    <div class="col">
-					                        <section class="card" style="margin-bottom: 5%">
+					                        <section class="" style="margin-bottom: 5%">
 					                            <div class="card-body text-secondary">
 					                            	<h4 align="center" style="font-weight: bold"> Spesifitas</h4>
 					                            	<table class="table" style="margin-bottom: 0px">
@@ -303,14 +298,14 @@
 					                            			</tr>
 					                            		</thead>
 					                            		<tbody>
+					                            			@foreach($spsn as $sp)
+					                            			@if($sp['indikator'] == $indikator->nama_indikator)
 					                            			<tr align="center" style="font-size: 12px">
-					                            				<td>2017</td>
-					                            				<td>96%</td>
+					                            				<td>{{$sp['tahun']}}</td>
+					                            				<td>{{$sp['spes']}}%</td>
 					                            			</tr>
-					                            			<tr align="center" style="font-size: 12px">
-					                            				<td>2018</td>
-					                            				<td>94%</td>
-					                            			</tr>
+					                            			@endif
+					                            			@endforeach
 					                            		</tbody>
 					                            	</table>
 					                            </div>
@@ -334,7 +329,131 @@
 		            </div>
 		            @endforeach
 <!-- end tampilan skdn -->
+<!-- tampilan selain skdn -->
 		            @else
+		            <div class="card">
+	                        <div class="card-header">
+	                            <strong class="card-title mb-3">Progress {{$nama}} (5 tahun kedepan)</strong>
+	                        </div>
+	                        <div class="card-body">
+	                            <div class="mx-auto d-block">
+	                                <div class="row">
+	                                	@php
+	                                		$g = 0;
+	                                	@endphp
+	                                	@foreach($indikator as $indi)
+	                                	@if($g == 3)
+	                                	</div>
+	                                	<div class="row">
+		                                	<div class="col">
+						                        <section class="card" style="margin-bottom: 5%">
+						                            <div class="card-body text-secondary">
+						                            	<table class="table" style="margin-bottom: 0px">
+						                            		<thead>
+						                            			<tr align="center" style="font-size: 14px">
+						                            				<th>{{$indi->indikator}} pada {{$indi->targetumur}}</th>
+						                            			</tr>
+						                            		</thead>
+						                            		<tbody>
+						                            			@foreach($dataex as $dataex2)
+																@if($indi->nama_indikator == $dataex2['nama_indikator'] && $indi->nama_targetumur == $dataex2['nama_targetumur'])
+							                            			<tr align="center" style="font-size: 12px">
+							                            				<td>{{$dataex2['progress']}}</td>
+							                            			</tr>
+							                            		@endif
+						                            			@endforeach
+						                            		</tbody>
+						                            	</table>
+						                            </div>
+						                        </section>
+						                    </div>
+	                                	@php
+					                    	$g++;
+					                    @endphp
+					                    @elseif($g > 4 && $g%3 ==0 && $g < $cocheck)
+					                	</div>
+					                    <div class="row">
+		                                	<div class="col">
+						                        <section class="card" style="margin-bottom: 5%">
+						                            <div class="card-body text-secondary">
+						                            	<table class="table" style="margin-bottom: 0px">
+						                            		<thead>
+						                            			<tr align="center" style="font-size: 14px">
+						                            				<th>{{$indi->indikator}} pada {{$indi->targetumur}}</th>
+						                            			</tr>
+						                            		</thead>
+						                            		<tbody>
+						                            			@foreach($dataex as $dataex2)
+																@if($indi->nama_indikator == $dataex2['nama_indikator'] && $indi->nama_targetumur == $dataex2['nama_targetumur'])
+							                            			<tr align="center" style="font-size: 12px">
+							                            				<td>{{$dataex2['progress']}}</td>
+							                            			</tr>
+							                            		@endif
+						                            			@endforeach
+						                            		</tbody>
+						                            	</table>
+						                            </div>
+						                        </section>
+						                    </div>
+	                                	@php
+					                    	$g++;
+					                    @endphp
+					                    @elseif($g == $cocheck)
+					                    	<div class="col">
+						                        <section class="card" style="margin-bottom: 5%">
+						                            <div class="card-body text-secondary">
+						                            	<table class="table" style="margin-bottom: 0px">
+						                            		<thead>
+						                            			<tr align="center" style="font-size: 14px">
+						                            				<th>{{$indi->indikator}} pada {{$indi->targetumur}}</th>
+						                            			</tr>
+						                            		</thead>
+						                            		<tbody>
+						                            			@foreach($dataex as $dataex2)
+																@if($indi->nama_indikator == $dataex2['nama_indikator'] && $indi->nama_targetumur == $dataex2['nama_targetumur'])
+							                            			<tr align="center" style="font-size: 12px">
+							                            				<td>{{$dataex2['progress']}}</td>
+							                            			</tr>
+							                            		@endif
+						                            			@endforeach
+						                            		</tbody>
+						                            	</table>
+						                            </div>
+						                        </section>
+						                    </div>
+						                </div>
+	                                	@else
+					                    <div class="col">
+					                        <section class="card" style="margin-bottom: 5%">
+					                            <div class="card-body text-secondary">
+					                            	<table class="table" style="margin-bottom: 0px">
+					                            		<thead>
+					                            			<tr align="center" style="font-size: 14px">
+					                            				<th>{{$indi->indikator}} pada {{$indi->targetumur}}</th>
+					                            			</tr>
+					                            		</thead>
+					                            		<tbody>
+					                            			@foreach($dataex as $dataex2)
+																@if($indi->nama_indikator == $dataex2['nama_indikator'] && $indi->nama_targetumur == $dataex2['nama_targetumur'])
+							                            			<tr align="center" style="font-size: 12px">
+							                            				<td>{{$dataex2['progress']}}</td>
+							                            			</tr>
+							                            		@endif
+						                            			@endforeach
+					                            		</tbody>
+					                            	</table>
+					                            </div>
+					                        </section>
+					                    </div>
+					                    @php
+					                    	$g++;
+					                    @endphp
+					                    @endif
+					                    @endforeach
+					                </div>
+	                            </div>      
+	                        </div>
+	                    </div>
 		            @foreach($indikator as $indikator)
 	                <div class="card">
 	                	<a class="card-link" data-toggle="collapse" href="#collapse{{$b.$i+=1}}">
@@ -381,7 +500,7 @@
 			                                    <td>{{$data2->adequasi_peformance}}%</td>
 			                                    <td>{{$data2->sensitivitas}}%</td>
 			                                    <td>{{$data2->spesifitas}}%</td>
-			                                    < <td>{{$data2->hasil}}</td>
+			                                    <td>{{$data2->hasil}}</td>
 			                                    <td style="width: 1%; padding-right: 5%; padding-left:0">
 			                                    	<a href="{{route('data.edit2', ['id' => $data2->id, 'nama'=> $nama])}}" class="btn btn-warning btn-sm">&nbsp Edit &nbsp</a>
 			                                    </td>
@@ -409,12 +528,13 @@
                                       <input type="text" name="indi" value="{{$indikator->idindikator}}" hidden>
                                       <button class="btn btn-danger" type="submit">Chart</button>
                                 </form> -->
-		                        <a href="{{route('data.indi.chart', ['id' => $id, 'nama' => $nama, 'indi' => $indikator->idindikator])}}" class="btn btn-primary btn-sm">&nbsp Chart &nbsp</a>
+		                        <a href="{{route('data.indi.chart', ['id' => $id, 'nama' => $nama, 'indi' => $indikator->nama_targetumur])}}" class="btn btn-primary btn-sm">&nbsp Chart &nbsp</a>
 		                    </div>
 		                </div>
 		            </div>
 		            @endforeach
 		            @endif
+<!-- end tampilan selain skdn -->
 	            </div>
         </div>
     </div><!-- .animated -->
