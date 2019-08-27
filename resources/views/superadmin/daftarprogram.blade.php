@@ -52,7 +52,7 @@
                         <strong class="card-title">Data Program</strong>
                     </div>
                     <div class="card-body">
-                        <table id="bootstrap-data-table" class="table table-bordered">
+                        <table id="bootstrap-data-table" class="table">
                             <thead>
                                 <tr align="center">
                                     <th>No</th>

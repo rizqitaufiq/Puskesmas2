@@ -210,7 +210,7 @@
 						    	<strong class="card-title">{{$indikator->indikator}} pada {{$indikator->targetumur}} </strong>	
 		                    </div>
 	                    </a>
-	                    <div id="collapse{{$b.$i}}" class="collapse hide">
+	                    <div id="collapse{{$b.$i}}" class="collapse show">
 		                    <div class="card-body">
 		                        <table id="{{$b.$i}}" class="table">
 		                        	@php
@@ -244,10 +244,10 @@
 			                                    <td>{{$data2->adequasi_peformance}}%</td>
 			                                    <!-- <td>{{$data2->sensitivitas}}</td>
 			                                    <td>{{$data2->spesifitas}}</td> -->
-			                                    <td style="width: 1%; padding-right: 5%; padding-left:0">
+			                                    <td style="width: 1%; ">
 			                                    	<a href="{{route('data.edit2', ['id' => $data2->id, 'nama'=> $nama])}}" class="btn btn-warning btn-sm">&nbsp Edit &nbsp</a>
 			                                    </td>
-			                                    <td style="width: 1%; padding-right: 5%; padding-left: 0">
+			                                    <td style="width: 1%;">
 			                                    	<!-- <a href="javascript:void(0)" class="btn btn-danger btn-sm delete" id_delete="{{ $data2->id }}">delete</a> -->
 			                                        <form action="{{action('DataController@destroy', $data2->id)}}" method="post">
 				                                      @csrf
@@ -323,7 +323,7 @@
                                       <input type="text" name="indi" value="{{$indikator->idindikator}}" hidden>
                                       <button class="btn btn-danger" type="submit">Chart</button>
                                 </form> -->
-		                        <a href="{{route('data.indi.chart', ['id' => $id, 'nama' => $nama, 'indi' => $indikator->idindikator])}}" class="btn btn-primary btn-sm">&nbsp Chart &nbsp</a>
+		                        <a href="{{route('data.indi.chart', ['id' => $id, 'nama' => $nama, 'indi' => $indikator->nama_targetumur])}}" class="btn btn-primary btn-sm">&nbsp Chart &nbsp</a>
 		                    </div>
 		                </div>
 		            </div>
@@ -346,7 +346,7 @@
 	                                	</div>
 	                                	<div class="row">
 		                                	<div class="col">
-						                        <section class="card" style="margin-bottom: 5%">
+						                        <section class="" style="margin-bottom: 5%">
 						                            <div class="card-body text-secondary">
 						                            	<table class="table" style="margin-bottom: 0px">
 						                            		<thead>
@@ -374,7 +374,7 @@
 					                	</div>
 					                    <div class="row">
 		                                	<div class="col">
-						                        <section class="card" style="margin-bottom: 5%">
+						                        <section class="" style="margin-bottom: 5%">
 						                            <div class="card-body text-secondary">
 						                            	<table class="table" style="margin-bottom: 0px">
 						                            		<thead>
@@ -400,7 +400,7 @@
 					                    @endphp
 					                    @elseif($g == $cocheck)
 					                    	<div class="col">
-						                        <section class="card" style="margin-bottom: 5%">
+						                        <section class="" style="margin-bottom: 5%">
 						                            <div class="card-body text-secondary">
 						                            	<table class="table" style="margin-bottom: 0px">
 						                            		<thead>
@@ -424,7 +424,7 @@
 						                </div>
 	                                	@else
 					                    <div class="col">
-					                        <section class="card" style="margin-bottom: 5%">
+					                        <section class="" style="margin-bottom: 5%">
 					                            <div class="card-body text-secondary">
 					                            	<table class="table" style="margin-bottom: 0px">
 					                            		<thead>
@@ -461,7 +461,7 @@
 						    	<strong class="card-title">{{$indikator->indikator}} pada {{$indikator->targetumur}} </strong>	
 		                    </div>
 	                    </a>
-	                    <div id="collapse{{$b.$i}}" class="collapse hide">
+	                    <div id="collapse{{$b.$i}}" class="collapse show">
 		                    <div class="card-body">
 		                        <table id="{{$b.$i}}" class="table">
 		                        	@php
@@ -501,10 +501,10 @@
 			                                    <td>{{$data2->sensitivitas}}%</td>
 			                                    <td>{{$data2->spesifitas}}%</td>
 			                                    <td>{{$data2->hasil}}</td>
-			                                    <td style="width: 1%; padding-right: 5%; padding-left:0">
+			                                    <td style="width: 1%; ">
 			                                    	<a href="{{route('data.edit2', ['id' => $data2->id, 'nama'=> $nama])}}" class="btn btn-warning btn-sm">&nbsp Edit &nbsp</a>
 			                                    </td>
-			                                    <td style="width: 1%; padding-right: 5%; padding-left: 0">
+			                                    <td style="width: 1%;">
 			                                    	<!-- <a href="javascript:void(0)" class="btn btn-danger btn-sm delete" id_delete="{{ $data2->id }}">delete</a> -->
 			                                        <form action="{{action('DataController@destroy', $data2->id)}}" method="post">
 				                                      @csrf

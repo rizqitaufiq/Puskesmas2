@@ -25,7 +25,7 @@
 
 
 
-                    <li class="menu-item-has-children dropdown">
+                    <!-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Masukkan Data</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-medkit"></i><a href="{{route('skdn.create')}}">&nbsp SKDN</a></li>
@@ -54,7 +54,7 @@
                             <li><i class="fa fa-medkit"></i><a href="{{route('pmt.laporan')}}">&nbsp PMT</a></li>
                             <li><i class="fa fa-medkit"></i><a href="{{route('ttd.laporan')}}">&nbsp  TAMBAH DARAH</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     
 
                 </ul>

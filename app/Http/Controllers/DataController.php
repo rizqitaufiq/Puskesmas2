@@ -446,18 +446,14 @@ class DataController extends Controller
                                             $g++;
                                         }
                                     }
-                                    // else{
-                                    //     $pts = "-";
-                                    //     $ptk = "-";
-                                    //     $ptd = "-";
-                                    //     $ptn = "-";  
-                                    //     $spsn[0]['tahun']      = "-";
-                                    //     $spsn[0]['indikator']  = "-";
-                                    //     $spsn[0]['spes']       = "-";
-                                    //     $spsn[0]['sens']       = "-";
+                                    else{
+                                        $spsn[$g]['tahun']      = "-";
+                                        $spsn[$g]['indikator']  = "-";
+                                        $spsn[$g]['spes']       = "-";
+                                        $spsn[$g]['sens']       = "-";
 
-                                    //     return view('superadmin2.data.lihatdata', compact('spsn', 'cocheck', 'pts', 'ptk', 'ptd', 'ptn','skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
-                                    // }
+                                        // return view('superadmin2.data.lihatdata', compact('spsn', 'cocheck', 'pts', 'ptk', 'ptd', 'ptn','skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
+                                    }
                                 }
                             }
                             //progress
@@ -540,7 +536,6 @@ class DataController extends Controller
                             foreach ($data as $value) {
                                 foreach ($skdn as $key) {
                                     if($value->tahun == $key->tahun){
-                                        echo $value->nama_indikator;
                                         if($value->nama_indikator == 4){
                                             $total = $key->Data_S;
                                             $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
@@ -670,24 +665,19 @@ class DataController extends Controller
                                             $g++;
                                         }
                                         else{
-                                            $spsn[0]['tahun']      = "-";
-                                            $spsn[0]['indikator']  = "-";
-                                            $spsn[0]['spes']       = "-";
-                                            $spsn[0]['sens']       = "-";
+                                            $spsn[$g]['tahun']      = "-";
+                                            $spsn[$g]['indikator']  = "-";
+                                            $spsn[$g]['spes']       = "-";
+                                            $spsn[$g]['sens']       = "-";
                                             $g++;
                                         }
                                     }
                                     else{
-                                        $pts = "-";
-                                        $ptk = "-";
-                                        $ptd = "-";
-                                        $ptn = "-";  
-                                        $spsn[0]['tahun']      = "-";
-                                        $spsn[0]['indikator']  = "-";
-                                        $spsn[0]['spes']       = "-";
-                                        $spsn[0]['sens']       = "-";
-
-                                        return view('superadmin2.data.lihatdata', compact('spsn', 'cocheck', 'pts', 'ptk', 'ptd', 'ptn','skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
+                                        $spsn[$g]['tahun']      = "-";
+                                        $spsn[$g]['indikator']  = "-";
+                                        $spsn[$g]['spes']       = "-";
+                                        $spsn[$g]['sens']       = "-";
+                                        $g++;
                                     }
                                 }
                             }
@@ -700,7 +690,7 @@ class DataController extends Controller
                             $ptd = round($tahunmin[0]->Data_D*pow((1+$rd), 5), 2);
                             $rn  = round(($tahunmax[0]->Data_N/ $tahunmin[0]->Data_N)-1, 2);
                             $ptn = round($tahunmin[0]->Data_N*pow((1+$rn), 5), 2);
-
+                            
                             return view('superadmin2.data.lihatdata', compact('spsn', 'cocheck', 'pts', 'ptk', 'ptd', 'ptn','skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
                         }
                         else{
@@ -762,6 +752,7 @@ class DataController extends Controller
                 $prg = $check[0]->id;
             }
             $data = Data::all()->where('nama_puskesmas', $id)->where('nama_targetumur', $indi)->where('nama_program', $prg);
+            
             if(count($data) === 0){
                 return view('errors/404');
             }
@@ -817,12 +808,16 @@ class DataController extends Controller
 
                      $label = $indikator[0]->indikator;
                      // echo $indikator;
+
                      $dataindikator = array();
                      $datatarget = array();
                      $datatahun = array();
+                     array_push($dataindikator, 0);
+                     array_push($datatahun, 0);
+                     array_push($datatarget, 0);
                      foreach ($data as $data2) {
-                         array_push($dataindikator, $data2->pencapaian);
-                         array_push($datatarget, $data2->target_pencapaian);
+                         array_push($dataindikator, $data2->target_pencapaian);
+                         array_push($datatarget, $data2->target_sasaran);
                          array_push($datatahun, $data2->tahun);
                      }
                      // print_r($datatarget);
