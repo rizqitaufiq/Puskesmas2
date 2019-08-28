@@ -85,7 +85,7 @@
 			                    <label class="control-label">Tahun</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-			                        <input type="number" id="tahun" value="{{$skdn[0]->tahun}}" name="tahun" placeholder="Masukkan Tahun" class="form-control" required>
+			                        <input type="number" id="tahun" value="{{$skdn[0]->tahun}}" name="tahun" placeholder="Masukkan Tahun" class="form-control" disabled>
 			                    </div>
 			                </div>
                             <input type="number" id="nama_puskesmas" name="nama_puskesmas" value="{{$skdn[0]->nama_puskesmas}}" hidden>

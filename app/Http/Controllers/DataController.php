@@ -308,8 +308,8 @@ class DataController extends Controller
                     if($nama === 'SKDN'){
                       $skdn = Skdn::all()->where('nama_puskesmas', $id);
                         if(count($skdn) !== 0){
-                            $tahunmin = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', Skdn::min('tahun'))->get();
-                            $tahunmax = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', Skdn::max('tahun'))->get();
+                            $tahunmin = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', DB::table('skdn')->where('nama_puskesmas', $id)->min('tahun'))->get();
+                            $tahunmax = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', DB::table('skdn')->where('nama_puskesmas', $id)->max('tahun'))->get();
                             if(count($tahunmax) === 0){
                                 $tahunmax = $tahunmin;
                             }
@@ -526,12 +526,14 @@ class DataController extends Controller
                     if($nama === 'SKDN'){
                         $skdn = Skdn::all()->where('nama_puskesmas', $id);
                         if(count($skdn) !== 0){
-                            $tahunmin = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', Skdn::min('tahun'))->get();
-                            $tahunmax = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', Skdn::max('tahun'))->get();
+                            $tahunmin = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', DB::table('skdn')->where('nama_puskesmas', $id)->min('tahun'))->get();
+                            $tahunmax = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', DB::table('skdn')->where('nama_puskesmas', $id)->max('tahun'))->get();
+                           
                             //sensitifitas dan spesifitas
-                            if(count($tahunmax) === 0){
-                                $tahunmax = $tahunmin;
-                            }
+                            
+                            // if(count($tahunmax) === 0){
+                            //     $tahunmax = $tahunmin;
+                            // }
                             $g = 0;
                             foreach ($data as $value) {
                                 foreach ($skdn as $key) {
