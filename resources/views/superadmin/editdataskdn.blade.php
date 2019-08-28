@@ -98,6 +98,5 @@
         </div>
     </div><!-- .animated -->
 </div><!-- .content -->
-
 <div class="clearfix"></div>
 @stop
