@@ -18,45 +18,14 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Laporan</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-medkit"></i><a href="{{route('laporan.datatahun')}}">&nbsp Laporan</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('skdn.laporan')}}">&nbsp Tabel </a></li>
+                            <li><i class="fa fa-medkit"></i><a href="{{route('data.chartdata')}}">&nbsp Chart </a></li>
                             
                         </ul>
                     </li>
 
 
 
-                    <!-- <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Masukkan Data</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-medkit"></i><a href="{{route('skdn.create')}}">&nbsp SKDN</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('kadarzi.create')}}">&nbsp KADARZI</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('pmt.create')}}">&nbsp PMT</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('ttd.create')}}">&nbsp TAMBAH DARAH</a></li>
-                        </ul>
-                    </li>
-                    
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Lihat Data</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-medkit"></i><a href="{{route('skdn.index')}}">&nbsp SKDN</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('kadarzi.index')}}">&nbsp KADARZI</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('pmt.index')}}">&nbsp PMT</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('ttd.index')}}">&nbsp  TAMBAH DARAH</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Laporan</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-medkit"></i><a href="{{route('user.printdata')}}">&nbsp Tabel</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('skdn.laporan')}}">&nbsp SKDN </a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('kadarzi.laporan')}}">&nbsp KADARZI</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('pmt.laporan')}}">&nbsp PMT</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('ttd.laporan')}}">&nbsp  TAMBAH DARAH</a></li>
-                        </ul>
-                    </li> -->
-                    
-
+                  
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

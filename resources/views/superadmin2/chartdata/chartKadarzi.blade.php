@@ -17,57 +17,80 @@
 
         // The data for our dataset
         data: {
-            labels: ["Menimbang berat badan secara teratur", "Pemberian asi ekslusif bayi usia 0-6 bulan", "Makan makanan beraneka ragam", "Menggunakan garam beryodium", "Pemberian vitamin A", "Pemberian tablet tambah darah"],
-            datasets: [{
-                label: 'Bayi (0-6 Bulan)',
-                fill: true,
-                backgroundColor: 'rgb(59, 241, 14)',
-                // borderColor: 'rgb(0,191,255)',
-                pointBorderWidth: 3,
-                data: [96, 81, 0, 0, 0, 0]
-            }, 
-            {
-                label: 'Baduta (6-11 Bulan)',
-                fill: true,
-                backgroundColor: 'rgb(0,191,255)',
-                // borderColor: 'rgb(0,191,255)',
-                pointBorderWidth: 3,
-                data: [89, 0, 0, 0, 85, 0]
-            }, 
-            {
-                label: 'Balita (12-60 Bulan)',
-                fill: true,
-                backgroundColor: 'rgb(238, 244, 66)',
-                // borderColor: 'rgb(0,191,255)',
-                pointBorderWidth: 0,
-                data: [71, 0, 0, 0, 75, 0]
-            }, 
-             {
-                label: 'Keluarga',
-                fill: true,
-                backgroundColor: 'rgb(9, 32, 237)',
-                // borderColor: 'rgb(0,191,255)',
-                pointBorderWidth: 0,
-                data: [0, 0, 60, 71, 0, 0]
-            }, 
-             {
-                label: 'Ibu Hamil',
-                fill: true,
-                backgroundColor: 'rgb(242, 37, 14)',
-                // borderColor: 'rgb(0,191,255)',
-                pointBorderWidth: 0,
-                data: [0, 0, 0, , 0, 67]
-            }, 
-            {
-                label: 'Remaja Putri',
-                fill: true,
-                backgroundColor: 'rgb(191, 8, 237)',
-                // borderColor: 'rgb(0,191,255)',
-                pointBorderWidth: 0,
-                data: [0, 0, 0, 0, 0, 62]
-            }, 
+            labels: <?php echo json_encode($indikator);?>,
+           
+            datasets: [
+                <?php 
+                $warna = array('rgb(59, 241, 15)', 'rgb(0,191,255)', 'rgb(238, 244, 66)', 'rgb(9, 32, 237)', 'rgb(242, 37, 14)', 'rgb(191, 8, 237)');
+                for($i = 0; $i<count($targetumur); $i++){
+                    ?>
+                    {
+                        label: "<?php echo $targetumur[$i];?>",
+                        fill: true,
+                        backgroundColor: "<?php echo $warna[$i];?>",
+                        // borderColor: 'rgb(0,191,255)',
+                        pointBorderWidth: 3,
+                        data: <?php
+                                $nilai = array();
+                                
+                                for($o=0; $o<count($indikator);$o++){
+                                    $fill = 0;
+                                    // echo json_encode($nilai);
+                                    // echo $indikator[$o];
+                                    // echo "\n\n\n";
+                                    foreach ($data as $dt) {
+                                        if($dt->nama_targetumur === $targetumur[$i] && $dt->nama_indikator === $indikator[$o]){ 
+                                            $fill = 1;
+                                            // echo "fill = ".$fill;
+                                            // echo "\n";
+                                            // echo $o;
+                                            // echo " benar";
+                                            // echo "\n";
+                                            // echo $dt->nama_targetumur;
+                                            // echo "\n";
+                                            // echo $dt->nama_indikator;
+                                            // echo "\n";
+                                            array_push($nilai, $dt->target_pencapaian);
+                                            // echo json_encode($nilai);
+                                            // echo "\n\n";
+                                            
+                                            
+                                        }else{
+                                            // array_push($nilai, 1);
+                                            // echo "fill = ".$fill;
+                                            // echo "\n";
+                                            // echo $o;
+                                            // echo " salah";
+                                            // echo "\n";
+                                            // echo $dt->nama_targetumur;
+                                            // echo "\n";
+                                            // echo $dt->nama_indikator;
+                                            // echo "\n\n";
+                                            // array_push($nilai, null);
+                                            // echo json_encode($nilai);
+                                        }
+                                        echo "\n";
+
+                                    }
+                                    if($fill == 0){
+                                        $inserted = array(null);
+                                        array_splice( $nilai, $o, 0, $inserted);
+                                    }
+                                }
+                                // dd($nilai);
+                                
+                            ?>
+                            <?php echo json_encode($nilai);?>
+                    },
+                <?php
+                } 
+                ?>
+            
             ]
         },
+
+
+        
 
 
 

@@ -1,6 +1,6 @@
-@extends('superadmin2.layouts.2template')
+@extends($extends)
 
-@section('konten2')
+@section($section)
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
@@ -16,8 +16,8 @@
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Lihat Data</a></li>
-                            <li class="active">Data Puskesmas</li>
+                            <li><a href="#">Chart</a></li>
+                            <li class="active">Data Program</li>
                         </ol>
                     </div>
                 </div>
@@ -41,14 +41,14 @@
                 @endif
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Data Puskesmas</strong>
+                        <strong class="card-title">Data Program</strong>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table">
                             <thead>
                                 <tr align="center">
                                     <th>No</th>
-                                    <th>Puskesmas</th>
+                                    <th>Nama Program</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -56,12 +56,11 @@
                                 @php
                                     $a = 0;
                                 @endphp
-                                @foreach($user as $user)
+                                @foreach($program as $program)
                                 <tr>
                                     <td align ="center">{{$a+=1}}</td>
-                                    <td align ="center">{{$user->puskesmas}}</td>
-                                    <td align ="center"><a href="{{route('data.dataprog', $user->nama_puskesmas)}}" class="btn btn-warning">Lihat</a> 
-                                        <a href="#" class="btn btn-danger">delete</></td>
+                                    <td align ="center">{{$program->nama_program}}</td>
+                                    <td align ="center"><a href="{{route('data.chartdatatahun', ['id' => $id, 'nama' => $program->nama_program])}}" class="btn btn-warning">Lihat</a> </td>
                                 </tr>
                                 @endforeach
                             </tbody>

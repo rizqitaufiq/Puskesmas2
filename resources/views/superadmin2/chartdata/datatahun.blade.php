@@ -1,6 +1,6 @@
-@extends('superadmin2.layouts.2template')
+@extends($extends)
 
-@section('konten2')
+@section($section)
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
@@ -16,8 +16,8 @@
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Lihat Data</a></li>
-                            <li class="active">Data Puskesmas</li>
+                            <li><a href="#">Chart</a></li>
+                            <li class="active">{{$nama}}</li>
                         </ol>
                     </div>
                 </div>
@@ -41,14 +41,14 @@
                 @endif
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Data Puskesmas</strong>
+                        <strong class="card-title">Data Tahun</strong>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table">
                             <thead>
                                 <tr align="center">
                                     <th>No</th>
-                                    <th>Puskesmas</th>
+                                    <th>Tahun</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -56,12 +56,11 @@
                                 @php
                                     $a = 0;
                                 @endphp
-                                @foreach($user as $user)
+                                @foreach($data as $data2)
                                 <tr>
                                     <td align ="center">{{$a+=1}}</td>
-                                    <td align ="center">{{$user->puskesmas}}</td>
-                                    <td align ="center"><a href="{{route('data.dataprog', $user->nama_puskesmas)}}" class="btn btn-warning">Lihat</a> 
-                                        <a href="#" class="btn btn-danger">delete</></td>
+                                    <td align ="center">{{$data2->tahun}}</td>
+                                    <td align ="center"><a href="{{route('data.showchart', ['id' => $id, 'nama' => $nama, 'tahun' => $data2->tahun])}}" class="btn btn-warning">Lihat</a> </td>
                                 </tr>
                                 @endforeach
                             </tbody>

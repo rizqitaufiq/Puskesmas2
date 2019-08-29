@@ -877,8 +877,7 @@ class DataController extends Controller
         
     }
 
-    public function fetch(Request $request){
-    //www.webslesson.info/2018/03/ajax-dynamic-dependent-dropdown-in-laravel.html
+    public function fetch(Request $request){//www.webslesson.info/2018/03/ajax-dynamic-dependent-dropdown-in-laravel.html
         if(Auth::check()){
             if(Auth::user()->pos == 'admin'){
                 $select = $request->get('select');
@@ -900,6 +899,140 @@ class DataController extends Controller
         else{
             return redirect('dashboard');
         } 
+    }
+
+    public function chartdata(){
+        if(Auth::check()){
+            if(Auth::user()->pos == 'super'){
+                $extends = 'superadmin2.layouts.2template';
+                $section = 'konten2';
+
+                // return view('superadmin2.chartdata.datapuskesmas', compact('extends', 'section'));
+            }
+            else if (Auth::user()->pos == 'admin') {
+                $extends = 'superadmin.layouts.template';
+                $section = 'konten';
+                $id = Auth::user()->puskesmas;
+                $program = DB::table('data')
+                    ->where('data.nama_puskesmas', $id)
+                    ->join('program', 'program.id', '=', 'data.nama_program')
+                    ->select('data.nama_program', 'program.nama_program')
+                    ->distinct()
+                    ->get();
+
+                return view('superadmin2.chartdata.dataprogram', compact('program', 'id', 'extends', 'section'));                
+            }
+            else{
+                return redirect('dashboard');
+            }
+        }
+        else{
+            return redirect('dashboard');
+        }
+    }
+
+    public function chartdatatahun($id, $nama){
+        if(Auth::check()){
+            $program1 = Program::where('nama_program', $nama)->get();
+            if(count($program1) === 0){
+                $prg = '0';
+            }
+            else{
+                $prg = $program1[0]->id;
+            }
+            $check = DB::table('data')->where('nama_puskesmas', $id)->where('nama_program', $prg)->get();
+
+            if(count($check) === 0){
+                return view('errors/404');
+            }
+            else{
+               if(Auth::user()->pos == 'super'){
+
+                }
+                else if(Auth::user()->pos == 'admin'){
+                    $extends = 'superadmin.layouts.template';
+                    $section = 'konten';
+                    $id = Auth::user()->puskesmas;
+                    $data = DB::table('data')->where('nama_puskesmas', $id)->where('nama_program', $prg)->select('tahun')->distinct()->get();
+
+                    return view('superadmin2.chartdata.datatahun', compact('extends', 'section', 'id', 'data', 'nama'));
+                }
+                else{
+                    return redirect('dashboard');
+                } 
+            }
+            
+        }
+        else{
+            return redirect('dashboard');
+        }
+    }
+
+    public function showchart($id, $nama, $tahun){
+        if(Auth::check()){
+            $program1 = Program::where('nama_program', $nama)->get();
+            if(count($program1) === 0){
+                $prg = '0';
+            }
+            else{
+                $prg = $program1[0]->id;
+            }
+            $check = DB::table('data')->where('nama_puskesmas', $id)->where('nama_program', $prg)->get();
+
+            if(count($check) === 0){
+                return view('errors/404');
+            }
+            else{
+                if(Auth::user()->pos == 'super'){
+
+                }
+                else if(Auth::user()->pos == 'admin'){
+                    $extends = 'superadmin.layouts.template';
+                    $section = 'konten';
+                    $id = Auth::user()->puskesmas;
+                    $data = DB::table('data')->where('data.nama_puskesmas', $id)->where('data.nama_program', $prg)->where('data.tahun', $tahun)
+                    ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
+                    ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
+                    ->select('data.nama_puskesmas', 'data.tahun', 'data.target_pencapaian', 'data.nama_program', 'indikator.nama_indikator', 'targetumur.nama_targetumur')->get();
+                    // dd($data);
+                   $indikator2 = DB::table('data')->where('data.nama_puskesmas', $id)->where('data.nama_program', $prg)->where('data.tahun', $tahun)
+                    ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
+                    ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
+                    ->select('indikator.nama_indikator')->distinct()->get();
+
+                    $targetumur2 = DB::table('data')->where('data.nama_puskesmas', $id)->where('data.nama_program', $prg)->where('data.tahun', $tahun)
+                    ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
+                    ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
+                    ->select('targetumur.nama_targetumur')->distinct()->get();
+
+                    $targetumur = array();
+                    foreach ($targetumur2 as $tg) {
+                        array_push($targetumur, $tg->nama_targetumur);
+                    }
+
+                    $indikator = array();
+                    foreach ($indikator2 as $ind) {
+                        array_push($indikator, $ind->nama_indikator);
+                    }
+
+                    $label = $nama;
+                    $dataindikator = array();
+                    // dd($data);
+                    foreach ($data as $data2) {
+                        array_push($dataindikator, $data2->target_pencapaian);
+                    }
+                    // dd($indikator);
+
+                    return view('superadmin2.chartdata.chartSkdn', compact('data', 'targetumur', 'extends', 'section', 'tahun', 'nama', 'id', 'label', 'dataindikator', 'indikator'));
+                }
+                else{
+                    return redirect('dashboard');
+                }
+            }
+        }
+        else{
+            return redirect('dashboard');
+        }
     }
 
     public function listpuskesmaslaporan(){
@@ -955,7 +1088,7 @@ class DataController extends Controller
         }
     }
 
-    public function chart2(Request $request){
+    public function chart2(Request $request){ //menggunakan method post
         if(Auth::check()){
             $check = Program::where('nama_program', $request->nama)->get();
             if(count($check) === 0){
@@ -964,7 +1097,7 @@ class DataController extends Controller
             else{
                 $prg = $check[0]->id;
             }
-            $data = Data::all()->where('nama_puskesmas', $request->id)->where('nama_indikator', $request->indi)->where('nama_program', $prg);
+            $data = Data::all()->where('nama_puskesmas', $request->id)->where('nama_targetumur', $request->indi)->where('nama_program', $prg);
             if(count($data) === 0){
                 return view('errors/404');
             }
@@ -976,14 +1109,14 @@ class DataController extends Controller
                     $program = Program::where('nama_program', $request->nama)->get();
 
                     $indikator = DB::table('data')
-                    ->where('data.nama_indikator', $request->indi)
+                    ->where('data.nama_targetumur', $request->indi)
                     ->where('data.nama_puskesmas', $request->id)
                     ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
                     ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
                     ->select('indikator.nama_indikator as indikator', 'targetumur.nama_targetumur as targetumur')
                     ->distinct()
                     ->get();
-                     $data = Data::all()->where('nama_indikator', $request->indi)->where('nama_puskesmas', $request->id);
+                     $data = Data::all()->where('nama_targetumur', $request->indi)->where('nama_puskesmas', $request->id);
 
                      $label = $indikator[0]->indikator;
                      // echo $indikator;
@@ -1007,14 +1140,14 @@ class DataController extends Controller
                     $program = Program::where('nama_program', $nama)->get();
 
                     $indikator = DB::table('data')
-                    ->where('data.nama_indikator', $request->indi)
+                    ->where('data.nama_targetumur', $request->indi)
                     ->where('data.nama_puskesmas', $id)
                     ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
                     ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
                     ->select( 'indikator.nama_indikator as indikator', 'targetumur.nama_targetumur as targetumur')
                     ->distinct()
                     ->get();
-                     $data = Data::all()->where('nama_indikator', $indi)->where('nama_puskesmas', $id);
+                     $data = Data::all()->where('nama_targetumur', $indi)->where('nama_puskesmas', $id);
 
                      $label = $indikator[0]->indikator;
                      // echo $indikator;

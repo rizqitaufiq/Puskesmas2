@@ -17,15 +17,41 @@
 
         // The data for our dataset
         data: {
-            labels: ["D/S", "N/S", "K/S", "BGM/D", "D/K", "N/D"],
-            datasets: [{
+            labels: <?php echo json_encode($indikator);?>,
+           
+            datasets: [
+                <?php 
+                $warna = array('rgb(59, 241, 15)', 'rgb(0,191,255)', 'rgb(238, 244, 66)', 'rgb(9, 32, 237)', 'rgb(242, 37, 14)', 'rgb(191, 8, 237)');
+                for($i = 0; $i<count($targetumur); $i++){
+                    ?>
+                    {
+                        label: "<?php echo $targetumur[$i];?>",
+                        fill: true,
+                        backgroundColor: "<?php echo $warna[$i];?>",
+                        pointBorderWidth: 3,
+                        data: <?php
+                                $nilai = array();
+                                for($o=0; $o<count($indikator);$o++){
+                                    $fill = 0;
+                                    foreach ($data as $dt) {
+                                        if($dt->nama_targetumur === $targetumur[$i] && $dt->nama_indikator === $indikator[$o]){ 
+                                            $fill = 1;
+                                            array_push($nilai, $dt->target_pencapaian);
+                                        }
 
-                fill: true,
-                backgroundColor: 'rgb(0,191,255)',
-                // borderColor: 'rgb(0,191,255)',
-                pointBorderWidth: 0,
-                data: [96, 81, 60, 71, 85, 62]
-            }
+                                    }
+                                    if($fill == 0){
+                                        $inserted = array(null);
+                                        array_splice( $nilai, $o, 0, $inserted);
+                                    }
+                                }
+                            ?>
+                            <?php echo json_encode($nilai);?>
+                    },
+                <?php
+                } 
+                ?>
+            
             ]
         },
 
@@ -37,14 +63,16 @@
             },
             title: {
               display: true,
-              text: "SKDN Chart"
+              text: <?php echo json_encode($label); ?>,
+              padding : 40
             },
             tooltips: {
-              mode: 'index',
+              mode: 'point',
               intersect: false
             },
              legend: {
-              display: false,
+              display: true,
+              position:'right'
             },
             plugins: {
                     datalabels: {
@@ -88,7 +116,7 @@
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">SKDN</a></li>
+                            <li><a href="#">{{$nama}}</a></li>
                             <li class="active">Chart</li>
                         </ol>
                     </div>
@@ -114,12 +142,13 @@
 
 	                <div class="card">
 	                    <div class="card-header">
-						    	<strong class="card-title">SKDN 2011 </strong>
+						    	<strong class="card-title">{{$nama}} {{$tahun}}</strong>
 	                    </div>
 	                    <div class="card-body">
 	                        <canvas id="myChart"></canvas>
                             <div style="margin-top: 3%">
-                                <input class="btn btn-primary" type="button" onclick="downloadPDF2()" value="Simpan" />
+                                <input type="text" id="SimpanChart" value="Chart {{$nama}} {{$tahun}}" hidden>
+                                <input class="btn btn-primary" type="button" onclick="downloadPDF2()" value="Simpan" id="SimpanChart"/>
                                  <!-- <input class="btn btn-primary" type="button" onclick="printDiv('myChart')" value="Print" /> -->
                                 <!-- <a class="btn btn-primary" href="{{route('user.save.data')}}">Simpan</a> -->
                             </div>
@@ -153,6 +182,7 @@
     }
     function downloadPDF2() {
         var newCanvas = document.querySelector('#myChart');
+        var nama = document.getElementById("SimpanChart").value;
 
         //create image from dummy canvas
         var newCanvasImg = newCanvas.toDataURL("image/jpeg;base64", 1.0);
@@ -161,7 +191,7 @@
         var doc = new jsPDF('landscape');
         doc.setFontSize(20);
         doc.addImage(newCanvasImg, 'JPEG', 10, 10, 280, 150 );
-        doc.save('chart skdn 2011.pdf');
+        doc.save(nama);
         }
 
     //window.print();
