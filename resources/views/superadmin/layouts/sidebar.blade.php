@@ -17,7 +17,7 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Laporan</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-medkit"></i><a href="{{route('laporan.datatahun')}}">&nbsp Laporan</a></li>
+                            <li><i class="fa fa-medkit"></i><a href="{{route('data.laporan')}}">&nbsp Laporan</a></li>
                             <li><i class="fa fa-medkit"></i><a href="{{route('data.chartdata')}}">&nbsp Chart </a></li>
                             
                         </ul>

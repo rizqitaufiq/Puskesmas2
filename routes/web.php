@@ -82,29 +82,31 @@ Route::get('/dashboard/datauser', 'UserController@datauser')->name('datauser');
 Route::post('/dashboard/store', 'UserController@store')->name('dashboard.store');
 Route::put('/dashboard/update/{id}', 'UserController@update')->name('dashboard.update');
 
-Route::get('dashboard/laporan', 'UserController@printdata')->name('user.printdata');
+// Route::get('dashboard/laporan', 'UserController@printdata')->name('user.printdata');
 // Route::get('dashboard/laporan/datatahun', 'UserController@datatahun')->name('user.print.datatahun');
 Route::get('dashboard/laporan/datatahun/lihat', 'UserController@printdatatahun')->name('user.print.data');
+
+
 
 Route::get('dashboard/savedata', 'UserController@savedata')->name('user.savedata');
 Route::get('dashboard/savedata/datatahun', 'UserController@datatahun2')->name('user.save.datatahun2');
 Route::get('dashboard/savedata/datatahun/print', 'UserController@savedatatahun')->name('user.save.data');
 
-Route::get('dashboard/skdn/laporan','SkdnController@laporan')->name('skdn.laporan');
-Route::get('dashboard/skdn/laporan/datatahun', 'SkdnController@datatahun')->name('skdn.laporan.datatahun');
-Route::get('dashboard/skdn/laporan/datatahun/lihat', 'SkdnController@lihat')->name('skdn.laporan.lihat');
+// Route::get('dashboard/skdn/laporan','SkdnController@laporan')->name('skdn.laporan');
+// Route::get('dashboard/skdn/laporan/datatahun', 'SkdnController@datatahun')->name('skdn.laporan.datatahun');
+// Route::get('dashboard/skdn/laporan/datatahun/lihat', 'SkdnController@lihat')->name('skdn.laporan.lihat');
 
-Route::get('dashboard/kadarzi/laporan','KadarziController@laporan')->name('kadarzi.laporan');
-Route::get('dashboard/kadarzi/laporan/datatahun', 'KadarziController@datatahun')->name('kadarzi.laporan.datatahun');
-Route::get('dashboard/kadarzi/laporan/datatahun/lihat', 'KadarziController@lihat')->name('kadarzi.laporan.lihat');
+// Route::get('dashboard/kadarzi/laporan','KadarziController@laporan')->name('kadarzi.laporan');
+// Route::get('dashboard/kadarzi/laporan/datatahun', 'KadarziController@datatahun')->name('kadarzi.laporan.datatahun');
+// Route::get('dashboard/kadarzi/laporan/datatahun/lihat', 'KadarziController@lihat')->name('kadarzi.laporan.lihat');
 
-Route::get('dashboard/pmt/laporan','PmtController@laporan')->name('pmt.laporan');
-Route::get('dashboard/pmt/laporan/datatahun', 'PmtController@datatahun')->name('pmt.laporan.datatahun');
-Route::get('dashboard/pmt/laporan/datatahun/lihat', 'PmtController@lihat')->name('pmt.laporan.lihat');
+// Route::get('dashboard/pmt/laporan','PmtController@laporan')->name('pmt.laporan');
+// Route::get('dashboard/pmt/laporan/datatahun', 'PmtController@datatahun')->name('pmt.laporan.datatahun');
+// Route::get('dashboard/pmt/laporan/datatahun/lihat', 'PmtController@lihat')->name('pmt.laporan.lihat');
 
-Route::get('dashboard/ttd/laporan','TtdController@laporan')->name('ttd.laporan');
-Route::get('dashboard/ttd/laporan/datatahun', 'TtdController@datatahun')->name('ttd.laporan.datatahun');
-Route::get('dashboard/ttd/laporan/datatahun/lihat', 'TtdController@lihat')->name('ttd.laporan.lihat');
+// Route::get('dashboard/ttd/laporan','TtdController@laporan')->name('ttd.laporan');
+// Route::get('dashboard/ttd/laporan/datatahun', 'TtdController@datatahun')->name('ttd.laporan.datatahun');
+// Route::get('dashboard/ttd/laporan/datatahun/lihat', 'TtdController@lihat')->name('ttd.laporan.lihat');
 
 
 Route::get('dashboard/data/input/{program}', 'DataController@tambahdata')->name('data.tambah');
@@ -115,18 +117,21 @@ Route::get('dashboard/program/{id}/delete', 'ProgramController@destroy');
 Route::get('dashboard/indikator/{id}/delete', 'IndikatorController@destroy');
 Route::get('dashboard/target/{id}/delete', 'TargetController@destroy');
 Route::get('dashboard/target/{id}/editdata', 'TargetController@edit')->name('target.edit1');
-Route::get('dashboard/puskesmas/{id}/delete', 'PuskesmasController@destroy');
 Route::post('dashboard/target/fetch', 'TargetController@fetch')->name('target.fetch');
+Route::get('dashboard/puskesmas/{id}/delete', 'PuskesmasController@destroy');
+
 Route::get('dashboard/data/{id}/dataprogram', 'DataController@dataprog')->name('data.dataprog');
 Route::get('dashboard/data/{id}/{nama}', 'DataController@data')->name('data.data');
 Route::get('dashboard/data/{id}/{nama}/{indi}', 'DataController@chart')->name('data.indi.chart');
+
 Route::get('dashboard/chartdata', 'DataController@chartdata')->name('data.chartdata');
 Route::get('dashboard/chartdata/{id}', 'DataController@chartdataprogram')->name('data.chartdataprogram');
 Route::get('dashboard/chartdata/{id}/{nama}', 'DataController@chartdatatahun')->name('data.chartdatatahun');
 Route::get('dashboard/chartdata/{id}/{nama}/{tahun}', 'DataController@showchart')->name('data.showchart');
 
-// Route::get('dashboard/laporan', 'DataController@laporan')->name('data.laporan');
-Route::get('dashboard/laporan/datatahun', 'DataController@laporandatatahun')->name('laporan.datatahun');
+Route::get('dashboard/laporan', 'DataController@laporan')->name('data.laporan');
+Route::get('dashboard/laporan/{id}/{tahun}', 'DataController@cetaklaporan')->name('laporan.cetak');
+// Route::get('dashboard/laporan/datatahun', 'DataController@laporandatatahun')->name('laporan.datatahun');
 
 //contoh pakai post
 Route::post('dashboard/data/chart', 'DataController@chart2')->name('data.indi.chart2');

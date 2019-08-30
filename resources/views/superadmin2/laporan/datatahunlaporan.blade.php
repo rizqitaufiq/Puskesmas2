@@ -43,7 +43,7 @@
                         <strong class="card-title">Data Table</strong>
                     </div>
                     <div class="card-body">
-                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <table id="bootstrap-data-table" class="table">
                             <thead>
                                 <tr align="center">
                                     <th>No</th>
@@ -59,7 +59,7 @@
                                 <tr>
                                     <td align ="center">{{$a+=1}}</td>
                                     <td align ="center">{{$data2->tahun}}</td>
-                                    <td align ="center"><a href="{{route('user.print.data')}}" class="btn btn-warning">Lihat</a> </td>
+                                    <td align ="center"><a href="{{route('laporan.cetak', ['id' => $id, 'tahun' => $data2->tahun])}}" class="btn btn-warning">Lihat</a> </td>
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -1117,7 +1117,7 @@ class DataController extends Controller
         }
     }
 
-    public function laporandatatahun(){
+    public function laporan(){
         if(Auth::check()){
             if(Auth::user()->pos == 'super'){
 
@@ -1130,7 +1130,33 @@ class DataController extends Controller
                 $data = DB::table('data')
                     ->where('nama_puskesmas', $id)
                     ->select('tahun')->distinct()->get();
-                return view('superadmin2.laporan.datatahunlaporan', compact('extends', 'section', 'data'));
+                return view('superadmin2.laporan.datatahunlaporan', compact('id', 'extends', 'section', 'data'));
+            }
+            else{
+                return redirect('dashboard');
+            }
+        }
+        else{
+            return redirect('dashboard');
+        }
+    }
+
+    public function cetaklaporan($id, $tahun){
+        if(Auth::check()){
+            if(Auth::user()->pos =='super'){
+
+            }
+            else if(Auth::user()->pos == 'admin'){
+                $extends = 'superadmin.layouts.template';
+                $section = 'konten';
+
+                $id = Auth::user()->puskesmas;
+                $puskesmas = DB::table('puskesmas')->where('id', $id)->select('nama_puskesmas')->get();
+                $data = DB::table('data')
+                ->where('nama_puskesmas', $id)
+                ->where('tahun', $tahun)->get();
+
+                return view('superadmin2.laporan.cetaklaporan', compact('puskesmas', 'extends', 'section', 'id', 'data', 'tahun'));
             }
             else{
                 return redirect('dashboard');
