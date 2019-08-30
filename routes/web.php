@@ -121,8 +121,10 @@ Route::get('dashboard/data/{id}/dataprogram', 'DataController@dataprog')->name('
 Route::get('dashboard/data/{id}/{nama}', 'DataController@data')->name('data.data');
 Route::get('dashboard/data/{id}/{nama}/{indi}', 'DataController@chart')->name('data.indi.chart');
 Route::get('dashboard/chartdata', 'DataController@chartdata')->name('data.chartdata');
+Route::get('dashboard/chartdata/{id}', 'DataController@chartdataprogram')->name('data.chartdataprogram');
 Route::get('dashboard/chartdata/{id}/{nama}', 'DataController@chartdatatahun')->name('data.chartdatatahun');
 Route::get('dashboard/chartdata/{id}/{nama}/{tahun}', 'DataController@showchart')->name('data.showchart');
+
 // Route::get('dashboard/laporan', 'DataController@laporan')->name('data.laporan');
 Route::get('dashboard/laporan/datatahun', 'DataController@laporandatatahun')->name('laporan.datatahun');
 

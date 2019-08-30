@@ -31,18 +31,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Laporan</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-medkit"></i><a href="{{route('user.printdata')}}">&nbsp Tabel</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('skdn.laporan')}}">&nbsp Program </a></li>
-                        </ul>
-                    </li>
-                    
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Laporan</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-medkit"></i><a href="{{route('user.printdata')}}">&nbsp Tabel</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('skdn.laporan')}}">&nbsp SKDN </a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('kadarzi.laporan')}}">&nbsp KADARZI</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('pmt.laporan')}}">&nbsp PMT</a></li>
-                            <li><i class="fa fa-medkit"></i><a href="{{route('ttd.laporan')}}">&nbsp  TAMBAH DARAH</a></li>
+                             <li><i class="fa fa-medkit"></i><a href="{{route('data.chartdata')}}">&nbsp Chart </a></li>
                         </ul>
                     </li>
                 </ul>

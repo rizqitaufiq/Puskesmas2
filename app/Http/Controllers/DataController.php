@@ -501,7 +501,6 @@ class DataController extends Controller
                             $dataex[$g]['progress']       = $pts;
                             $g++;
                         }
-
                         return view('superadmin2.data.lihatdata', compact('dataex', 'cocheck', 'id', 'nama','extends', 'section', 'indikator', 'data'));  
                     }
                 }
@@ -528,12 +527,6 @@ class DataController extends Controller
                         if(count($skdn) !== 0){
                             $tahunmin = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', DB::table('skdn')->where('nama_puskesmas', $id)->min('tahun'))->get();
                             $tahunmax = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', DB::table('skdn')->where('nama_puskesmas', $id)->max('tahun'))->get();
-                           
-                            //sensitifitas dan spesifitas
-                            
-                            // if(count($tahunmax) === 0){
-                            //     $tahunmax = $tahunmin;
-                            // }
                             $g = 0;
                             foreach ($data as $value) {
                                 foreach ($skdn as $key) {
@@ -557,13 +550,6 @@ class DataController extends Controller
                                             $spsn[$g]['spes']       = $spes;
                                             $spsn[$g]['sens']       = $sens;
                                             $g++;
-                                            // echo $total."<br>";
-                                            // echo $jumlah_pencapaian_plus."<br>";
-                                            // echo $jumlah_pencapaian_min."<br>";
-                                            // echo $jumlah_plus_plus."<br>";
-                                            // echo $jumlah_plus_min."<br>";
-                                            // echo $jumlah_min_min."<br>";
-                                            // echo $jumlah_min_plus."<br>"."<br>";
 
                                         }
                                         elseif($value->nama_indikator == 3){
@@ -906,8 +892,13 @@ class DataController extends Controller
             if(Auth::user()->pos == 'super'){
                 $extends = 'superadmin2.layouts.2template';
                 $section = 'konten2';
+                $user = DB::table('data')
+                    ->join('puskesmas', 'puskesmas.id', '=', 'data.nama_puskesmas')
+                    ->select('data.nama_puskesmas', 'puskesmas.nama_puskesmas AS puskesmas')
+                    ->distinct()
+                    ->get();
 
-                // return view('superadmin2.chartdata.datapuskesmas', compact('extends', 'section'));
+                return view('superadmin2.chartdata.datapuskesmas', compact('extends', 'section', 'user'));
             }
             else if (Auth::user()->pos == 'admin') {
                 $extends = 'superadmin.layouts.template';
@@ -921,6 +912,29 @@ class DataController extends Controller
                     ->get();
 
                 return view('superadmin2.chartdata.dataprogram', compact('program', 'id', 'extends', 'section'));                
+            }
+            else{
+                return redirect('dashboard');
+            }
+        }
+        else{
+            return redirect('dashboard');
+        }
+    }
+
+    public function chartdataprogram($id){
+        if(Auth::check()){
+            if(Auth::user()->pos == 'super'){
+                $extends = 'superadmin2.layouts.2template';
+                $section = 'konten2';
+                $program = DB::table('data')
+                    ->where('data.nama_puskesmas', $id)
+                    ->join('program', 'program.id', '=', 'data.nama_program')
+                    ->select('data.nama_program', 'program.nama_program')
+                    ->distinct()
+                    ->get();
+
+                return view('superadmin2.chartdata.dataprogram', compact('program', 'id', 'extends', 'section'));
             }
             else{
                 return redirect('dashboard');
@@ -947,7 +961,11 @@ class DataController extends Controller
             }
             else{
                if(Auth::user()->pos == 'super'){
+                    $extends = 'superadmin2.layouts.2template';
+                    $section = 'konten2';
+                    $data = DB::table('data')->where('nama_puskesmas', $id)->where('nama_program', $prg)->select('tahun')->distinct()->get();
 
+                    return view('superadmin2.chartdata.datatahun', compact('extends', 'section', 'id', 'data', 'nama'));
                 }
                 else if(Auth::user()->pos == 'admin'){
                     $extends = 'superadmin.layouts.template';
@@ -984,7 +1002,42 @@ class DataController extends Controller
             }
             else{
                 if(Auth::user()->pos == 'super'){
+                     $extends = 'superadmin2.layouts.2template';
+                    $section = 'konten2';
+                    $data = DB::table('data')->where('data.nama_puskesmas', $id)->where('data.nama_program', $prg)->where('data.tahun', $tahun)
+                    ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
+                    ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
+                    ->select('data.nama_puskesmas', 'data.tahun', 'data.target_pencapaian', 'data.nama_program', 'indikator.nama_indikator', 'targetumur.nama_targetumur')->get();
+                    // dd($data);
+                   $indikator2 = DB::table('data')->where('data.nama_puskesmas', $id)->where('data.nama_program', $prg)->where('data.tahun', $tahun)
+                    ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
+                    ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
+                    ->select('indikator.nama_indikator')->distinct()->get();
 
+                    $targetumur2 = DB::table('data')->where('data.nama_puskesmas', $id)->where('data.nama_program', $prg)->where('data.tahun', $tahun)
+                    ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
+                    ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
+                    ->select('targetumur.nama_targetumur')->distinct()->get();
+
+                    $targetumur = array();
+                    foreach ($targetumur2 as $tg) {
+                        array_push($targetumur, $tg->nama_targetumur);
+                    }
+
+                    $indikator = array();
+                    foreach ($indikator2 as $ind) {
+                        array_push($indikator, $ind->nama_indikator);
+                    }
+
+                    $label = $nama." ".$tahun;
+                    $dataindikator = array();
+                    // dd($data);
+                    foreach ($data as $data2) {
+                        array_push($dataindikator, $data2->target_pencapaian);
+                    }
+                    // dd($indikator);
+
+                    return view('superadmin2.chartdata.chartData', compact('data', 'targetumur', 'extends', 'section', 'tahun', 'nama', 'id', 'label', 'dataindikator', 'indikator'));
                 }
                 else if(Auth::user()->pos == 'admin'){
                     $extends = 'superadmin.layouts.template';
@@ -1015,7 +1068,7 @@ class DataController extends Controller
                         array_push($indikator, $ind->nama_indikator);
                     }
 
-                    $label = $nama;
+                    $label = $nama." ".$tahun;
                     $dataindikator = array();
                     // dd($data);
                     foreach ($data as $data2) {
@@ -1023,7 +1076,7 @@ class DataController extends Controller
                     }
                     // dd($indikator);
 
-                    return view('superadmin2.chartdata.chartSkdn', compact('data', 'targetumur', 'extends', 'section', 'tahun', 'nama', 'id', 'label', 'dataindikator', 'indikator'));
+                    return view('superadmin2.chartdata.chartData', compact('data', 'targetumur', 'extends', 'section', 'tahun', 'nama', 'id', 'label', 'dataindikator', 'indikator'));
                 }
                 else{
                     return redirect('dashboard');

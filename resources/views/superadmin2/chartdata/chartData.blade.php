@@ -21,7 +21,7 @@
            
             datasets: [
                 <?php 
-                $warna = array('rgb(59, 241, 15)', 'rgb(0,191,255)', 'rgb(238, 244, 66)', 'rgb(9, 32, 237)', 'rgb(242, 37, 14)', 'rgb(191, 8, 237)');
+                $warna = array('rgb(204, 133, 2)', 'rgb(0, 92, 4)', 'rgb(92, 0, 0)', 'rgb(0, 92, 90)', 'rgb(0, 35, 92)', 'rgb(92, 48, 0)');
                 for($i = 0; $i<count($targetumur); $i++){
                     ?>
                     {
