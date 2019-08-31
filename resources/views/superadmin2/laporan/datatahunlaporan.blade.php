@@ -16,7 +16,7 @@
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>
-                            <li class="active">Cetak Data</li>
+                            <li class="active">Laporan</li>
                         </ol>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                 @endif
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Data Table</strong>
+                        <strong class="card-title">Data Tahun</strong>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table">

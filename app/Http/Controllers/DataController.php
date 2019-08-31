@@ -1152,11 +1152,30 @@ class DataController extends Controller
 
                 $id = Auth::user()->puskesmas;
                 $puskesmas = DB::table('puskesmas')->where('id', $id)->select('nama_puskesmas')->get();
-                $data = DB::table('data')
-                ->where('nama_puskesmas', $id)
-                ->where('tahun', $tahun)->get();
+                // $data = DB::table('data')
+                // ->where('nama_puskesmas', $id)
+                // ->where('tahun', $tahun)
+                // ->join('idindikator', 'idindikator.id', '=', 'data.nama_indikator')->get();
+                $program = DB::table('data')
+                ->where('data.tahun', $tahun)
+                ->where('data.nama_puskesmas', $id)
+                ->join('program', 'program.id', '=', 'data.nama_program')
+                ->distinct()
+                ->select('program.nama_program', 'program.id')->get();
 
-                return view('superadmin2.laporan.cetaklaporan', compact('puskesmas', 'extends', 'section', 'id', 'data', 'tahun'));
+
+                $indikator = DB::table('data')
+                        ->where('data.tahun', $tahun)
+                        ->where('data.nama_puskesmas', $id)
+                        ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
+                        ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
+                        ->join('program', 'program.id', '=', 'data.nama_program')
+                        ->select('program.nama_program', 'indikator.id as idindikator','indikator.nama_indikator AS indikator', 'targetumur.nama_targetumur AS targetumur', 'data.nama_indikator', 'data.nama_targetumur', 'data.target_pencapaian', 'data.target_sasaran', 'data.adequasi_peformance', 'data.adequasi_effort', 'data.pencapaian', 'data.total_sasaran', 'data.sensitivitas', 'data.spesifitas', 'data.hasil')
+                        ->distinct()
+                        ->get();
+
+                // dd($indikator);
+                return view('superadmin2.laporan.cetaklaporan', compact('program', 'indikator', 'puskesmas', 'extends', 'section', 'id', 'data', 'tahun'));
             }
             else{
                 return redirect('dashboard');

@@ -261,57 +261,57 @@
 		                            </tbody>
 		                        </table>
 		                        <div class="row">
-					                    <div class="col">
-					                        <section class="" style="margin-bottom: 5%">
-					                            <div class="card-body text-secondary">
-					                            	<h4 align="center" style="font-weight: bold"> Sensifitas</h4>
-					                            	<table class="table" style="margin-bottom: 0px">
-					                            		<thead>
-					                            			<tr align="center" style="font-size: 14px">
-					                            				<th>Tahun</th>
-					                            				<th>Hasil</th>
-					                            			</tr>
-					                            		</thead>
-					                            		<tbody>
-					                            			@foreach($spsn as $sp)
-					                            			@if($sp['indikator'] == $indikator->nama_indikator)
-					                            			<tr align="center" style="font-size: 12px">
-					                            				<td>{{$sp['tahun']}}</td>
-					                            				<td>{{$sp['sens']}}%</td>
-					                            			</tr>
-					                            			@endif
-					                            			@endforeach
-					                            		</tbody>
-					                            	</table>
-					                            </div>
-					                        </section>
-					                    </div>
-					                    <div class="col">
-					                        <section class="" style="margin-bottom: 5%">
-					                            <div class="card-body text-secondary">
-					                            	<h4 align="center" style="font-weight: bold"> Spesifitas</h4>
-					                            	<table class="table" style="margin-bottom: 0px">
-					                            		<thead>
-					                            			<tr align="center" style="font-size: 14px">
-					                            				<th>Tahun</th>
-					                            				<th>Hasil</th>
-					                            			</tr>
-					                            		</thead>
-					                            		<tbody>
-					                            			@foreach($spsn as $sp)
-					                            			@if($sp['indikator'] == $indikator->nama_indikator)
-					                            			<tr align="center" style="font-size: 12px">
-					                            				<td>{{$sp['tahun']}}</td>
-					                            				<td>{{$sp['spes']}}%</td>
-					                            			</tr>
-					                            			@endif
-					                            			@endforeach
-					                            		</tbody>
-					                            	</table>
-					                            </div>
-					                        </section>
-					                    </div>
-					                </div>
+				                    <div class="col">
+				                        <section class="" style="margin-bottom: 5%">
+				                            <div class="card-body text-secondary">
+				                            	<h4 align="center" style="font-weight: bold"> Sensifitas</h4>
+				                            	<table class="table" style="margin-bottom: 0px">
+				                            		<thead>
+				                            			<tr align="center" style="font-size: 14px">
+				                            				<th>Tahun</th>
+				                            				<th>Hasil</th>
+				                            			</tr>
+				                            		</thead>
+				                            		<tbody>
+				                            			@foreach($spsn as $sp)
+				                            			@if($sp['indikator'] == $indikator->nama_indikator)
+				                            			<tr align="center" style="font-size: 12px">
+				                            				<td>{{$sp['tahun']}}</td>
+				                            				<td>{{$sp['sens']}}%</td>
+				                            			</tr>
+				                            			@endif
+				                            			@endforeach
+				                            		</tbody>
+				                            	</table>
+				                            </div>
+				                        </section>
+				                    </div>
+				                    <div class="col">
+				                        <section class="" style="margin-bottom: 5%">
+				                            <div class="card-body text-secondary">
+				                            	<h4 align="center" style="font-weight: bold"> Spesifitas</h4>
+				                            	<table class="table" style="margin-bottom: 0px">
+				                            		<thead>
+				                            			<tr align="center" style="font-size: 14px">
+				                            				<th>Tahun</th>
+				                            				<th>Hasil</th>
+				                            			</tr>
+				                            		</thead>
+				                            		<tbody>
+				                            			@foreach($spsn as $sp)
+				                            			@if($sp['indikator'] == $indikator->nama_indikator)
+				                            			<tr align="center" style="font-size: 12px">
+				                            				<td>{{$sp['tahun']}}</td>
+				                            				<td>{{$sp['spes']}}%</td>
+				                            			</tr>
+				                            			@endif
+				                            			@endforeach
+				                            		</tbody>
+				                            	</table>
+				                            </div>
+				                        </section>
+				                    </div>
+				                </div>
 		                        <!-- <form id="dataDelete" action="" method="POST">
 		                        	{{ csrf_field() }}
 		                        	<input name="id_data" type="text" hidden>

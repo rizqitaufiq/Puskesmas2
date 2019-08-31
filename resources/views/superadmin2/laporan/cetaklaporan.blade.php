@@ -44,295 +44,123 @@
         		<br><b>Tahun : </b> {{$tahun}}
         		<br><b>Tanggal Cetak : </b> <?php echo date("d-m-Y") ?>
         		<br>
-        		<h4 align="center"> KADARZI </h4>
-        		<table class="table">
-                    <thead>
-                        <tr align="center">
-                            <th>Jenis Kegiatan</th>
-                            <th>Target Pencapaian</th>
-                            <th>Pencapaian</th>
-                            <th>Total Sasaran</th>
-                            <th>Target Sasaran</th>
-                            <th>Nilai</th>
-                            <th>Target</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Menimbang berat badan secara teratur (Bayi (0-6 bulan))</td>
-                            <td>96</td>
-                            <td>96</td>
-                            <td>96</td>
-                            <td>96</td>
-                            <td>96</td>
 
-                            <td>tercapai</td>
-                        </tr>
-                        <tr>
-                            <td>Menimbang berat badan secara teratur(Baduta (6-11 bulan))</td>
-                            <td>81</td>
-                            <td>81</td>
-                            <td>81</td>
-                            <td>81</td>
-                            
-                            <td>81</td>
-                            <td>tercapai</td>
-                        </tr>
-                        <tr>
-                            <td>Menimbang berat badan secara teratur (Balita (12-60 Bulan))</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Pemberian asi ekslusif bayi usia 0-6 bulan (Bayi 0-6 Bulan))</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Makan makanan beraneka ragam (Keluarga)</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Menggunakan garam beryodium (Keluarga)</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Pemberian vitamin A (Balita (12-60 Bulan))</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Pemberian vitamin A (Baduta (6-11 Bulan))</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Pemberian vitamin A (Ibu Nifas)</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Pemberian tablet tambah darah (Ibu Hamil)</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Pemberian tablet tambah darah (Remaja Putri)</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <h4 align="center"> SKDN </h4>
-        		<table class="table">
-                    <thead>
-                        <tr align="center">
-                            <th>Jenis Kegiatan</th>
-                            <th>Target Pencapaian</th>
-                            <th>Pencapaian</th>
-                            <th>Total Sasaran</th>
-                            <th>Target Sasaran</th>
-                            <th>Nilai</th>
-                            <th>Target</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>K/S (Balita (12-60 bulan))</td>
-                            <td>96</td>
-                            <td>96</td>
-                            <td>96</td>
-                            <td>96</td>
-                            <td>96</td>
-
-                            <td>tercapai</td>
-                        </tr>
-                        <tr>
-                            <td>D/S (Balita (12-60 bulan))</td>
-                            <td>81</td>
-                            <td>81</td>
-                            <td>81</td>
-                            <td>81</td>
-                            <td>81</td>
-                            <td>tercapai</td>
-                        </tr>
-                        <tr>
-                            <td>D/K (Balita (12-60 bulan))</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>N/S (Balita (12-60 bulan))</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>N/D (Balita (12-60 bulan))</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>BGM/D (Balita (12-60 bulan))</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                    </tbody>
-                </table>
-                <h4 align="center"> PMT </h4>
-        		<table class="table">
-                    <thead>
-                        <tr align="center">
-                           	<th>Jenis Kegiatan</th>
-                            <th>Target Pencapaian</th>
-                            <th>Pencapaian</th>
-                            <th>Total Sasaran</th>
-                            <th>Target Sasaran</th>
-                            <th>Nilai</th>
-                            <th>Target</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>pemberian makanan tambahan gizi kurang (Baduta (6-11 Bulan))</td>
-                            <td>96</td>
-                            <td>96</td>
-                            <td>96</td>
-                            <td>96</td>
-                            <td>96</td>
-                            
-                            <td>tercapai</td>
-                        </tr>
-                        <tr>
-                            <td>pemberian makanan tambahan gizi kurang (Balita (12-60 Bulan))</td>
-                            <td>81</td>
-                            <td>81</td>
-                            <td>81</td>
-                            <td>81</td>
-                            <td>81</td>
-                            
-                            <td>tercapai</td>
-                        </tr>
-                        <tr>
-                            <td>Pemberian Makanan Tambahan ibu hamil KEK (Ibu Hamil)</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            <td>60</td>
-                            
-                            <td>tidak tercapai</td>
-                            
-                        </tr>
-                    </tbody>
-                </table>
-                <h4 align="center"> TTD </h4>
-        		<table class="table">
-                    <thead>
-                        <tr align="center">
-                            <th>Jenis Kegiatan</th>
-                            <th>Target Pencapaian</th>
-                            <th>Pencapaian</th>
-                            <th>Total Sasaran</th>
-                            <th>Target Sasaran</th>
-                            <th>Nilai</th>
-                            <th>Target</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Pemberian Tablet  Tambah Darah(Ibu Hamil)</td>
-                            <td>96</td>
-                            <td>96</td>
-                            <td>96</td>
-                            <td>96</td>
-                            <td>96</td>
-                            
-                            <td>tercapai</td>
-                        </tr>
-                        <tr>
-                            <td>Pemberian Tablet  Tambah Darah (Remaja Putri)</td>
-                            <td>81</td>
-                            <td>81</td>
-                            <td>81</td>
-                            <td>81</td>
-                            <td>81</td>
-                            
-                            <td>tercapai</td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
+                @foreach($program as $pr)
+                    @if($pr->nama_program == 'SKDN')
+                        <h4 align="center"> {{$pr->nama_program}} </h4>
+                        <table class="table">
+                            <thead>
+                                @php
+                                    $a = 0;
+                                @endphp
+                                <tr align="center">
+                                    <th style="width: 3%">No</th>
+                                    <th style="width: 27%">Jenis Kegiatan</th>
+                                    <th>Cakupan (%)</th>
+                                    <th>Target (%)</th>
+                                    <th>Adequasi Effort</th>
+                                    <th>Adequasi Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($indikator as $indi)
+                                    @if($pr->nama_program == $indi->nama_program)
+                                        <tr>
+                                            <td align="center">{{$a+=1}}</td>
+                                            <td>&nbsp {{$indi->indikator}} pada {{$indi->targetumur}}</td>
+                                            <td align="center">{{$indi->target_pencapaian}}%</td>
+                                            <td align="center">{{$indi->target_sasaran}}%</td>
+                                            <td align="center">{{$indi->adequasi_effort}}%</td>
+                                            <td align="center">{{$indi->adequasi_peformance}}%</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>  
+                        <div class="row">
+                                    <div class="col">
+                                        <section class="" style="margin-bottom: 5%">
+                                            <div class="card-body text-secondary">
+                                                <h4 align="center" style="font-weight: bold"> Sensifitas</h4>
+                                                <table class="table" style="margin-bottom: 0px">
+                                                    <thead>
+                                                        <tr align="center" style="font-size: 14px">
+                                                            <th>Hasil</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr align="center" style="font-size: 12px">
+                                                            <td>124%</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="col">
+                                        <section class="" style="margin-bottom: 5%">
+                                            <div class="card-body text-secondary">
+                                                <h4 align="center" style="font-weight: bold"> Spesifitas</h4>
+                                                <table class="table" style="margin-bottom: 0px">
+                                                    <thead>
+                                                        <tr align="center" style="font-size: 14px">
+                                                            <th>Hasil</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr align="center" style="font-size: 12px">
+                                                            <td>10%</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                    @else
+                    <h4 align="center"> {{$pr->nama_program}} </h4>
+                        <table class="table">
+                            <thead>
+                                @php
+                                    $a = 0;
+                                @endphp
+                                <tr align="center">
+                                    <th style="width: 3%">No</th>
+                                    <th style="width: 27%">Jenis Kegiatan</th>
+                                    <th>Pencapaian (N)</th>
+                                    <th>Cakupan (%)</th>
+                                    <th>Jumlah Sasaran (N)</th>
+                                    <th>Target (%)</th>
+                                    <th>Adequasi Effort</th>
+                                    <th>Adequasi Performance</th>
+                                    <th>sensitivitas</th>
+                                    <th>spesifitas</th>
+                                    <th>Hasil</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($indikator as $indi)
+                                    @if($pr->nama_program == $indi->nama_program)
+                                        <tr>
+                                            <td align="center">{{$a+=1}}</td>
+                                            <td>&nbsp {{$indi->indikator}} pada {{$indi->targetumur}}</td>
+                                            <td align="center">{{$indi->pencapaian}}</td>
+                                            <td align="center">{{$indi->target_pencapaian}}%</td>
+                                            <td align="center">{{$indi->total_sasaran}}</td>
+                                            <td align="center">{{$indi->target_sasaran}}%</td>
+                                            <td align="center">{{$indi->adequasi_effort}}%</td>
+                                            <td align="center">{{$indi->adequasi_peformance}}%</td>
+                                            <td align="center">{{$indi->sensitivitas}}%</td>
+                                            <td align="center">{{$indi->spesifitas}}%</td>
+                                            <td align="center">{{$indi->hasil}}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>  
+                    @endif
+                @endforeach
             </div>
             <div style="margin-top: 3%">
                 <input class="btn btn-primary" type="button" onclick="printDiv('printableArea')" value="Cetak" />
