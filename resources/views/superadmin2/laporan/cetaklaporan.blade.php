@@ -39,6 +39,7 @@
         <div style="margin: 5% 10% 5% 10%">
             <div id="printableArea">
         		<h1><center>Laporan Form Evaluasi Program</center></h1>
+                <br><br>
 
         		<b>Nama Puskesmas : </b> {{$puskesmas[0]->nama_puskesmas}}
         		<br><b>Tahun : </b> {{$tahun}}
@@ -48,6 +49,34 @@
                 @foreach($program as $pr)
                     @if($pr->nama_program == 'SKDN')
                         <h4 align="center"> {{$pr->nama_program}} </h4>
+
+                        <table class="table">
+                            <thead>
+                                @php
+                                    $a = 0;
+                                @endphp
+                                <tr align="center">
+                                    <th style="width: 3%">No</th>
+                                    <th>Data S</th>
+                                    <th>Data K</th>
+                                    <th>Data D</th>
+                                    <th>Data N</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($skdndata as $indi2)
+                                    <tr>
+                                        <td align="center">{{$a+=1}}</td>
+                                        <td align="center">&nbsp {{$indi2['Data_S']}}</td>
+                                        <td align="center">{{$indi2['Data_K']}}</td>
+                                        <td align="center">{{$indi2['Data_D']}}</td>
+                                        <td align="center">{{$indi2['Data_N']}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>  
+                        
+
                         <table class="table">
                             <thead>
                                 @php
@@ -60,63 +89,28 @@
                                     <th>Target (%)</th>
                                     <th>Adequasi Effort</th>
                                     <th>Adequasi Performance</th>
+                                    <th>sensitivitas</th>
+                                    <th>spesifitas</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($indikator as $indi)
-                                    @if($pr->nama_program == $indi->nama_program)
+                                @foreach($data as $indi)
+                                    @if($pr->nama_program == $indi['nama_program'])
                                         <tr>
                                             <td align="center">{{$a+=1}}</td>
-                                            <td>&nbsp {{$indi->indikator}} pada {{$indi->targetumur}}</td>
-                                            <td align="center">{{$indi->target_pencapaian}}%</td>
-                                            <td align="center">{{$indi->target_sasaran}}%</td>
-                                            <td align="center">{{$indi->adequasi_effort}}%</td>
-                                            <td align="center">{{$indi->adequasi_peformance}}%</td>
+                                            <td>&nbsp {{$indi['indikator']}} pada {{$indi['targetumur']}}</td>
+                                            <td align="center">{{$indi['target_pencapaian']}}%</td>
+                                            <td align="center">{{$indi['target_sasaran']}}%</td>
+                                            <td align="center">{{$indi['adequasi_effort']}}%</td>
+                                            <td align="center">{{$indi['adequasi_peformance']}}%</td>
+                                            <td align="center">{{$indi['sensitivitas']}}%</td>
+                                            <td align="center">{{$indi['spesifitas']}}%</td>
                                         </tr>
                                     @endif
                                 @endforeach
                             </tbody>
                         </table>  
-                        <div class="row">
-                                    <div class="col">
-                                        <section class="" style="margin-bottom: 5%">
-                                            <div class="card-body text-secondary">
-                                                <h4 align="center" style="font-weight: bold"> Sensifitas</h4>
-                                                <table class="table" style="margin-bottom: 0px">
-                                                    <thead>
-                                                        <tr align="center" style="font-size: 14px">
-                                                            <th>Hasil</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr align="center" style="font-size: 12px">
-                                                            <td>124%</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </section>
-                                    </div>
-                                    <div class="col">
-                                        <section class="" style="margin-bottom: 5%">
-                                            <div class="card-body text-secondary">
-                                                <h4 align="center" style="font-weight: bold"> Spesifitas</h4>
-                                                <table class="table" style="margin-bottom: 0px">
-                                                    <thead>
-                                                        <tr align="center" style="font-size: 14px">
-                                                            <th>Hasil</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr align="center" style="font-size: 12px">
-                                                            <td>10%</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </section>
-                                    </div>
-                                </div>
+                        
                     @else
                     <h4 align="center"> {{$pr->nama_program}} </h4>
                         <table class="table">
@@ -140,20 +134,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($indikator as $indi)
-                                    @if($pr->nama_program == $indi->nama_program)
+                                @foreach($data as $indi)
+                                    @if($pr->nama_program == $indi['nama_program'])
                                         <tr>
                                             <td align="center">{{$a+=1}}</td>
-                                            <td>&nbsp {{$indi->indikator}} pada {{$indi->targetumur}}</td>
-                                            <td align="center">{{$indi->pencapaian}}</td>
-                                            <td align="center">{{$indi->target_pencapaian}}%</td>
-                                            <td align="center">{{$indi->total_sasaran}}</td>
-                                            <td align="center">{{$indi->target_sasaran}}%</td>
-                                            <td align="center">{{$indi->adequasi_effort}}%</td>
-                                            <td align="center">{{$indi->adequasi_peformance}}%</td>
-                                            <td align="center">{{$indi->sensitivitas}}%</td>
-                                            <td align="center">{{$indi->spesifitas}}%</td>
-                                            <td align="center">{{$indi->hasil}}</td>
+                                            <td>&nbsp {{$indi['indikator']}} pada {{$indi['targetumur']}}</td>
+                                            <td align="center">{{$indi['pencapaian']}}</td>
+                                            <td align="center">{{$indi['target_pencapaian']}}%</td>
+                                            <td align="center">{{$indi['total_sasaran']}}</td>
+                                            <td align="center">{{$indi['target_sasaran']}}%</td>
+                                            <td align="center">{{$indi['adequasi_effort']}}%</td>
+                                            <td align="center">{{$indi['adequasi_peformance']}}%</td>
+                                            <td align="center">{{$indi['sensitivitas']}}%</td>
+                                            <td align="center">{{$indi['spesifitas']}}%</td>
+                                            <td align="center">{{$indi['hasil']}}</td>
                                         </tr>
                                     @endif
                                 @endforeach

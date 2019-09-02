@@ -1173,9 +1173,302 @@ class DataController extends Controller
                         ->select('program.nama_program', 'indikator.id as idindikator','indikator.nama_indikator AS indikator', 'targetumur.nama_targetumur AS targetumur', 'data.nama_indikator', 'data.nama_targetumur', 'data.target_pencapaian', 'data.target_sasaran', 'data.adequasi_peformance', 'data.adequasi_effort', 'data.pencapaian', 'data.total_sasaran', 'data.sensitivitas', 'data.spesifitas', 'data.hasil')
                         ->distinct()
                         ->get();
-
                 // dd($indikator);
-                return view('superadmin2.laporan.cetaklaporan', compact('program', 'indikator', 'puskesmas', 'extends', 'section', 'id', 'data', 'tahun'));
+                $skdn = DB::table('skdn')->where('tahun', $tahun)->where('nama_puskesmas', $id)->get();
+                if(count($skdn) !== 0){
+                    foreach ($skdn as $skdn2) {
+                        $skdndata[0]['Data_S'] = $skdn2->Data_S;
+                        $skdndata[0]['Data_K'] = $skdn2->Data_K;
+                        $skdndata[0]['Data_D'] = $skdn2->Data_D;
+                        $skdndata[0]['Data_N'] = $skdn2->Data_N;
+                        $skdndata[0]['tahun'] = $skdn2->tahun;
+                    }
+                }
+                else{
+                    $skdndata[0]['Data_S'] = 0;
+                    $skdndata[0]['Data_K'] = 0;
+                    $skdndata[0]['Data_D'] = 0;
+                    $skdndata[0]['Data_N'] = 0;
+                    $skdndata[0]['tahun']  = 0;
+                }
+
+                $g = 0;
+                if(count($indikator) !== 0){
+                    foreach ($indikator as $value) {
+                        if($value->nama_program == 'SKDN'){
+                            if(count($skdn) !== 0){
+                                foreach ($skdn as $key) {
+                                    if($value->nama_indikator == 4){
+                                        $total = $key->Data_S;
+                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                        $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                        $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                        $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                        $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                        $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                        if($value->target_pencapaian == 100){
+                                            $spes               = "0";
+                                        }else{
+                                            $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                        }
+                                        $data[$g]['nama_program']           = $value->nama_program;
+                                        $data[$g]['idindikator']            = $value->idindikator;
+                                        $data[$g]['indikator']              = $value->indikator;
+                                        $data[$g]['targetumur']             = $value->targetumur;
+                                        $data[$g]['nama_indikator']         = $value->nama_indikator;
+                                        $data[$g]['nama_targetumur']        = $value->nama_targetumur;
+                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
+                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
+                                        $data[$g]['adequasi_effort']        = $value->adequasi_effort;
+                                        $data[$g]['pencapaian']             = $value->pencapaian;
+                                        $data[$g]['total_sasaran']          = $value->total_sasaran;
+                                        $data[$g]['sensitivitas']           = $sens;
+                                        $data[$g]['spesifitas']             = $spes;
+                                        $data[$g]['hasil']                  = $value->hasil;
+                                        $g++;
+
+                                    }
+                                    elseif($value->nama_indikator == 3){
+                                        $total = $key->Data_S;
+                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                        $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                        $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                        $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                        $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                        $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                        if($value->target_pencapaian == 100){
+                                            $spes               = "0";
+                                        }else{
+                                            $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                        }
+                                        
+                                        $data[$g]['nama_program']           = $value->nama_program;
+                                        $data[$g]['idindikator']            = $value->idindikator;
+                                        $data[$g]['indikator']              = $value->indikator;
+                                        $data[$g]['targetumur']             = $value->targetumur;
+                                        $data[$g]['nama_indikator']         = $value->nama_indikator;
+                                        $data[$g]['nama_targetumur']        = $value->nama_targetumur;
+                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
+                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
+                                        $data[$g]['adequasi_effort']        = $value->adequasi_effort;
+                                        $data[$g]['pencapaian']             = $value->pencapaian;
+                                        $data[$g]['total_sasaran']          = $value->total_sasaran;
+                                        $data[$g]['sensitivitas']           = $sens;
+                                        $data[$g]['spesifitas']             = $spes;
+                                        $data[$g]['hasil']                  = $value->hasil;
+                                        $g++;
+                                    }
+                                    elseif($value->nama_indikator == 5){
+                                        $total = $key->Data_D;
+                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                        $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                        $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                        $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                        $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                        $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                        if($value->target_pencapaian == 100){
+                                            $spes               = "0";
+                                        }else{
+                                            $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                        }
+                                        
+                                        $data[$g]['nama_program']           = $value->nama_program;
+                                        $data[$g]['idindikator']            = $value->idindikator;
+                                        $data[$g]['indikator']              = $value->indikator;
+                                        $data[$g]['targetumur']             = $value->targetumur;
+                                        $data[$g]['nama_indikator']         = $value->nama_indikator;
+                                        $data[$g]['nama_targetumur']        = $value->nama_targetumur;
+                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
+                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
+                                        $data[$g]['adequasi_effort']        = $value->adequasi_effort;
+                                        $data[$g]['pencapaian']             = $value->pencapaian;
+                                        $data[$g]['total_sasaran']          = $value->total_sasaran;
+                                        $data[$g]['sensitivitas']           = $sens;
+                                        $data[$g]['spesifitas']             = $spes;
+                                        $data[$g]['hasil']                  = $value->hasil;
+                                        $g++;
+                                    }
+                                    elseif($value->nama_indikator == 6){
+                                        $total = $key->Data_S;
+                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                        $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                        $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                        $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                        $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                        $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                        if($value->target_pencapaian == 100){
+                                            $spes               = "0";
+                                        }else{
+                                            $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                        }
+                                        
+                                        $data[$g]['nama_program']           = $value->nama_program;
+                                        $data[$g]['idindikator']            = $value->idindikator;
+                                        $data[$g]['indikator']              = $value->indikator;
+                                        $data[$g]['targetumur']             = $value->targetumur;
+                                        $data[$g]['nama_indikator']         = $value->nama_indikator;
+                                        $data[$g]['nama_targetumur']        = $value->nama_targetumur;
+                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
+                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
+                                        $data[$g]['adequasi_effort']        = $value->adequasi_effort;
+                                        $data[$g]['pencapaian']             = $value->pencapaian;
+                                        $data[$g]['total_sasaran']          = $value->total_sasaran;
+                                        $data[$g]['sensitivitas']           = $sens;
+                                        $data[$g]['spesifitas']             = $spes;
+                                        $data[$g]['hasil']                  = $value->hasil;
+                                        $g++;
+                                    }
+                                    elseif($value->nama_indikator == 7){
+                                        $total = $key->Data_S;
+                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                        $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                        $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                        $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                        $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                        $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                        if($value->target_pencapaian == 100){
+                                            $spes               = "0";
+                                        }else{
+                                            $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                        }
+                                        
+                                        $data[$g]['nama_program']           = $value->nama_program;
+                                        $data[$g]['idindikator']            = $value->idindikator;
+                                        $data[$g]['indikator']              = $value->indikator;
+                                        $data[$g]['targetumur']             = $value->targetumur;
+                                        $data[$g]['nama_indikator']         = $value->nama_indikator;
+                                        $data[$g]['nama_targetumur']        = $value->nama_targetumur;
+                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
+                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
+                                        $data[$g]['adequasi_effort']        = $value->adequasi_effort;
+                                        $data[$g]['pencapaian']             = $value->pencapaian;
+                                        $data[$g]['total_sasaran']          = $value->total_sasaran;
+                                        $data[$g]['sensitivitas']           = $sens;
+                                        $data[$g]['spesifitas']             = $spes;
+                                        $data[$g]['hasil']                  = $value->hasil;
+                                        $g++;
+                                    }
+                                    elseif($value->nama_indikator == 8){
+                                        $total = $key->Data_K;
+                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                        $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                        $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                        $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                        $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                        $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                        if($value->target_pencapaian == 100){
+                                            $spes               = "0";
+                                        }else{
+                                            $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                        }
+                                        
+                                        $data[$g]['nama_program']           = $value->nama_program;
+                                        $data[$g]['idindikator']            = $value->idindikator;
+                                        $data[$g]['indikator']              = $value->indikator;
+                                        $data[$g]['targetumur']             = $value->targetumur;
+                                        $data[$g]['nama_indikator']         = $value->nama_indikator;
+                                        $data[$g]['nama_targetumur']        = $value->nama_targetumur;
+                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
+                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
+                                        $data[$g]['adequasi_effort']        = $value->adequasi_effort;
+                                        $data[$g]['pencapaian']             = $value->pencapaian;
+                                        $data[$g]['total_sasaran']          = $value->total_sasaran;
+                                        $data[$g]['sensitivitas']           = $sens;
+                                        $data[$g]['spesifitas']             = $spes;
+                                        $data[$g]['hasil']                  = $value->hasil;
+                                        $g++;
+                                    }
+                                    else{
+                                        $data[$g]['nama_program']           = $value->nama_program;
+                                        $data[$g]['idindikator']            = $value->idindikator;
+                                        $data[$g]['indikator']              = $value->indikator;
+                                        $data[$g]['targetumur']             = $value->targetumur;
+                                        $data[$g]['nama_indikator']         = $value->nama_indikator;
+                                        $data[$g]['nama_targetumur']        = $value->nama_targetumur;
+                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
+                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
+                                        $data[$g]['adequasi_effort']        = $value->adequasi_effort;
+                                        $data[$g]['pencapaian']             = $value->pencapaian;
+                                        $data[$g]['total_sasaran']          = $value->total_sasaran;
+                                        $data[$g]['sensitivitas']           = "-";
+                                        $data[$g]['spesifitas']             = "-";
+                                        $data[$g]['hasil']                  = $value->hasil;
+                                        $g++;
+                                    }
+                                }
+                            }
+                            else{
+
+                                $data[$g]['nama_program']           = $value->nama_program;
+                                $data[$g]['idindikator']            = $value->idindikator;
+                                $data[$g]['indikator']              = $value->indikator;
+                                $data[$g]['targetumur']             = $value->targetumur;
+                                $data[$g]['nama_indikator']         = $value->nama_indikator;
+                                $data[$g]['nama_targetumur']        = $value->nama_targetumur;
+                                $data[$g]['target_pencapaian']      = $value->target_pencapaian;
+                                $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
+                                $data[$g]['adequasi_effort']        = $value->adequasi_effort;
+                                $data[$g]['pencapaian']             = $value->pencapaian;
+                                $data[$g]['total_sasaran']          = $value->total_sasaran;
+                                $data[$g]['sensitivitas']           = $value->sensitivitas;
+                                $data[$g]['spesifitas']             = $value->spesifitas;
+                                $data[$g]['hasil']                  = $value->hasil;
+                                $g++;
+                            }
+                        }
+                        else{
+                            $data[$g]['nama_program']           = $value->nama_program;
+                            $data[$g]['idindikator']            = $value->idindikator;
+                            $data[$g]['indikator']              = $value->indikator;
+                            $data[$g]['targetumur']             = $value->targetumur;
+                            $data[$g]['nama_indikator']         = $value->nama_indikator;
+                            $data[$g]['nama_targetumur']        = $value->nama_targetumur;
+                            $data[$g]['target_pencapaian']      = $value->target_pencapaian;
+                            $data[$g]['target_sasaran']         = $value->target_sasaran;
+                            $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
+                            $data[$g]['adequasi_effort']        = $value->adequasi_effort;
+                            $data[$g]['pencapaian']             = $value->pencapaian;
+                            $data[$g]['total_sasaran']          = $value->total_sasaran;
+                            $data[$g]['sensitivitas']           = $value->sensitivitas;
+                            $data[$g]['spesifitas']             = $value->spesifitas;
+                            $data[$g]['hasil']                  = $value->hasil;
+                            $g++;
+                        }
+                    }
+                }
+                else{
+                    $data[0]['nama_program']           = 0;
+                    $data[0]['idindikator']            = 0;
+                    $data[0]['indikator']              = 0;
+                    $data[0]['targetumur']             = 0;
+                    $data[0]['nama_indikator']         = 0;
+                    $data[0]['nama_targetumur']        = 0;
+                    $data[0]['target_pencapaian']      = 0;
+                    $data[0]['target_sasaran']         = 0;
+                    $data[0]['adequasi_peformance']    = 0;
+                    $data[0]['adequasi_effort']        = 0;
+                    $data[0]['pencapaian']             = 0;
+                    $data[0]['total_sasaran']          = 0;
+                    $data[0]['sensitivitas']           = 0;
+                    $data[0]['spesifitas']             = 0;
+                    $data[0]['hasil']                  = 0;
+                }
+
+                return view('superadmin2.laporan.cetaklaporan', compact('skdndata', 'program', 'data', 'puskesmas', 'extends', 'section', 'id', 'data', 'tahun'));
             }
             else{
                 return redirect('dashboard');
