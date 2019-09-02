@@ -17,7 +17,7 @@
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>
                             <li><a href="#">Laporan</a></li>
-                            <li class="active">Data Tahun</li>
+                            <li class="active">Data Puskesmas</li>
                         </ol>
                     </div>
                 </div>
@@ -41,14 +41,14 @@
                 @endif
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Data Tahun</strong>
+                        <strong class="card-title">Data Puskesmas</strong>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table">
                             <thead>
                                 <tr align="center">
                                     <th>No</th>
-                                    <th>Tahun</th>
+                                    <th>Puskesmas</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -56,11 +56,11 @@
                                 @php
                                     $a = 0;
                                 @endphp
-                                @foreach($data as $data2)
+                                @foreach($user as $user)
                                 <tr>
                                     <td align ="center">{{$a+=1}}</td>
-                                    <td align ="center">{{$data2->tahun}}</td>
-                                    <td align ="center"><a href="{{route('laporan.cetak', ['id' => $id, 'tahun' => $data2->tahun])}}" class="btn btn-warning">Lihat</a> </td>
+                                    <td align ="center">{{$user->puskesmas}}</td>
+                                    <td align ="center"><a href="{{route('laporan.datatahun', $user->nama_puskesmas)}}" class="btn btn-warning">Lihat</a>
                                 </tr>
                                 @endforeach
                             </tbody>
