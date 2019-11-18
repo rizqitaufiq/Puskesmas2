@@ -115,8 +115,10 @@ class ProgramController extends Controller
      */
     public function edit($id)
     {
+        // echo "string";
         if($this->checkakun() == true){
             $program = Program::findOrFail($id);
+
             return view('superadmin2.program.editprogram', compact('program', 'id'));
         }
         else{

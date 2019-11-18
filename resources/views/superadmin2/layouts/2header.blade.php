@@ -19,7 +19,7 @@
                     <div class="dropdown-menu" aria-labelledby="notification">
                         <p class="red">Kamu mempunyai 1 pemberitahuan</p>
                         
-                        <a class="dropdown-item media" href="#">
+                        <a class="dropdown-item media" href="{{ route('notif-skdn')}}">
                             <i class="fa fa-warning"></i>
                             <p>Tahun 2014 Puskesmas Dau tidak memenuhi target.</p>
                         </a>

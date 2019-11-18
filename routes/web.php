@@ -74,6 +74,7 @@ Route::get('/dashboard/data/input/skdn/skdn', 'SkdnController@inputSkdn')->name(
 // Route::get('/dashboard/kadarzi/datapus', 'KadarziController@datapus')->name('kadarzi.datapus');
 // Route::get('/dashboard/ttd/datapus', 'TtdController@datapus')->name('ttd.datapus');
 
+Route::resource('dashboard/program','ProgramController');
 Route::get('/dashboard', 'UserController@index')->name('dashboard.index');
 Route::get('/dashboard/create', 'UserController@create')->name('dashboard.create');
 Route::get('/dashboard/deleteuser/{id}', 'UserController@destroy');
@@ -146,13 +147,13 @@ Route::get('dashboard/{id}/{nama}/edit', 'DataController@edit')->name('data.edit
 // Route::get('dashboard/pmt/savedata', 'PmtController@savedata')->name('pmt.savedata');
 // Route::get('dashboard/ttd/savedata', 'TtdController@savedata')->name('ttd.savedata');
 // Route::get('kadarzi/delete/{id}', 'KadarziController@destroy');
-
+Route::get('dashboard/notif/skdn', 'NotifController@notifskdn')->name('notif-skdn');
 Route::resource('dashboard/program/skdn', 'SkdnController');
 // Route::resource('dashboard/kadarzi', 'KadarziController');
 // Route::resource('dashboard/pmt', 'PmtController');
 // Route::resource('dashboard/ttd', 'TtdController');
 
-Route::resource('dashboard/program','ProgramController');
+
 Route::resource('dashboard/indikator','IndikatorController');
 Route::resource('dashboard/target','TargetController');
 Route::resource('dashboard/data', 'DataController');
