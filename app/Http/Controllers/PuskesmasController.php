@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Puskesmas;
+use App\Data;
+use App\Skdn;
+use App\Notif;
+use App\User;
 
 class PuskesmasController extends Controller
 {
@@ -146,6 +151,10 @@ class PuskesmasController extends Controller
     {
         if($this->checkakun()==true){
             $puskesmas = Puskesmas::findOrFail($id);
+            Data::where('nama_puskesmas',$id)->delete();
+            Skdn::where('nama_puskesmas',$id)->delete();
+            Notif::where('id_puskesmas',$id)->delete();
+            User::where('puskesmas',$id)->delete();
             $puskesmas->delete();
             return redirect('dashboard/puskesmas')->with('alert-success', 'Program Berhasil di Hapus');
         }

@@ -108,15 +108,14 @@ class SkdnController extends Controller
                 $extends = 'superadmin.layouts.template';
                 $section = 'konten'; 
 
-                $skdn = Skdn::all();
+                $skdn = Skdn::findOrFail($id);
                 return view('superadmin.editdataskdn', compact('id','skdn', 'extends', 'section'));
             }
             elseif(Auth::user()->pos == 'super'){
                 $extends = 'superadmin2.layouts.2template';
                 $section = 'konten2';
 
-                $skdn = Skdn::all();
-
+                $skdn = Skdn::findOrFail($id);
                 return view('superadmin.editdataskdn', compact('id', 'skdn', 'extends', 'section'));
             }
         }

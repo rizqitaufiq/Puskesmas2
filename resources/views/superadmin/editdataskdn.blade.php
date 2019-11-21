@@ -57,38 +57,38 @@
 			                    <label for="exampleInputuname">Data S</label>
 			                    <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-users"></i></div>
-                                    <input type="number" id="data_s" step="any" name="data_s" placeholder="Masukkan Data S" class="form-control" value="{{$skdn[0]->Data_S}}" required>
+                                    <input type="number" id="data_s" step="any" name="data_s" placeholder="Masukkan Data S" class="form-control" value="{{$skdn->Data_S}}" required>
                                 </div>
 			                </div>
 			                <div class="form-group has-success">
 			                    <label class="control-label">Data K</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-users"></i></div>
-			                        <input type="number" id="data_k" value="{{$skdn[0]->Data_K}}" step="any"  name="data_k" placeholder="Masukkan Data K" class="form-control" required>
+			                        <input type="number" id="data_k" value="{{$skdn->Data_K}}" step="any"  name="data_k" placeholder="Masukkan Data K" class="form-control" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">
 			                    <label for="exampleInputuname">Data D</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-bar-chart-o"></i></div>
-			                        <input name="data_d" type="number" value="{{$skdn[0]->Data_D}}" step="any" class="form-control" id="data_d" placeholder="Masukkan Data D" required>
+			                        <input name="data_d" type="number" value="{{$skdn->Data_D}}" step="any" class="form-control" id="data_d" placeholder="Masukkan Data D" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">
 			                    <label class="control-label">Data N</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
-			                        <input type="number" id="data_n" value="{{$skdn[0]->Data_N}}" name="data_n" placeholder="Masukkan Data N" class="form-control" required>
+			                        <input type="number" id="data_n" value="{{$skdn->Data_N}}" name="data_n" placeholder="Masukkan Data N" class="form-control" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">
 			                    <label class="control-label">Tahun</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-			                        <input type="number" id="tahun" value="{{$skdn[0]->tahun}}" name="tahun" placeholder="Masukkan Tahun" class="form-control" disabled>
+			                        <input type="number" id="tahun" value="{{$skdn->tahun}}" name="tahun" placeholder="Masukkan Tahun" class="form-control" disabled>
 			                    </div>
 			                </div>
-                            <input type="number" id="nama_puskesmas" name="nama_puskesmas" value="{{$skdn[0]->nama_puskesmas}}" hidden>
+                            <input type="number" id="nama_puskesmas" name="nama_puskesmas" value="{{$skdn->nama_puskesmas}}" hidden>
 			                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Input</button>
 			                <a href="{{ route('data.input')}}" class="btn btn-danger waves-effect waves-light m-r-10">Cancel</a>
 			            </form>
