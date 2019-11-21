@@ -11,6 +11,7 @@ use App\Targetumur;
 use App\User;
 use App\Data;
 use App\Skdn;
+use App\Notif;
 
 class DataController extends Controller
 {
@@ -62,6 +63,12 @@ class DataController extends Controller
 
                     if($request->get('target_sasaran') >= $request->get('target_pencapaian')){
                         $hasil = "Tidak Tercapai";
+                        $notif = new Notif();
+                        $notif->id_puskesmas = $id;
+                        $notif->id_program = $request->get('program');
+                        $notif->dibaca = "0";
+                        $notif->tahun = $request->get('tahun');
+                        $notif->save();
                     }
                     else{
                         $hasil = "Tercapai";
@@ -181,14 +188,50 @@ class DataController extends Controller
 
     public function update(Request $request, $id){
         if(Auth::check()){
+            // dd($request);
             $adquef = round($request->get('target_pencapaian')/$request->get('target_sasaran')*100, 2);
             $adqupef = round($adquef-100, 2);
 
             if($request->get('target_sasaran') >= $request->get('target_pencapaian')){
                 $hasil = "Tidak Tercapai";
+                $data1 = Data::findOrFail($id);
+                $notif_id = DB::table('notif')
+                    ->where('id_program', $data1->nama_program)
+                    ->where('id_puskesmas', $data1->nama_puskesmas)
+                    ->where('tahun', $data1->tahun)
+                    ->select('id')
+                    ->get();
+                if(!$notif_id->isEmpty()){
+                    $notif = Notif::find($notif_id[0]->id);
+                    $notif->id_puskesmas = $data1->nama_puskesmas;
+                    $notif->id_program = $data1->nama_program;
+                    $notif->dibaca = "0";
+                    $notif->tahun = $data1->tahun;
+                    $notif->save();     
+                }
+                else{
+                    $notif = new Notif();
+                    $notif->id_puskesmas = $data1->nama_puskesmas;
+                    $notif->id_program = $data1->nama_program;
+                    $notif->dibaca = "0";
+                    $notif->tahun = $data1->tahun;
+                    $notif->save();
+                }
+               
             }
             else{
                 $hasil = "Tercapai";
+                $data1 = Data::findOrFail($id);
+                $notif_id = DB::table('notif')
+                    ->where('id_program', $data1->nama_program)
+                    ->where('id_puskesmas', $data1->nama_puskesmas)
+                    ->where('tahun', $data1->tahun)
+                    ->select('id')
+                    ->get();
+                if(!$notif_id->isEmpty()){
+                    $notif = Notif::find($notif_id[0]->id);
+                    $notif->delete();
+                }
             }//sensitivitas & spesifitas
             if($request->get('total_sasaran') === "-"){
                 $total = $request->get('total_sasaran');
@@ -247,6 +290,16 @@ class DataController extends Controller
     public function destroy($id){
         if(Auth::check()){
             $data = Data::findOrFail($id);
+            $notif_id = DB::table('notif')
+                ->where('id_program', $data->nama_program)
+                ->where('id_puskesmas', $data->nama_puskesmas)
+                ->where('tahun', $data->tahun)
+                ->select('id')
+                ->get();
+            if(!$notif_id->isEmpty()){
+                $notif = Notif::find($notif_id[0]->id);
+                $notif->delete();
+            }   
             $data->delete();
             return redirect('dashboard/data')->with('alert-success', 'Data Berhasil di Hapus');
         }

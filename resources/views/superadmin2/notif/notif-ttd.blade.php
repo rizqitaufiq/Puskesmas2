@@ -1,15 +1,6 @@
 @extends($extends)
 
 @section($section)
-<script type="text/javascript">
-	$(document).ready(function() {
-	    $("table[id^='TABLE']").DataTable( {
-	        "scrollCollapse": false,
-	        "searching": true,
-	        "paging": true
-	    } );
-	} );
-</script>
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
@@ -52,69 +43,41 @@
 	                <div class="card">
 	                	<div class="card-header">
 	                		<a class="card-link">
-						    	<strong class="card-title">Rekomendasi </strong>
+						    	<strong class="card-title">Rekomendasi</strong>
 						    </a>
 	                	</div>
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">1.	Pembinaan dan pelatihan posyandu </strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">2.	Motivasi Kader, Ibu Hamil, dan Ibu Balita </strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">3.	Dukungan tokoh masyarakat dan swadaya masyarakat dalam kegiatan posyandu</strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">4.	Kegiatan tambahan</strong>
-						    </a>
-	                    </div>
-
-	                     <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link" >
-						    	<strong class="card-title">5.	Mengoptimalkan kelas ibu hamil dan kelas ibu balita</strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">6.	Sertifikasi bagi kader aktif</strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">7.	Penyuluhan kepada kader dan ibu balita tentang makna penimbangan</strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">8.	Penguatan koordinasi lintas program dan lintas sektor</strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">9.	Pemberian PMT (Pemberian Makanan Tambahan) pada balita dengan gizi kurang</strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 10px 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">10.	Melakukan pendampingan kepada balita yang menerima PMT untuk mengetahui bahwa PMT telah dikonsumsi oleh balita yang tepat serta memantau pertumbuhan dan perkembangan balita</strong>
-						    </a>
-	                    </div>
-
+	                	<div class="vue-lists">
+	                		<h4 class="card-body" style="padding-bottom: 0 ">
+	                			<strong>Jika Belum Mencapai Target</strong>
+	                		</h4>
+                            <ul style="margin-left: 15px;">
+                                <li class="card-body" style="padding: 10px 10px 0 15px">
+                                  <strong> Rekomendasi Distribusi tablet Fe untuk ibu hamil </strong>
+                                    <ul class="vue-list-inner" align = "justify" style="padding-right: 30px">
+	                                    <li>
+	                                    	Tenaga kesehatan Puskesmas harus aktif dalam melayani ibu hamil yang datang, selain memberikan tablet Fe, tenaga kesehatan juga sebaiknya memberi edukasi mengenai manfaat dan dampak tablet Fe untuk ibu hamil dan memastikan ibu hamil tersebut benar benar mengonsumsi tablet Fe.
+	                                	</li>
+	                                    <li>
+	                                    	Untuk ibu hamil yang tidak datang di Puskesmas, Tenaga kesehatan mendata jumlah ibu hamil melalui kader serta meyakinkan ibu hamil agar memperiksakan kehamilannya ke Puskesmas agar mendapat tablet Fe.
+	                                    </li>
+	                                </ul>
+                                </li>
+                                <li class="card-body" style="padding: 10px 0 0 15px">
+                                    <strong> Rekomendasi Distribusi tablet Fe untuk Remaja putri </strong>
+                                    <ul class="vue-list-inner" align = "justify" style="padding-right: 30px">
+	                                    <li>
+	                                    	Petugas kesehatan memberikan penyuluhan ke sekolah sekolah tentang anemia dan menjelaskan manfaat tablet Fe bagi remaja putri, serta pihak sekolah  dihimbau untuk mendistribusikan tablet Fe sesuai dengan anjuran dan memastikan setiap siswi mendapat dan mengonsumsi tablet Fe.
+	                                	</li>
+	                                </ul>
+                                </li>
+                          </ul>
+                          <h4 class="card-body" style="padding-bottom: 0 "><strong>Jika Sudah Mencapai Target</strong></h4>
+                            <ul style="margin-left: 15px;padding-right: 30px" class="vue-list-inner" align = "justify">
+                                <li class="card-body" style="padding: 10px 0 20px 15px">
+                                    Mempertahankan dengan cara memberikan tablet tersebut secara rutin dan tetap mengawasi Remaja putri mengonsumsinya.
+                                </li>
+                          </ul>
+                      </div>
 	                </div>
 		        </div>
 			</div>

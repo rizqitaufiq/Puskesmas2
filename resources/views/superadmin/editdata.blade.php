@@ -120,29 +120,30 @@
 									</select>
 			                    </div>
 			                </div>
-			                <div class="form-group has-success">
-			                    <label class="control-label">Target Pencapaian</label>
-			                    <div class="input-group">
-			                        <div class="input-group-addon"><i class="fa fa-users"></i></div>
-			                        <input type="number" id="target_pencapaian" step="any" name="target_pencapaian" value="{{$data[0]->target_pencapaian}}" placeholder="Masukkan Target Pencapaian" class="form-control" required>
-			                    </div>
-			                </div>
 			                <div class="form-group">
-			                    <label for="exampleInputuname">Pencapaian</label>
+			                    <label for="exampleInputuname">Pencapaian(N)</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-bar-chart-o"></i></div>
 			                        <input name="pencapaian" type="number" step="any" class="form-control" id="exampleInputuname" value="{{$data[0]->pencapaian}}" placeholder="Masukkan Pencapaian" required>
 			                    </div>
 			                </div>
+			                <div class="form-group has-success">
+			                    <label class="control-label">Cakupan(%)</label>
+			                    <div class="input-group">
+			                        <div class="input-group-addon"><i class="fa fa-users"></i></div>
+			                        <input type="number" id="target_pencapaian" step="any" name="target_pencapaian" value="{{$data[0]->target_pencapaian}}" placeholder="Masukkan Target Pencapaian" class="form-control" required>
+			                    </div>
+			                </div>
+			                
 			                <div class="form-group">
-			                    <label class="control-label">Total Sasaran</label>
+			                    <label class="control-label">Jumlah Sasaran(N)</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
 			                        <input type="number" id="total_sasaran" name="total_sasaran"  value="{{$data[0]->total_sasaran}}" placeholder="Masukkan Total Sasaran" class="form-control" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">
-			                    <label class="control-label">Target Sasaran</label>
+			                    <label class="control-label">Target(%)</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-bullseye"></i></div>
 			                        <input id="target_sasaran" type="number" class="form-control" name="target_sasaran" value="{{$data[0]->target_sasaran}}" placeholder="Masukkan Target Sasaran" required>

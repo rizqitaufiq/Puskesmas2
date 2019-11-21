@@ -41,7 +41,6 @@ class UserController extends Controller
                 }
                 else if(Auth::user()->pos == 'admin'){
                     $id = Auth::user()->puskesmas;
-
                     $data = DB::table('data')
                         ->where('data.nama_puskesmas', Auth::user()->puskesmas)
                         ->join('program', 'program.id','=', 'data.nama_program')

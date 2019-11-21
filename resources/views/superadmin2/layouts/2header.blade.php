@@ -11,20 +11,41 @@
             <div class="header-left">
                 <a href="{{route('home')}}">Home</a>
 <!--                 <button class="search-trigger"><i class="fa fa-search"></i></button> -->
+                <div style="display: none;">
+                    {!! $notif = \Illuminate\Support\Facades\DB::table('notif')
+                        ->where('dibaca', '0')
+                        ->join('program', 'program.id', '=', 'notif.id_program')
+                        ->join('puskesmas', 'puskesmas.id', '=', 'notif.id_puskesmas')
+                        ->select('program.nama_program', 'notif.tahun', 'puskesmas.nama_puskesmas', 'notif.id_program')
+                        ->get(); !!}
+                </div>
+                @if(!$notif->isEmpty())
                 <div class="dropdown for-notification">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bell"></i>
-                        <span class="count bg-danger">1</span>
+                        <span class="count bg-danger">{{count($notif)}}</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="notification">
-                        <p class="red">Kamu mempunyai 1 pemberitahuan</p>
-                        
-                        <a class="dropdown-item media" href="{{ route('notif-skdn')}}">
-                            <i class="fa fa-warning"></i>
-                            <p>Tahun 2014 Puskesmas Dau tidak memenuhi target.</p>
-                        </a>
+                        <p class="red">Kamu mempunyai {{count($notif)}} pemberitahuan</p>
+                            @foreach($notif as $notif2)
+                            <a class="dropdown-item media" href="{{route ('notif', $notif2->id_program)}}">
+                                <i class="fa fa-warning"></i>
+                                <p>Tahun {{$notif2->tahun}} {{$notif2->nama_puskesmas}} program {{$notif2->nama_program}} tidak memenuhi target.</p>
+                            </a>
+                            @endforeach
                     </div>
                 </div>
+                @else
+                <div class="dropdown for-notification">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-bell"></i>
+                    </button>
+                     <div class="dropdown-menu" aria-labelledby="notification">
+                        <p class="dropdown-item media" style="font-size: 15px; font-weight: 400">Kamu mempunyai tidak pemberitahuan</p>
+                    </div>
+                    
+                </div>
+                @endif
             </div>
 
             <div class="user-area dropdown float-right">

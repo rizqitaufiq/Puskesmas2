@@ -1,15 +1,6 @@
 @extends($extends)
 
 @section($section)
-<script type="text/javascript">
-	$(document).ready(function() {
-	    $("table[id^='TABLE']").DataTable( {
-	        "scrollCollapse": false,
-	        "searching": true,
-	        "paging": true
-	    } );
-	} );
-</script>
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
@@ -52,69 +43,50 @@
 	                <div class="card">
 	                	<div class="card-header">
 	                		<a class="card-link">
-						    	<strong class="card-title">Rekomendasi </strong>
+						    	<strong class="card-title">Rekomendasi</strong>
 						    </a>
 	                	</div>
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">Pembinaan dan pelatihan posyandu </strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">Motivasi Kader, Ibu Hamil, dan Ibu Balita </strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">Dukungan tokoh masyarakat dan swadaya masyarakat dalam kegiatan posyandu</strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">Kegiatan tambahan</strong>
-						    </a>
-	                    </div>
-
-	                     <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link" >
-						    	<strong class="card-title">Mengoptimalkan kelas ibu hamil dan kelas ibu balita</strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">Sertifikasi bagi kader aktif</strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">Penyuluhan kepada kader dan ibu balita tentang makna penimbangan</strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">Penguatan koordinasi lintas program dan lintas sektor</strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 0 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">Pemberian PMT (Pemberian Makanan Tambahan) pada balita dengan gizi kurang</strong>
-						    </a>
-	                    </div>
-
-	                    <div class="card-body" style="padding: 10px 0 10px 15px">
-	                        <a class="card-link">
-						    	<strong class="card-title">Melakukan pendampingan kepada balita yang menerima PMT untuk mengetahui bahwa PMT telah dikonsumsi oleh balita yang tepat serta memantau pertumbuhan dan perkembangan balita</strong>
-						    </a>
-	                    </div>
-
+	                	<div class="vue-lists">
+	                		<h4 class="card-body" style="padding-bottom: 0 "><strong>Jika Belum Mencapai Target</strong></h4>
+                            <ul style="margin-left: 15px">
+                                <li class="card-body" style="padding: 10px 0 0 15px">
+                                    Pembinaan dan pelatihan posyandu.
+                                </li>
+                                <li class="card-body" style="padding: 10px 0 0 15px">
+                                	Motivasi Kader, Ibu Hamil, dan Ibu Balita.
+                                </li>
+                                <li class="card-body" style="padding: 10px 0 0 15px">
+                            		Dukungan tokoh masyarakat dan swadaya masyarakat dalam kegiatan posyandu.
+                            	</li>
+                            	<li class="card-body" style="padding: 10px 0 0 15px">
+                            		Kegiatan tambahan.
+                            	</li>
+                            	<li class="card-body" style="padding: 10px 0 0 15px">
+                            		Mengoptimalkan kelas ibu hamil dan kelas ibu balita.
+                            	</li>
+                            	<li class="card-body" style="padding: 10px 0 0 15px">
+                            		Sertifikasi bagi kader aktif.
+                            	</li>
+                            	<li class="card-body" style="padding: 10px 0 0 15px">
+                            		Penyuluhan kepada kader dan ibu balita tentang makna penimbangan.
+                            	</li>
+                            	<li class="card-body" style="padding: 10px 0 0 15px">
+                            		Penguatan koordinasi lintas program dan lintas sektor.
+                            	</li>
+								<li class="card-body" style="padding: 10px 0 0 15px">
+                            		Pemberian PMT (Pemberian Makanan Tambahan) pada balita dengan gizi kurang.
+                            	</li>    
+                            	<li class="card-body" style="padding: 10px 0 0 15px">
+                            		Melakukan pendampingan kepada balita yang menerima PMT untuk mengetahui bahwa PMT telah dikonsumsi oleh balita yang tepat serta memantau pertumbuhan dan perkembangan balita.
+                            	</li>
+                          </ul>
+                          <h4 class="card-body" style="padding-bottom: 0 "><strong>Jika Sudah Mencapai Target</strong></h4>
+                            <ul style="margin-left: 15px">
+                                <li class="card-body" style="padding: 10px 0 20px 15px">
+                                    Mempertahankan metode yang sudah dilakukan dan tetap dilakukan pemantauan secara terus menerus dan sistematis.
+                                </li>
+                          </ul>
+                      </div>
 	                </div>
 		        </div>
 			</div>
