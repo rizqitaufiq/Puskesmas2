@@ -29,7 +29,7 @@ class UserController extends Controller
             return redirect('login')->with('alert','Kamu harus Login terlebih dahulu');
         }
         else{
-            if(Auth::user()->vertified == 'ya' || Auth::user()->vertified == 'tidak'){
+            if(Auth::user()->vertified == 'ya'){
                 if(Auth::user()->pos == 'super'){
                     // $data = User::all()->where('pos', 'admin');
                     $data = DB::table('users')
