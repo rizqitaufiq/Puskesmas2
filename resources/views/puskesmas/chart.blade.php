@@ -3,6 +3,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.5.0"></script>
+<script src="{{ asset('../../creative-agency/js/vendor/jquery-2.2.4.min.js')}}"></script>
 <script type="text/javascript">
 	$(function() {
 	var ctx = document.getElementById('myChart').getContext('2d');

@@ -93,8 +93,12 @@ class DataController extends Controller
                         $data->spesifitas           = "-";
                         $data->hasil                = $hasil;
 
+                        $program = DB::table('program')->where('id', $request->get('program'))
+                                    ->select('nama_program')
+                                    ->get();
+
                         $data->save();
-                        return redirect('dashboard/data')->with('alert-success', 'Data berhasil dimasukkan');
+                        return redirect('dashboard/data/'.$id.'/'.$program[0]->nama_program.'/')->with('alert-success', 'Data berhasil dimasukkan');
                     }else{
                         $total = $request->get('total_sasaran');
                         $jumlah_pencapaian_plus = round(($request->get('target_pencapaian')/100)*$request->get('total_sasaran'), 0);
@@ -128,8 +132,11 @@ class DataController extends Controller
                         $data->spesifitas           = $spes;
                         $data->hasil                = $hasil;
 
+                        $program = DB::table('program')->where('id', $request->get('program'))
+                                    ->select('nama_program')
+                                    ->get();
                         $data->save();
-                        return redirect('dashboard/data')->with('alert-success', 'Data berhasil dimasukkan');
+                        return redirect('dashboard/data/'.$id.'/'.$program[0]->nama_program.'/')->with('alert-success', 'Data berhasil dimasukkan');
                     }
                     
                }
@@ -247,8 +254,14 @@ class DataController extends Controller
                 $data->spesifitas           = "-";
                 $data->hasil                = $hasil;
 
+                $data2 = Data::findOrFail($id);
+
+                $program = DB::table('program')->where('id', $data2->nama_program)
+                                    ->select('nama_program')
+                                    ->get();
+
                 $data->save();
-                return redirect('dashboard/data')->with('alert-success', 'Data berhasil diubah');
+                return redirect('dashboard/data/'.$data2->nama_puskesmas.'/'.$program[0]->nama_program.'/')->with('alert-success', 'Data berhasil diubah');
             }else{
 
                 $total = $request->get('total_sasaran');
@@ -278,8 +291,14 @@ class DataController extends Controller
                 $data->spesifitas           = $spes;
                 $data->hasil                = $hasil;
 
+                $data2 = Data::findOrFail($id);
+
+                $program = DB::table('program')->where('id', $data2->nama_program)
+                                    ->select('nama_program')
+                                    ->get();
+
                 $data->save();
-                return redirect('dashboard/data')->with('alert-success', 'Data berhasil diubah');
+                return redirect('dashboard/data/'.$data2->nama_puskesmas.'/'.$program[0]->nama_program.'/')->with('alert-success', 'Data berhasil diubah');
             }
         }
         else{
