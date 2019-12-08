@@ -112,14 +112,14 @@ class HomeController extends Controller
                                 if($value->tahun == $key->tahun){
                                     if($value->nama_indikator == 4){
                                         $total = $key->Data_S;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -139,14 +139,14 @@ class HomeController extends Controller
                                     }
                                     elseif($value->nama_indikator == 3){
                                         $total = $key->Data_S;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -159,14 +159,14 @@ class HomeController extends Controller
                                     }
                                     elseif($value->nama_indikator == 5){
                                         $total = $key->Data_D;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -179,14 +179,14 @@ class HomeController extends Controller
                                     }
                                     elseif($value->nama_indikator == 6){
                                         $total = $key->Data_S;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -199,14 +199,14 @@ class HomeController extends Controller
                                     }
                                     elseif($value->nama_indikator == 7){
                                         $total = $key->Data_S;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -219,14 +219,14 @@ class HomeController extends Controller
                                     }
                                     elseif($value->nama_indikator == 8){
                                         $total = $key->Data_K;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -337,8 +337,8 @@ class HomeController extends Controller
                      array_push($datatahun, 0);
                      array_push($datatarget, 0);
                  foreach ($data as $data2) {
-                     array_push($dataindikator, $data2->target_pencapaian);
-                         array_push($datatarget, $data2->target_sasaran);
+                     array_push($dataindikator, $data2->cakupan);
+                         array_push($datatarget, $data2->target);
                          array_push($datatahun, $data2->tahun);
                  }
                  // print_r($datatarget);

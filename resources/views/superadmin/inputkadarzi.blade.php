@@ -73,8 +73,8 @@
 									</select>
 			                    </div>
 			                </div>
-                            <input type="number" id="target_pencapaian" value="-" step="any" name="target_pencapaian" placeholder="Masukkan Cakupan" class="form-control" hidden>
-                            <input id="target_sasaran" value="-" step="any" type="number" class="form-control" name="target_sasaran" placeholder="Masukkan Target" hidden>
+                            <input type="number" id="cakupan" value="-" step="any" name="cakupan" placeholder="Masukkan Cakupan" class="form-control" hidden>
+                            <input id="target" value="-" step="any" type="number" class="form-control" name="target" placeholder="Masukkan Target" hidden>
 			                <div class="form-group has-success">
 			                    <label class="control-label">Pencapaian (N)</label>
 			                    <div class="input-group">

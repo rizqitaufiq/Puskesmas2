@@ -19,10 +19,10 @@ class CreateDataTable extends Migration
             $table->string('nama_program')->nullable();;
             $table->string('nama_indikator')->nullable();;
             $table->string('nama_targetumur')->nullable();;
-            $table->string('target_pencapaian')->nullable();;
+            $table->string('cakupan')->nullable();;
             $table->string('pencapaian')->nullable();;
             $table->string('total_sasaran')->nullable();;
-            $table->string('target_sasaran')->nullable();;
+            $table->string('target')->nullable();;
             $table->integer('tahun')->nullable();;
             $table->string('adequasi_effort')->nullable();;
             $table->string('adequasi_peformance')->nullable();;

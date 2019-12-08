@@ -99,8 +99,8 @@
                                         <tr>
                                             <td align="center">{{$a+=1}}</td>
                                             <td>&nbsp {{$indi['indikator']}} pada {{$indi['targetumur']}}</td>
-                                            <td align="center">{{$indi['target_pencapaian']}}%</td>
-                                            <td align="center">{{$indi['target_sasaran']}}%</td>
+                                            <td align="center">{{$indi['cakupan']}}%</td>
+                                            <td align="center">{{$indi['target']}}%</td>
                                             <td align="center">{{$indi['adequasi_effort']}}%</td>
                                             <td align="center">{{$indi['adequasi_peformance']}}%</td>
                                             <td align="center">{{$indi['sensitivitas']}}%</td>
@@ -140,9 +140,9 @@
                                             <td align="center">{{$a+=1}}</td>
                                             <td>&nbsp {{$indi['indikator']}} pada {{$indi['targetumur']}}</td>
                                             <td align="center">{{$indi['pencapaian']}}</td>
-                                            <td align="center">{{$indi['target_pencapaian']}}%</td>
+                                            <td align="center">{{$indi['cakupan']}}%</td>
                                             <td align="center">{{$indi['total_sasaran']}}</td>
-                                            <td align="center">{{$indi['target_sasaran']}}%</td>
+                                            <td align="center">{{$indi['target']}}%</td>
                                             <td align="center">{{$indi['adequasi_effort']}}%</td>
                                             <td align="center">{{$indi['adequasi_peformance']}}%</td>
                                             <td align="center">{{$indi['sensitivitas']}}%</td>

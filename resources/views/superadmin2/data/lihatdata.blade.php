@@ -238,8 +238,8 @@
 		                            		<tr align="center" style="font-size: 12px">
 		                            			<td>{{$a+=1}}</td>
 			                                    <td>{{$data2->tahun}}</td>
-			                                    <td>{{$data2->target_pencapaian}}%</td>
-			                                    <td>{{$data2->target_sasaran}}%</td>
+			                                    <td>{{$data2->cakupan}}%</td>
+			                                    <td>{{$data2->target}}%</td>
 			                                    <td>{{$data2->adequasi_effort}}%</td>
 			                                    <td>{{$data2->adequasi_peformance}}%</td>
 			                                    <!-- <td>{{$data2->sensitivitas}}</td>
@@ -493,9 +493,9 @@
 		                            			<td>{{$a+=1}}</td>
 			                                    <td>{{$data2->tahun}}</td>
 			                                    <td>{{$data2->pencapaian}}</td>
-			                                    <td>{{$data2->target_pencapaian}}%</td>
+			                                    <td>{{$data2->cakupan}}%</td>
 			                                    <td>{{$data2->total_sasaran}}</td>
-			                                    <td>{{$data2->target_sasaran}}%</td>
+			                                    <td>{{$data2->target}}%</td>
 			                                    <td>{{$data2->adequasi_effort}}%</td>
 			                                    <td>{{$data2->adequasi_peformance}}%</td>
 			                                    <td>{{$data2->sensitivitas}}%</td>

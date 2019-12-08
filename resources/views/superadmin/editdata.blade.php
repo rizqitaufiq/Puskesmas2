@@ -76,14 +76,14 @@
 			                    <label class="control-label">Cakupan (%)</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-users"></i></div>
-			                        <input type="number" id="target_pencapaian" step="any" name="target_pencapaian" value="{{$data[0]->target_pencapaian}}" placeholder="Masukkan Cakupan" class="form-control" required>
+			                        <input type="number" id="cakupan" step="any" name="cakupan" value="{{$data[0]->cakupan}}" placeholder="Masukkan Cakupan" class="form-control" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">
 			                    <label for="exampleInputuname">Target (%)</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-bar-chart-o"></i></div>
-			                        <input name="target_sasaran" type="number" step="any" class="form-control" id="exampleInputuname" value="{{$data[0]->target_sasaran}}" placeholder="Masukkan Target" required>
+			                        <input name="target" type="number" step="any" class="form-control" id="exampleInputuname" value="{{$data[0]->target}}" placeholder="Masukkan Target" required>
 			                    </div>
 			                </div>
 			                        <input type="text" id="total_sasaran" name="total_sasaran"  value="-" placeholder="Masukkan Total Sasaran" class="form-control" hidden>
@@ -131,7 +131,7 @@
 			                    <label class="control-label">Cakupan(%)</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-users"></i></div>
-			                        <input type="number" id="target_pencapaian" step="any" name="target_pencapaian" value="{{$data[0]->target_pencapaian}}" placeholder="Masukkan Target Pencapaian" class="form-control" required>
+			                        <input type="number" id="cakupan" step="any" name="cakupan" value="{{$data[0]->cakupan}}" placeholder="Masukkan Target Pencapaian" class="form-control" required>
 			                    </div>
 			                </div>
 			                
@@ -146,7 +146,7 @@
 			                    <label class="control-label">Target(%)</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-bullseye"></i></div>
-			                        <input id="target_sasaran" type="number" class="form-control" name="target_sasaran" value="{{$data[0]->target_sasaran}}" placeholder="Masukkan Target Sasaran" required>
+			                        <input id="target" type="number" class="form-control" name="target" value="{{$data[0]->target}}" placeholder="Masukkan Target Sasaran" required>
 			                    </div>
 			                </div>
 			                <div class="form-group">

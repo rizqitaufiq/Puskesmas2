@@ -37,7 +37,7 @@
                                     foreach ($data as $dt) {
                                         if($dt->nama_targetumur === $targetumur[$i] && $dt->nama_indikator === $indikator[$o]){ 
                                             $fill = 1;
-                                            array_push($nilai, $dt->target_pencapaian);
+                                            array_push($nilai, $dt->cakupan);
                                         }
 
                                     }

@@ -52,31 +52,11 @@ Route::get('data/{id}/{nama}', 'HomeController@dataprogram')->name('puskesmas.da
 Route::get('data/{id}/{nama}/{indi}', 'HomeController@chart')->name('puskesmas.data.chart');
 
 Route::get('/dashboard/data/input/skdn/skdn', 'SkdnController@inputSkdn')->name('skdn.input');
-// Route::get('/dashboard/data/input/kadarzi/{program}', 'SkdnController@inputKadarzi')->name('kadarzi.input');
-
-// Route::get('/listprogram/skdn', 'SkdnController@lihatdata')->name('listprogram.skdn');
-// Route::get('/listprogram/kadarzi', 'KadarziController@lihatdata')->name('listprogram.kadarzi');
-// Route::get('/listprogram/ttd', 'TtdController@lihatdata')->name('listprogram.ttd');
-// Route::get('/listprogram/pmt', 'PmtController@lihatdata')->name('listprogram.pmt');
-
-// Route::get('/listprogram/skdn/chart', 'SkdnController@chart')->name('user.skdn.chart');
-// Route::get('/listprogram/pmt/chart', 'PmtController@chart')->name('user.pmt.chart');
-// Route::get('/listprogram/kadarzi/chart', 'KadarziController@chart')->name('user.kadarzi.chart');
-// Route::get('/listprogram/ttd/chart', 'TtdController@chart')->name('user.ttd.chart');
-
-// Route::get('dashboard/kadarzi/chart', 'KadarziController@chart')->name('kadarzi.chart');
-// Route::get('dashboard/pmt/chart', 'PmtController@chart')->name('pmt.chart');
-// Route::get('dashboard/skdn/chart', 'SkdnController@chart')->name('skdn.chart');
-// Route::get('dashboard/ttd/chart', 'TtdController@chart')->name('ttd.chart');
-
-// Route::get('/dashboard/skdn/datapus', 'SkdnController@datapus')->name('skdn.datapus');
-// Route::get('/dashboard/pmt/datapus', 'PmtController@datapus')->name('pmt.datapus');
-// Route::get('/dashboard/kadarzi/datapus', 'KadarziController@datapus')->name('kadarzi.datapus');
-// Route::get('/dashboard/ttd/datapus', 'TtdController@datapus')->name('ttd.datapus');
 
 Route::resource('dashboard/program','ProgramController');
 Route::resource('dashboard/indikator','IndikatorController');
 Route::resource('dashboard/puskesmas', 'PuskesmasController');
+
 Route::get('/dashboard', 'UserController@index')->name('dashboard.index');
 Route::get('/dashboard/create', 'UserController@create')->name('dashboard.create');
 Route::get('/dashboard/deleteuser/{id}', 'UserController@destroy');
@@ -85,32 +65,9 @@ Route::get('/dashboard/datauser', 'UserController@datauser')->name('datauser');
 Route::post('/dashboard/store', 'UserController@store')->name('dashboard.store');
 Route::put('/dashboard/update/{id}', 'UserController@update')->name('dashboard.update');
 
-// Route::get('dashboard/laporan', 'UserController@printdata')->name('user.printdata');
-// Route::get('dashboard/laporan/datatahun', 'UserController@datatahun')->name('user.print.datatahun');
-Route::get('dashboard/laporan/datatahun/lihat', 'UserController@printdatatahun')->name('user.print.data');
-
-
-
 Route::get('dashboard/savedata', 'UserController@savedata')->name('user.savedata');
 Route::get('dashboard/savedata/datatahun', 'UserController@datatahun2')->name('user.save.datatahun2');
 Route::get('dashboard/savedata/datatahun/print', 'UserController@savedatatahun')->name('user.save.data');
-
-// Route::get('dashboard/skdn/laporan','SkdnController@laporan')->name('skdn.laporan');
-// Route::get('dashboard/skdn/laporan/datatahun', 'SkdnController@datatahun')->name('skdn.laporan.datatahun');
-// Route::get('dashboard/skdn/laporan/datatahun/lihat', 'SkdnController@lihat')->name('skdn.laporan.lihat');
-
-// Route::get('dashboard/kadarzi/laporan','KadarziController@laporan')->name('kadarzi.laporan');
-// Route::get('dashboard/kadarzi/laporan/datatahun', 'KadarziController@datatahun')->name('kadarzi.laporan.datatahun');
-// Route::get('dashboard/kadarzi/laporan/datatahun/lihat', 'KadarziController@lihat')->name('kadarzi.laporan.lihat');
-
-// Route::get('dashboard/pmt/laporan','PmtController@laporan')->name('pmt.laporan');
-// Route::get('dashboard/pmt/laporan/datatahun', 'PmtController@datatahun')->name('pmt.laporan.datatahun');
-// Route::get('dashboard/pmt/laporan/datatahun/lihat', 'PmtController@lihat')->name('pmt.laporan.lihat');
-
-// Route::get('dashboard/ttd/laporan','TtdController@laporan')->name('ttd.laporan');
-// Route::get('dashboard/ttd/laporan/datatahun', 'TtdController@datatahun')->name('ttd.laporan.datatahun');
-// Route::get('dashboard/ttd/laporan/datatahun/lihat', 'TtdController@lihat')->name('ttd.laporan.lihat');
-
 
 Route::get('dashboard/data/input/{program}', 'DataController@tambahdata')->name('data.tambah');
 Route::get('dashboard/data/input', 'DataController@dataprograminput')->name('data.input');
@@ -140,23 +97,11 @@ Route::post('dashboard/data/chart', 'DataController@chart2')->name('data.indi.ch
 
 Route::get('dashboard/{id}/{nama}/edit', 'DataController@edit')->name('data.edit2');
 
-// Route::get('dashboard/kadarzi/printdata', 'KadarziController@printdata')->name('kadarzi.printdata');
-// Route::get('dashboard/pmt/printdata', 'PmtController@printdata')->name('pmt.printdata');
-// Route::get('dashboard/ttd/printdata', 'TtdController@printdata')->name('ttd.printdata');
-
-// Route::get('dashboard/skdn/savedata','SkdnController@savedata')->name('skdn.savedata');
-// Route::get('dashboard/kadarzi/savedata', 'KadarziController@savedata')->name('kadarzi.savedata');
-// Route::get('dashboard/pmt/savedata', 'PmtController@savedata')->name('pmt.savedata');
-// Route::get('dashboard/ttd/savedata', 'TtdController@savedata')->name('ttd.savedata');
 // Route::get('kadarzi/delete/{id}', 'KadarziController@destroy');
+
 Route::get('dashboard/notif/skdn', 'NotifController@notifskdn')->name('notif-skdn');
 Route::get('dashboard/notif/{id}', 'NotifController@notif')->name('notif');
 Route::resource('dashboard/program/skdn', 'SkdnController');
-// Route::resource('dashboard/kadarzi', 'KadarziController');
-// Route::resource('dashboard/pmt', 'PmtController');
-// Route::resource('dashboard/ttd', 'TtdController');
-
-
 
 Route::resource('dashboard/target','TargetController');
 Route::resource('dashboard/data', 'DataController');

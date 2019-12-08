@@ -57,11 +57,11 @@ class DataController extends Controller
                
                 if(count($data) === 0){
                     $id = Auth::user()->puskesmas;
-                    $adquef = round($request->get('target_pencapaian')/$request->get('target_sasaran')*100, 2);
+                    $adquef = round($request->get('cakupan')/$request->get('target')*100, 2);
                     // $adqupef = round($adquef-100, 2);
                     $adqupef = round($adquef-100, 2);
 
-                    if($request->get('target_sasaran') >= $request->get('target_pencapaian')){
+                    if($request->get('target') >= $request->get('cakupan')){
                         $hasil = "Tidak Tercapai";
                         $notif = new Notif();
                         $notif->id_puskesmas = $id;
@@ -81,10 +81,10 @@ class DataController extends Controller
                         $data->nama_program         = $request->get('program');
                         $data->nama_indikator       = $request->get('indikator');
                         $data->nama_targetumur      = $request->get('target');
-                        $data->target_pencapaian    = $request->get('target_pencapaian');
+                        $data->cakupan              = $request->get('cakupan');
                         $data->pencapaian           = "-";
                         $data->total_sasaran        = "-";
-                        $data->target_sasaran       = $request->get('target_sasaran');
+                        $data->target       = $request->get('target');
                         $data->tahun                = $request->get('tahun');                
                         $data->adequasi_effort      = $adquef;
                         $data->adequasi_peformance  = $adqupef;
@@ -101,7 +101,7 @@ class DataController extends Controller
                         return redirect('dashboard/data/'.$id.'/'.$program[0]->nama_program.'/')->with('alert-success', 'Data berhasil dimasukkan');
                     }else{
                         $total = $request->get('total_sasaran');
-                        $jumlah_pencapaian_plus = round(($request->get('target_pencapaian')/100)*$request->get('total_sasaran'), 0);
+                        $jumlah_pencapaian_plus = round(($request->get('cakupan')/100)*$request->get('total_sasaran'), 0);
                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
@@ -109,7 +109,7 @@ class DataController extends Controller
                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                         
                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                        if($request->get('target_pencapaian') == 100){
+                        if($request->get('cakupan') == 100){
                             $spes               = "0";
                         }else{
                             $spes                   = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -120,10 +120,10 @@ class DataController extends Controller
                         $data->nama_program         = $request->get('program');
                         $data->nama_indikator       = $request->get('indikator');
                         $data->nama_targetumur      = $request->get('target');
-                        $data->target_pencapaian    = $request->get('target_pencapaian');
+                        $data->cakupan    = $request->get('cakupan');
                         $data->pencapaian           = $request->get('pencapaian');
                         $data->total_sasaran        = $request->get('total_sasaran');
-                        $data->target_sasaran       = $request->get('target_sasaran');
+                        $data->target       = $request->get('target');
                         $data->tahun                = $request->get('tahun');                
                         $data->adequasi_effort      = $adquef;
                         $data->adequasi_peformance  = $adqupef;
@@ -167,7 +167,7 @@ class DataController extends Controller
                 ->where('data.id', $id)
                 ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
                 ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
-                ->select('data.id', 'indikator.nama_indikator', 'targetumur.nama_targetumur', 'data.target_pencapaian', 'data.pencapaian', 'data.target_sasaran', 'data.total_sasaran', 'data.tahun')
+                ->select('data.id', 'indikator.nama_indikator', 'targetumur.nama_targetumur', 'data.cakupan', 'data.pencapaian', 'data.target', 'data.total_sasaran', 'data.tahun')
                 ->get();
                 return view('superadmin.editdata', compact('id', 'program', 'data', 'extends', 'section'));
             }
@@ -180,7 +180,7 @@ class DataController extends Controller
                 ->where('data.id', $id)
                 ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
                 ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
-                ->select('data.id', 'indikator.nama_indikator', 'targetumur.nama_targetumur', 'data.target_pencapaian', 'data.pencapaian', 'data.target_sasaran', 'data.total_sasaran', 'data.tahun')
+                ->select('data.id', 'indikator.nama_indikator', 'targetumur.nama_targetumur', 'data.cakupan', 'data.pencapaian', 'data.target', 'data.total_sasaran', 'data.tahun')
                 ->get();
                 return view('superadmin.editdata', compact('id', 'program', 'data', 'extends', 'section'));
             }
@@ -196,10 +196,10 @@ class DataController extends Controller
     public function update(Request $request, $id){
         if(Auth::check()){
             // dd($request);
-            $adquef = round($request->get('target_pencapaian')/$request->get('target_sasaran')*100, 2);
+            $adquef = round($request->get('cakupan')/$request->get('target')*100, 2);
             $adqupef = round($adquef-100, 2);
 
-            if($request->get('target_sasaran') >= $request->get('target_pencapaian')){
+            if($request->get('target') >= $request->get('cakupan')){
                 $hasil = "Tidak Tercapai";
                 $data1 = Data::findOrFail($id);
                 $notif_id = DB::table('notif')
@@ -243,10 +243,10 @@ class DataController extends Controller
             if($request->get('total_sasaran') === "-"){
                 $total = $request->get('total_sasaran');
                 $data = Data::findOrFail($id);
-                $data->target_pencapaian    = $request->get('target_pencapaian');
+                $data->cakupan    = $request->get('cakupan');
                 $data->pencapaian           = "-";
                 $data->total_sasaran        = "-";
-                $data->target_sasaran       = $request->get('target_sasaran');              
+                $data->target       = $request->get('target');              
                 $data->adequasi_effort      = $adquef;
                 $data->adequasi_peformance  = $adqupef;
                 $data->progress             = "-";
@@ -265,7 +265,7 @@ class DataController extends Controller
             }else{
 
                 $total = $request->get('total_sasaran');
-                $jumlah_pencapaian_plus = round(($request->get('target_pencapaian')/100)*$request->get('total_sasaran'), 0);
+                $jumlah_pencapaian_plus = round(($request->get('cakupan')/100)*$request->get('total_sasaran'), 0);
                 $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                 $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                 $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
@@ -273,17 +273,17 @@ class DataController extends Controller
                 $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                 
                 $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                if($request->get('target_pencapaian') == 100){
+                if($request->get('cakupan') == 100){
                     $spes               = "0";
                 }else{
                     $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
                 }
 
                 $data = Data::findOrFail($id);
-                $data->target_pencapaian    = $request->get('target_pencapaian');
+                $data->cakupan    = $request->get('cakupan');
                 $data->pencapaian           = $request->get('pencapaian');
                 $data->total_sasaran        = $request->get('total_sasaran');
-                $data->target_sasaran       = $request->get('target_sasaran');              
+                $data->target       = $request->get('target');              
                 $data->adequasi_effort      = $adquef;
                 $data->adequasi_peformance  = $adqupef;
                 $data->progress             = "-";
@@ -392,14 +392,14 @@ class DataController extends Controller
                                     if($value->tahun == $key->tahun){
                                         if($value->nama_indikator == 4){
                                             $total = $key->Data_S;
-                                            $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                             $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                             $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                             $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                             $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                             $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                             $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                            if($value->target_pencapaian == 100){
+                                            if($value->cakupan == 100){
                                                 $spes               = "0";
                                             }else{
                                                 $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -409,24 +409,17 @@ class DataController extends Controller
                                             $spsn[$g]['spes']       = $spes;
                                             $spsn[$g]['sens']       = $sens;
                                             $g++;
-                                            // echo $total."<br>";
-                                            // echo $jumlah_pencapaian_plus."<br>";
-                                            // echo $jumlah_pencapaian_min."<br>";
-                                            // echo $jumlah_plus_plus."<br>";
-                                            // echo $jumlah_plus_min."<br>";
-                                            // echo $jumlah_min_min."<br>";
-                                            // echo $jumlah_min_plus."<br>"."<br>";
                                         }
                                         elseif($value->nama_indikator == 3){
                                             $total = $key->Data_S;
-                                            $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                             $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                             $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                             $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                             $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                             $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                             $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                            if($value->target_pencapaian == 100){
+                                            if($value->cakupan == 100){
                                                 $spes               = "0";
                                             }else{
                                                 $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -439,14 +432,14 @@ class DataController extends Controller
                                         }
                                         elseif($value->nama_indikator == 5){
                                             $total = $key->Data_D;
-                                            $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                             $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                             $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                             $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                             $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                             $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                             $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                            if($value->target_pencapaian == 100){
+                                            if($value->cakupan == 100){
                                                 $spes               = "0";
                                             }else{
                                                 $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -459,14 +452,14 @@ class DataController extends Controller
                                         }
                                         elseif($value->nama_indikator == 6){
                                             $total = $key->Data_S;
-                                            $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                             $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                             $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                             $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                             $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                             $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                             $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                            if($value->target_pencapaian == 100){
+                                            if($value->cakupan == 100){
                                                 $spes               = "0";
                                             }else{
                                                 $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -479,14 +472,14 @@ class DataController extends Controller
                                         }
                                         elseif($value->nama_indikator == 7){
                                             $total = $key->Data_S;
-                                            $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                             $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                             $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                             $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                             $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                             $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                             $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                            if($value->target_pencapaian == 100){
+                                            if($value->cakupan == 100){
                                                 $spes               = "0";
                                             }else{
                                                 $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -499,14 +492,14 @@ class DataController extends Controller
                                         }
                                         elseif($value->nama_indikator == 8){
                                             $total = $key->Data_K;
-                                            $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                             $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                             $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                             $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                             $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                             $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                             $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                            if($value->target_pencapaian == 100){
+                                            if($value->cakupan == 100){
                                                 $spes               = "0";
                                             }else{
                                                 $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -605,14 +598,14 @@ class DataController extends Controller
                                     if($value->tahun == $key->tahun){
                                         if($value->nama_indikator == 4){
                                             $total = $key->Data_S;
-                                            $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                             $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                             $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                             $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                             $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                             $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                             $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                            if($value->target_pencapaian == 100){
+                                            if($value->cakupan == 100){
                                                 $spes               = "0";
                                             }else{
                                                 $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -626,14 +619,14 @@ class DataController extends Controller
                                         }
                                         elseif($value->nama_indikator == 3){
                                             $total = $key->Data_S;
-                                            $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                             $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                             $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                             $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                             $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                             $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                             $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                            if($value->target_pencapaian == 100){
+                                            if($value->cakupan == 100){
                                                 $spes               = "0";
                                             }else{
                                                 $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -646,14 +639,14 @@ class DataController extends Controller
                                         }
                                         elseif($value->nama_indikator == 5){
                                             $total = $key->Data_D;
-                                            $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                             $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                             $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                             $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                             $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                             $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                             $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                            if($value->target_pencapaian == 100){
+                                            if($value->cakupan == 100){
                                                 $spes               = "0";
                                             }else{
                                                 $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -666,14 +659,14 @@ class DataController extends Controller
                                         }
                                         elseif($value->nama_indikator == 6){
                                             $total = $key->Data_S;
-                                            $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                             $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                             $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                             $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                             $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                             $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                             $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                            if($value->target_pencapaian == 100){
+                                            if($value->cakupan == 100){
                                                 $spes               = "0";
                                             }else{
                                                 $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -686,14 +679,14 @@ class DataController extends Controller
                                         }
                                         elseif($value->nama_indikator == 7){
                                             $total = $key->Data_S;
-                                            $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                             $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                             $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                             $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                             $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                             $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                             $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                            if($value->target_pencapaian == 100){
+                                            if($value->cakupan == 100){
                                                 $spes               = "0";
                                             }else{
                                                 $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -706,14 +699,14 @@ class DataController extends Controller
                                         }
                                         elseif($value->nama_indikator == 8){
                                             $total = $key->Data_K;
-                                            $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                             $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                             $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                             $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                             $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                             $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                             $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                            if($value->target_pencapaian == 100){
+                                            if($value->cakupan == 100){
                                                 $spes               = "0";
                                             }else{
                                                 $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -841,8 +834,8 @@ class DataController extends Controller
                      array_push($datatahun, 0);
                      array_push($datatarget, 0);
                      foreach ($data as $data2) {
-                         array_push($dataindikator, $data2->target_pencapaian);
-                         array_push($datatarget, $data2->target_sasaran);
+                         array_push($dataindikator, $data2->cakupan);
+                         array_push($datatarget, $data2->target);
                          array_push($datatahun, $data2->tahun);
                      }
                      // print_r($datatarget);
@@ -876,8 +869,8 @@ class DataController extends Controller
                      array_push($datatahun, 0);
                      array_push($datatarget, 0);
                      foreach ($data as $data2) {
-                         array_push($dataindikator, $data2->target_pencapaian);
-                         array_push($datatarget, $data2->target_sasaran);
+                         array_push($dataindikator, $data2->cakupan);
+                         array_push($datatarget, $data2->target);
                          array_push($datatahun, $data2->tahun);
                      }
                      // print_r($datatarget);
@@ -1079,7 +1072,7 @@ class DataController extends Controller
                     $data = DB::table('data')->where('data.nama_puskesmas', $id)->where('data.nama_program', $prg)->where('data.tahun', $tahun)
                     ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
                     ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
-                    ->select('data.nama_puskesmas', 'data.tahun', 'data.target_pencapaian', 'data.nama_program', 'indikator.nama_indikator', 'targetumur.nama_targetumur')->get();
+                    ->select('data.nama_puskesmas', 'data.tahun', 'data.cakupan', 'data.nama_program', 'indikator.nama_indikator', 'targetumur.nama_targetumur')->get();
                     // dd($data);
                    $indikator2 = DB::table('data')->where('data.nama_puskesmas', $id)->where('data.nama_program', $prg)->where('data.tahun', $tahun)
                     ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
@@ -1105,7 +1098,7 @@ class DataController extends Controller
                     $dataindikator = array();
                     // dd($data);
                     foreach ($data as $data2) {
-                        array_push($dataindikator, $data2->target_pencapaian);
+                        array_push($dataindikator, $data2->cakupan);
                     }
                     // dd($indikator);
 
@@ -1118,7 +1111,7 @@ class DataController extends Controller
                     $data = DB::table('data')->where('data.nama_puskesmas', $id)->where('data.nama_program', $prg)->where('data.tahun', $tahun)
                     ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
                     ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
-                    ->select('data.nama_puskesmas', 'data.tahun', 'data.target_pencapaian', 'data.nama_program', 'indikator.nama_indikator', 'targetumur.nama_targetumur')->get();
+                    ->select('data.nama_puskesmas', 'data.tahun', 'data.cakupan', 'data.nama_program', 'indikator.nama_indikator', 'targetumur.nama_targetumur')->get();
                     // dd($data);
                    $indikator2 = DB::table('data')->where('data.nama_puskesmas', $id)->where('data.nama_program', $prg)->where('data.tahun', $tahun)
                     ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
@@ -1144,7 +1137,7 @@ class DataController extends Controller
                     $dataindikator = array();
                     // dd($data);
                     foreach ($data as $data2) {
-                        array_push($dataindikator, $data2->target_pencapaian);
+                        array_push($dataindikator, $data2->cakupan);
                     }
                     // dd($indikator);
 
@@ -1265,7 +1258,7 @@ class DataController extends Controller
                         ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
                         ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
                         ->join('program', 'program.id', '=', 'data.nama_program')
-                        ->select('program.nama_program', 'indikator.id as idindikator','indikator.nama_indikator AS indikator', 'targetumur.nama_targetumur AS targetumur', 'data.nama_indikator', 'data.nama_targetumur', 'data.target_pencapaian', 'data.target_sasaran', 'data.adequasi_peformance', 'data.adequasi_effort', 'data.pencapaian', 'data.total_sasaran', 'data.sensitivitas', 'data.spesifitas', 'data.hasil')
+                        ->select('program.nama_program', 'indikator.id as idindikator','indikator.nama_indikator AS indikator', 'targetumur.nama_targetumur AS targetumur', 'data.nama_indikator', 'data.nama_targetumur', 'data.cakupan', 'data.target', 'data.adequasi_peformance', 'data.adequasi_effort', 'data.pencapaian', 'data.total_sasaran', 'data.sensitivitas', 'data.spesifitas', 'data.hasil')
                         ->distinct()
                         ->get();
                 // dd($indikator);
@@ -1295,14 +1288,14 @@ class DataController extends Controller
                                 foreach ($skdn as $key) {
                                     if($value->nama_indikator == 4){
                                         $total = $key->Data_S;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -1313,8 +1306,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1327,14 +1320,14 @@ class DataController extends Controller
                                     }
                                     elseif($value->nama_indikator == 3){
                                         $total = $key->Data_S;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -1346,8 +1339,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1359,14 +1352,14 @@ class DataController extends Controller
                                     }
                                     elseif($value->nama_indikator == 5){
                                         $total = $key->Data_D;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -1378,8 +1371,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1391,14 +1384,14 @@ class DataController extends Controller
                                     }
                                     elseif($value->nama_indikator == 6){
                                         $total = $key->Data_S;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -1410,8 +1403,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1423,14 +1416,14 @@ class DataController extends Controller
                                     }
                                     elseif($value->nama_indikator == 7){
                                         $total = $key->Data_S;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -1442,8 +1435,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1455,14 +1448,14 @@ class DataController extends Controller
                                     }
                                     elseif($value->nama_indikator == 8){
                                         $total = $key->Data_K;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -1474,8 +1467,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1492,8 +1485,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1513,8 +1506,8 @@ class DataController extends Controller
                                 $data[$g]['targetumur']             = $value->targetumur;
                                 $data[$g]['nama_indikator']         = $value->nama_indikator;
                                 $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                $data[$g]['cakupan']      = $value->cakupan;
+                                $data[$g]['target']         = $value->target;
                                 $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                 $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                 $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1532,8 +1525,8 @@ class DataController extends Controller
                             $data[$g]['targetumur']             = $value->targetumur;
                             $data[$g]['nama_indikator']         = $value->nama_indikator;
                             $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                            $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                            $data[$g]['target_sasaran']         = $value->target_sasaran;
+                            $data[$g]['cakupan']      = $value->cakupan;
+                            $data[$g]['target']         = $value->target;
                             $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                             $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                             $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1552,8 +1545,8 @@ class DataController extends Controller
                     $data[0]['targetumur']             = 0;
                     $data[0]['nama_indikator']         = 0;
                     $data[0]['nama_targetumur']        = 0;
-                    $data[0]['target_pencapaian']      = 0;
-                    $data[0]['target_sasaran']         = 0;
+                    $data[0]['cakupan']      = 0;
+                    $data[0]['target']         = 0;
                     $data[0]['adequasi_peformance']    = 0;
                     $data[0]['adequasi_effort']        = 0;
                     $data[0]['pencapaian']             = 0;
@@ -1589,7 +1582,7 @@ class DataController extends Controller
                         ->join('indikator', 'indikator.id', '=', 'data.nama_indikator')
                         ->join('targetumur', 'targetumur.id', '=', 'data.nama_targetumur')
                         ->join('program', 'program.id', '=', 'data.nama_program')
-                        ->select('program.nama_program', 'indikator.id as idindikator','indikator.nama_indikator AS indikator', 'targetumur.nama_targetumur AS targetumur', 'data.nama_indikator', 'data.nama_targetumur', 'data.target_pencapaian', 'data.target_sasaran', 'data.adequasi_peformance', 'data.adequasi_effort', 'data.pencapaian', 'data.total_sasaran', 'data.sensitivitas', 'data.spesifitas', 'data.hasil')
+                        ->select('program.nama_program', 'indikator.id as idindikator','indikator.nama_indikator AS indikator', 'targetumur.nama_targetumur AS targetumur', 'data.nama_indikator', 'data.nama_targetumur', 'data.cakupan', 'data.target', 'data.adequasi_peformance', 'data.adequasi_effort', 'data.pencapaian', 'data.total_sasaran', 'data.sensitivitas', 'data.spesifitas', 'data.hasil')
                         ->distinct()
                         ->get();
                 // dd($indikator);
@@ -1619,14 +1612,14 @@ class DataController extends Controller
                                 foreach ($skdn as $key) {
                                     if($value->nama_indikator == 4){
                                         $total = $key->Data_S;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -1637,8 +1630,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1651,14 +1644,14 @@ class DataController extends Controller
                                     }
                                     elseif($value->nama_indikator == 3){
                                         $total = $key->Data_S;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -1670,8 +1663,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1683,14 +1676,14 @@ class DataController extends Controller
                                     }
                                     elseif($value->nama_indikator == 5){
                                         $total = $key->Data_D;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -1702,8 +1695,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1715,14 +1708,14 @@ class DataController extends Controller
                                     }
                                     elseif($value->nama_indikator == 6){
                                         $total = $key->Data_S;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -1734,8 +1727,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1747,14 +1740,14 @@ class DataController extends Controller
                                     }
                                     elseif($value->nama_indikator == 7){
                                         $total = $key->Data_S;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -1766,8 +1759,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1779,14 +1772,14 @@ class DataController extends Controller
                                     }
                                     elseif($value->nama_indikator == 8){
                                         $total = $key->Data_K;
-                                        $jumlah_pencapaian_plus = round(($value->target_pencapaian/100)*$total, 0);
+                                        $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
                                         $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
                                         $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
                                         $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
                                         $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
                                         $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                                         $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                                        if($value->target_pencapaian == 100){
+                                        if($value->cakupan == 100){
                                             $spes               = "0";
                                         }else{
                                             $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
@@ -1798,8 +1791,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1816,8 +1809,8 @@ class DataController extends Controller
                                         $data[$g]['targetumur']             = $value->targetumur;
                                         $data[$g]['nama_indikator']         = $value->nama_indikator;
                                         $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                        $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                        $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                        $data[$g]['cakupan']      = $value->cakupan;
+                                        $data[$g]['target']         = $value->target;
                                         $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                         $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                         $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1837,8 +1830,8 @@ class DataController extends Controller
                                 $data[$g]['targetumur']             = $value->targetumur;
                                 $data[$g]['nama_indikator']         = $value->nama_indikator;
                                 $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                                $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                                $data[$g]['target_sasaran']         = $value->target_sasaran;
+                                $data[$g]['cakupan']      = $value->cakupan;
+                                $data[$g]['target']         = $value->target;
                                 $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                                 $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                                 $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1856,8 +1849,8 @@ class DataController extends Controller
                             $data[$g]['targetumur']             = $value->targetumur;
                             $data[$g]['nama_indikator']         = $value->nama_indikator;
                             $data[$g]['nama_targetumur']        = $value->nama_targetumur;
-                            $data[$g]['target_pencapaian']      = $value->target_pencapaian;
-                            $data[$g]['target_sasaran']         = $value->target_sasaran;
+                            $data[$g]['cakupan']      = $value->cakupan;
+                            $data[$g]['target']         = $value->target;
                             $data[$g]['adequasi_peformance']    = $value->adequasi_peformance;
                             $data[$g]['adequasi_effort']        = $value->adequasi_effort;
                             $data[$g]['pencapaian']             = $value->pencapaian;
@@ -1876,8 +1869,8 @@ class DataController extends Controller
                     $data[0]['targetumur']             = 0;
                     $data[0]['nama_indikator']         = 0;
                     $data[0]['nama_targetumur']        = 0;
-                    $data[0]['target_pencapaian']      = 0;
-                    $data[0]['target_sasaran']         = 0;
+                    $data[0]['cakupan']      = 0;
+                    $data[0]['target']         = 0;
                     $data[0]['adequasi_peformance']    = 0;
                     $data[0]['adequasi_effort']        = 0;
                     $data[0]['pencapaian']             = 0;
@@ -1935,7 +1928,7 @@ class DataController extends Controller
                      $datatahun = array();
                      foreach ($data as $data2) {
                          array_push($dataindikator, $data2->pencapaian);
-                         array_push($datatarget, $data2->target_pencapaian);
+                         array_push($datatarget, $data2->cakupan);
                          array_push($datatahun, $data2->tahun);
                      }
                      // print_r($datatarget);
@@ -1966,7 +1959,7 @@ class DataController extends Controller
                      $datatahun = array();
                      foreach ($data as $data2) {
                          array_push($dataindikator, $data2->pencapaian);
-                         array_push($datatarget, $data2->target_pencapaian);
+                         array_push($datatarget, $data2->cakupan);
                          array_push($datatahun, $data2->tahun);
                      }
                      // print_r($datatarget);
