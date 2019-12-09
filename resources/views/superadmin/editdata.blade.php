@@ -67,7 +67,7 @@
 			                    <label for="exampleInputuname">Target</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
-			                        <select name="target" id="nama_targetumur" class="form-control" disabled>
+			                        <select name="nama_targetumur" id="nama_targetumur" class="form-control" disabled>
 			                        	<option value="{{$data[0]->nama_targetumur}}">{{$data[0]->nama_targetumur}}</option>
 									</select>
 			                    </div>
@@ -115,7 +115,7 @@
 			                    <label for="exampleInputuname">Target</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
-			                        <select name="target" id="nama_targetumur" class="form-control" disabled>
+			                        <select name="nama_targetumur" id="nama_targetumur" class="form-control" disabled>
 			                        	<option value="{{$data[0]->nama_targetumur}}">{{$data[0]->nama_targetumur}}</option>
 									</select>
 			                    </div>

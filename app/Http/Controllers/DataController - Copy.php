@@ -54,17 +54,6 @@ class DataController extends Controller
             if(Auth::user()->pos == 'admin'){
                 // dd($request->all());
                $data = Data::all()->where('nama_targetumur', $request->target)->where('tahun', $request->tahun)->where('nama_puskesmas', Auth::user()->puskesmas);
-
-               $a = number_format((($request->get('target')-$request->get('cakupan'))/$request->get('target')*100),2);
-               if($a >= 0 && $a <= 25){
-                    $b = "on track";
-               }
-               elseif ($a < 0) {
-                    $b = "archived";
-               }
-               else{
-                    $b = "off track";
-               }
                
                 if(count($data) === 0){
                     $id = Auth::user()->puskesmas;
@@ -91,17 +80,17 @@ class DataController extends Controller
                         $data->nama_puskesmas       = $id;
                         $data->nama_program         = $request->get('program');
                         $data->nama_indikator       = $request->get('indikator');
-                        $data->nama_targetumur      = $request->get('nama_targetumur');
+                        $data->nama_targetumur      = $request->get('target');
                         $data->cakupan              = $request->get('cakupan');
                         $data->pencapaian           = "-";
                         $data->total_sasaran        = "-";
-                        $data->target               = $request->get('target');
+                        $data->target       = $request->get('target');
                         $data->tahun                = $request->get('tahun');                
                         $data->adequasi_effort      = $adquef;
                         $data->adequasi_peformance  = $adqupef;
                         $data->progress             = "-";
-                        $data->sensitivitas         = $a;
-                        $data->spesifitas           = $b;
+                        $data->sensitivitas         = "-";
+                        $data->spesifitas           = "-";
                         $data->hasil                = $hasil;
 
                         $program = DB::table('program')->where('id', $request->get('program'))
@@ -111,36 +100,36 @@ class DataController extends Controller
                         $data->save();
                         return redirect('dashboard/data/'.$id.'/'.$program[0]->nama_program.'/')->with('alert-success', 'Data berhasil dimasukkan');
                     }else{
-                        // $total = $request->get('total_sasaran');
-                        // $jumlah_pencapaian_plus = round(($request->get('cakupan')/100)*$request->get('total_sasaran'), 0);
-                        // $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
-                        // $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
-                        // $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
-                        // $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
-                        // $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                        $total = $request->get('total_sasaran');
+                        $jumlah_pencapaian_plus = round(($request->get('cakupan')/100)*$request->get('total_sasaran'), 0);
+                        $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                        $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                        $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                        $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                        $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                         
-                        // $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                        // if($request->get('cakupan') == 100){
-                        //     $spes               = "0";
-                        // }else{
-                        //     $spes                   = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
-                        // }
+                        $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                        if($request->get('cakupan') == 100){
+                            $spes               = "0";
+                        }else{
+                            $spes                   = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                        }
 
                         $data = new Data();
                         $data->nama_puskesmas       = $id;
                         $data->nama_program         = $request->get('program');
                         $data->nama_indikator       = $request->get('indikator');
-                        $data->nama_targetumur      = $request->get('nama_targetumur');
-                        $data->cakupan              = $request->get('cakupan');
+                        $data->nama_targetumur      = $request->get('target');
+                        $data->cakupan    = $request->get('cakupan');
                         $data->pencapaian           = $request->get('pencapaian');
                         $data->total_sasaran        = $request->get('total_sasaran');
-                        $data->target               = $request->get('target');
+                        $data->target       = $request->get('target');
                         $data->tahun                = $request->get('tahun');                
                         $data->adequasi_effort      = $adquef;
                         $data->adequasi_peformance  = $adqupef;
                         $data->progress             = "-";
-                        $data->sensitivitas         = $a;
-                        $data->spesifitas           = $b;
+                        $data->sensitivitas         = $sens;
+                        $data->spesifitas           = $spes;
                         $data->hasil                = $hasil;
 
                         $program = DB::table('program')->where('id', $request->get('program'))
@@ -210,17 +199,6 @@ class DataController extends Controller
             $adquef = round($request->get('cakupan')/$request->get('target')*100, 2);
             $adqupef = round($adquef-100, 2);
 
-            $a = number_format((($request->get('target')-$request->get('cakupan'))/$request->get('target')*100),2);
-               if($a >= 0 && $a <= 25){
-                    $b = "on track";
-               }
-               elseif ($a < 0) {
-                    $b = "archived";
-               }
-               else{
-                    $b = "off track";
-               }
-
             if($request->get('target') >= $request->get('cakupan')){
                 $hasil = "Tidak Tercapai";
                 $data1 = Data::findOrFail($id);
@@ -265,15 +243,15 @@ class DataController extends Controller
             if($request->get('total_sasaran') === "-"){
                 $total = $request->get('total_sasaran');
                 $data = Data::findOrFail($id);
-                $data->cakupan              = $request->get('cakupan');
+                $data->cakupan    = $request->get('cakupan');
                 $data->pencapaian           = "-";
                 $data->total_sasaran        = "-";
-                $data->target               = $request->get('target');              
+                $data->target       = $request->get('target');              
                 $data->adequasi_effort      = $adquef;
                 $data->adequasi_peformance  = $adqupef;
                 $data->progress             = "-";
-                $data->sensitivitas         = $a;
-                $data->spesifitas           = $b;
+                $data->sensitivitas         = "-";
+                $data->spesifitas           = "-";
                 $data->hasil                = $hasil;
 
                 $data2 = Data::findOrFail($id);
@@ -286,31 +264,31 @@ class DataController extends Controller
                 return redirect('dashboard/data/'.$data2->nama_puskesmas.'/'.$program[0]->nama_program.'/')->with('alert-success', 'Data berhasil diubah');
             }else{
 
-                // $total = $request->get('total_sasaran');
-                // $jumlah_pencapaian_plus = round(($request->get('cakupan')/100)*$request->get('total_sasaran'), 0);
-                // $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
-                // $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
-                // $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
-                // $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
-                // $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                $total = $request->get('total_sasaran');
+                $jumlah_pencapaian_plus = round(($request->get('cakupan')/100)*$request->get('total_sasaran'), 0);
+                $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
                 
-                // $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
-                // if($request->get('cakupan') == 100){
-                //     $spes               = "0";
-                // }else{
-                //     $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
-                // }
+                $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                if($request->get('cakupan') == 100){
+                    $spes               = "0";
+                }else{
+                    $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                }
 
                 $data = Data::findOrFail($id);
-                $data->cakupan              = $request->get('cakupan');
+                $data->cakupan    = $request->get('cakupan');
                 $data->pencapaian           = $request->get('pencapaian');
                 $data->total_sasaran        = $request->get('total_sasaran');
-                $data->target               = $request->get('target');              
+                $data->target       = $request->get('target');              
                 $data->adequasi_effort      = $adquef;
                 $data->adequasi_peformance  = $adqupef;
                 $data->progress             = "-";
-                $data->sensitivitas         = $a;
-                $data->spesifitas           = $b;
+                $data->sensitivitas         = $sens;
+                $data->spesifitas           = $spes;
                 $data->hasil                = $hasil;
 
                 $data2 = Data::findOrFail($id);
@@ -409,7 +387,140 @@ class DataController extends Controller
                             }
                             //sensitifitas dan spesifitas
                             $g = 0;
-                            
+                            foreach ($data as $value) {
+                                foreach ($skdn as $key) {
+                                    if($value->tahun == $key->tahun){
+                                        if($value->nama_indikator == 4){
+                                            $total = $key->Data_S;
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
+                                            $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                            $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                            $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                            $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                            $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                            $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                            if($value->cakupan == 100){
+                                                $spes               = "0";
+                                            }else{
+                                                $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                            }
+                                            $spsn[$g]['tahun']      = $value->tahun;
+                                            $spsn[$g]['indikator']  = $value->nama_indikator;
+                                            $spsn[$g]['spes']       = $spes;
+                                            $spsn[$g]['sens']       = $sens;
+                                            $g++;
+                                        }
+                                        elseif($value->nama_indikator == 3){
+                                            $total = $key->Data_S;
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
+                                            $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                            $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                            $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                            $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                            $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                            $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                            if($value->cakupan == 100){
+                                                $spes               = "0";
+                                            }else{
+                                                $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                            }
+                                            $spsn[$g]['tahun']      = $value->tahun;
+                                            $spsn[$g]['indikator']  = $value->nama_indikator;
+                                            $spsn[$g]['spes']       = $spes;
+                                            $spsn[$g]['sens']       = $sens;
+                                            $g++;
+                                        }
+                                        elseif($value->nama_indikator == 5){
+                                            $total = $key->Data_D;
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
+                                            $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                            $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                            $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                            $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                            $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                            $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                            if($value->cakupan == 100){
+                                                $spes               = "0";
+                                            }else{
+                                                $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                            }
+                                            $spsn[$g]['tahun']      = $value->tahun;
+                                            $spsn[$g]['indikator']  = $value->nama_indikator;
+                                            $spsn[$g]['spes']       = $spes;
+                                            $spsn[$g]['sens']       = $sens;
+                                            $g++;
+                                        }
+                                        elseif($value->nama_indikator == 6){
+                                            $total = $key->Data_S;
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
+                                            $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                            $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                            $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                            $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                            $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                            $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                            if($value->cakupan == 100){
+                                                $spes               = "0";
+                                            }else{
+                                                $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                            }
+                                            $spsn[$g]['tahun']      = $value->tahun;
+                                            $spsn[$g]['indikator']  = $value->nama_indikator;
+                                            $spsn[$g]['spes']       = $spes;
+                                            $spsn[$g]['sens']       = $sens;
+                                            $g++;
+                                        }
+                                        elseif($value->nama_indikator == 7){
+                                            $total = $key->Data_S;
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
+                                            $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                            $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                            $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                            $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                            $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                            $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                            if($value->cakupan == 100){
+                                                $spes               = "0";
+                                            }else{
+                                                $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                            }
+                                            $spsn[$g]['tahun']      = $value->tahun;
+                                            $spsn[$g]['indikator']  = $value->nama_indikator;
+                                            $spsn[$g]['spes']       = $spes;
+                                            $spsn[$g]['sens']       = $sens;
+                                            $g++;
+                                        }
+                                        elseif($value->nama_indikator == 8){
+                                            $total = $key->Data_K;
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
+                                            $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                            $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                            $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                            $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                            $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                            $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                            if($value->cakupan == 100){
+                                                $spes               = "0";
+                                            }else{
+                                                $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                            }
+                                            $spsn[$g]['tahun']      = $value->tahun;
+                                            $spsn[$g]['indikator']  = $value->nama_indikator;
+                                            $spsn[$g]['spes']       = $spes;
+                                            $spsn[$g]['sens']       = $sens;
+                                            $g++;
+                                        }
+                                    }
+                                    else{
+                                        $spsn[$g]['tahun']      = "-";
+                                        $spsn[$g]['indikator']  = "-";
+                                        $spsn[$g]['spes']       = "-";
+                                        $spsn[$g]['sens']       = "-";
+
+                                        // return view('superadmin2.data.lihatdata', compact('spsn', 'cocheck', 'pts', 'ptk', 'ptd', 'ptn','skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
+                                    }
+                                }
+                            }
                             //progress
                             $rs  = round(($tahunmax[0]->Data_S/ $tahunmin[0]->Data_S)-1, 2);
                             $pts = round($tahunmin[0]->Data_S*pow((1+$rs), 5), 2);
@@ -475,14 +586,154 @@ class DataController extends Controller
                         ->get();
 
                     $data = Data::all()->where('nama_program', $program[0]->id)->where('nama_puskesmas', $id);
-                    // dd($data);
+
                     if($nama === 'SKDN'){
                         $skdn = Skdn::all()->where('nama_puskesmas', $id);
                         if(count($skdn) !== 0){
                             $tahunmin = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', DB::table('skdn')->where('nama_puskesmas', $id)->min('tahun'))->get();
                             $tahunmax = DB::table('skdn')->where('nama_puskesmas', $id)->where('tahun', DB::table('skdn')->where('nama_puskesmas', $id)->max('tahun'))->get();
                             $g = 0;
-                            
+                            foreach ($data as $value) {
+                                foreach ($skdn as $key) {
+                                    if($value->tahun == $key->tahun){
+                                        if($value->nama_indikator == 4){
+                                            $total = $key->Data_S;
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
+                                            $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                            $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                            $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                            $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                            $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                            $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                            if($value->cakupan == 100){
+                                                $spes               = "0";
+                                            }else{
+                                                $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                            }
+                                            $spsn[$g]['tahun']      = $value->tahun;
+                                            $spsn[$g]['indikator']  = $value->nama_indikator;
+                                            $spsn[$g]['spes']       = $spes;
+                                            $spsn[$g]['sens']       = $sens;
+                                            $g++;
+
+                                        }
+                                        elseif($value->nama_indikator == 3){
+                                            $total = $key->Data_S;
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
+                                            $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                            $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                            $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                            $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                            $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                            $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                            if($value->cakupan == 100){
+                                                $spes               = "0";
+                                            }else{
+                                                $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                            }
+                                            $spsn[$g]['tahun']      = $value->tahun;
+                                            $spsn[$g]['indikator']  = $value->nama_indikator;
+                                            $spsn[$g]['spes']       = $spes;
+                                            $spsn[$g]['sens']       = $sens;
+                                            $g++;
+                                        }
+                                        elseif($value->nama_indikator == 5){
+                                            $total = $key->Data_D;
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
+                                            $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                            $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                            $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                            $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                            $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                            $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                            if($value->cakupan == 100){
+                                                $spes               = "0";
+                                            }else{
+                                                $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                            }
+                                            $spsn[$g]['tahun']      = $value->tahun;
+                                            $spsn[$g]['indikator']  = $value->nama_indikator;
+                                            $spsn[$g]['spes']       = $spes;
+                                            $spsn[$g]['sens']       = $sens;
+                                            $g++;
+                                        }
+                                        elseif($value->nama_indikator == 6){
+                                            $total = $key->Data_S;
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
+                                            $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                            $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                            $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                            $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                            $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                            $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                            if($value->cakupan == 100){
+                                                $spes               = "0";
+                                            }else{
+                                                $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                            }
+                                            $spsn[$g]['tahun']      = $value->tahun;
+                                            $spsn[$g]['indikator']  = $value->nama_indikator;
+                                            $spsn[$g]['spes']       = $spes;
+                                            $spsn[$g]['sens']       = $sens;
+                                            $g++;
+                                        }
+                                        elseif($value->nama_indikator == 7){
+                                            $total = $key->Data_S;
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
+                                            $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                            $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                            $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                            $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                            $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                            $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                            if($value->cakupan == 100){
+                                                $spes               = "0";
+                                            }else{
+                                                $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                            }
+                                            $spsn[$g]['tahun']      = $value->tahun;
+                                            $spsn[$g]['indikator']  = $value->nama_indikator;
+                                            $spsn[$g]['spes']       = $spes;
+                                            $spsn[$g]['sens']       = $sens;
+                                            $g++;
+                                        }
+                                        elseif($value->nama_indikator == 8){
+                                            $total = $key->Data_K;
+                                            $jumlah_pencapaian_plus = round(($value->cakupan/100)*$total, 0);
+                                            $jumlah_pencapaian_min  = round($total-$jumlah_pencapaian_plus, 2);
+                                            $jumlah_plus_plus       = round($jumlah_pencapaian_plus*(95/100), 2);
+                                            $jumlah_plus_min        = round($jumlah_pencapaian_plus-$jumlah_plus_plus, 2);
+                                            $jumlah_min_min         = round($jumlah_pencapaian_min*(95/100), 2);
+                                            $jumlah_min_plus        = round($jumlah_pencapaian_min-$jumlah_min_min, 2);
+                                            $sens                   = round($jumlah_plus_plus/$jumlah_pencapaian_plus*100, 2);
+                                            if($value->cakupan == 100){
+                                                $spes               = "0";
+                                            }else{
+                                                $spes               = round($jumlah_min_min/$jumlah_pencapaian_min*100, 2);    
+                                            }
+                                            $spsn[$g]['tahun']      = $value->tahun;
+                                            $spsn[$g]['indikator']  = $value->nama_indikator;
+                                            $spsn[$g]['spes']       = $spes;
+                                            $spsn[$g]['sens']       = $sens;
+                                            $g++;
+                                        }
+                                        else{
+                                            $spsn[$g]['tahun']      = "-";
+                                            $spsn[$g]['indikator']  = "-";
+                                            $spsn[$g]['spes']       = "-";
+                                            $spsn[$g]['sens']       = "-";
+                                            $g++;
+                                        }
+                                    }
+                                    else{
+                                        $spsn[$g]['tahun']      = "-";
+                                        $spsn[$g]['indikator']  = "-";
+                                        $spsn[$g]['spes']       = "-";
+                                        $spsn[$g]['sens']       = "-";
+                                        $g++;
+                                    }
+                                }
+                            }
                             //progress
                             $rs  = round(($tahunmax[0]->Data_S/ $tahunmin[0]->Data_S)-1, 2);
                             $pts = round($tahunmin[0]->Data_S*pow((1+$rs), 5), 2);
@@ -1032,7 +1283,7 @@ class DataController extends Controller
                 $g = 0;
                 if(count($indikator) !== 0){
                     foreach ($indikator as $value) {
-                        if($value->nama_program == '----'){
+                        if($value->nama_program == 'SKDN'){
                             if(count($skdn) !== 0){
                                 foreach ($skdn as $key) {
                                     if($value->nama_indikator == 4){
@@ -1356,7 +1607,7 @@ class DataController extends Controller
                 $g = 0;
                 if(count($indikator) !== 0){
                     foreach ($indikator as $value) {
-                        if($value->nama_program == '----'){
+                        if($value->nama_program == 'SKDN'){
                             if(count($skdn) !== 0){
                                 foreach ($skdn as $key) {
                                     if($value->nama_indikator == 4){
@@ -1628,7 +1879,6 @@ class DataController extends Controller
                     $data[0]['spesifitas']             = 0;
                     $data[0]['hasil']                  = 0;
                 }
-
 
                 return view('superadmin2.laporan.cetaklaporan', compact('skdndata', 'program', 'data', 'puskesmas', 'extends', 'section', 'id', 'data', 'tahun'));
             }

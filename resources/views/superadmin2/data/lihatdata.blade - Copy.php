@@ -220,13 +220,13 @@
 		                            <thead>
 		                                <tr align="center" style="font-size: 14px">
 		                                	<th>No</th>
-		                                    <th>Tahun</th>
+		                                    <th>tahun</th>
 		                                    <th>Cakupan (%)</th>
 		                                    <th>Target (%)</th>
 		                                    <th>Adequasi Effort</th>
 		                                    <th>Adequasi Performance</th>
-		                                    <th>Sensitivitas dan Spesifitas</th>
-		                                    <th>Kategori</th>
+		                                    <!-- <th>sensitivitas</th>
+		                                    <th>spesifitas</th> -->
 		                                    <th colspan="2">Action</th>
 		                                </tr>
 		                            </thead>
@@ -242,8 +242,8 @@
 			                                    <td>{{$data2->target}}%</td>
 			                                    <td>{{$data2->adequasi_effort}}%</td>
 			                                    <td>{{$data2->adequasi_peformance}}%</td>
-			                                    <td>{{$data2->sensitivitas}}</td>
-			                                    <td>{{$data2->spesifitas}}</td>
+			                                    <!-- <td>{{$data2->sensitivitas}}</td>
+			                                    <td>{{$data2->spesifitas}}</td> -->
 			                                    <td style="width: 1%; ">
 			                                    	<a href="{{route('data.edit2', ['id' => $data2->id, 'nama'=> $nama])}}" class="btn btn-warning btn-sm">&nbsp Edit &nbsp</a>
 			                                    </td>
@@ -260,6 +260,69 @@
 		                            	@endforeach
 		                            </tbody>
 		                        </table>
+		                        <div class="row">
+				                    <div class="col">
+				                        <section class="" style="margin-bottom: 5%">
+				                            <div class="card-body text-secondary">
+				                            	<h4 align="center" style="font-weight: bold"> Sensifitas</h4>
+				                            	<table class="table" style="margin-bottom: 0px">
+				                            		<thead>
+				                            			<tr align="center" style="font-size: 14px">
+				                            				<th>Tahun</th>
+				                            				<th>Hasil</th>
+				                            			</tr>
+				                            		</thead>
+				                            		<tbody>
+				                            			@foreach($spsn as $sp)
+				                            			@if($sp['indikator'] == $indikator->nama_indikator)
+				                            			<tr align="center" style="font-size: 12px">
+				                            				<td>{{$sp['tahun']}}</td>
+				                            				<td>{{$sp['sens']}}%</td>
+				                            			</tr>
+				                            			@endif
+				                            			@endforeach
+				                            		</tbody>
+				                            	</table>
+				                            </div>
+				                        </section>
+				                    </div>
+				                    <div class="col">
+				                        <section class="" style="margin-bottom: 5%">
+				                            <div class="card-body text-secondary">
+				                            	<h4 align="center" style="font-weight: bold"> Spesifitas</h4>
+				                            	<table class="table" style="margin-bottom: 0px">
+				                            		<thead>
+				                            			<tr align="center" style="font-size: 14px">
+				                            				<th>Tahun</th>
+				                            				<th>Hasil</th>
+				                            			</tr>
+				                            		</thead>
+				                            		<tbody>
+				                            			@foreach($spsn as $sp)
+				                            			@if($sp['indikator'] == $indikator->nama_indikator)
+				                            			<tr align="center" style="font-size: 12px">
+				                            				<td>{{$sp['tahun']}}</td>
+				                            				<td>{{$sp['spes']}}%</td>
+				                            			</tr>
+				                            			@endif
+				                            			@endforeach
+				                            		</tbody>
+				                            	</table>
+				                            </div>
+				                        </section>
+				                    </div>
+				                </div>
+		                        <!-- <form id="dataDelete" action="" method="POST">
+		                        	{{ csrf_field() }}
+		                        	<input name="id_data" type="text" hidden>
+		                        </form> -->
+		                        <!-- <form action="{{route('data.indi.chart2')}}" method="post">
+                                      @csrf
+                                      <input type="text" name="id" value="{{$id}}" hidden>
+                                      <input type="text" name="nama" value="{{$nama}}" hidden>
+                                      <input type="text" name="indi" value="{{$indikator->idindikator}}" hidden>
+                                      <button class="btn btn-danger" type="submit">Chart</button>
+                                </form> -->
 		                        <a href="{{route('data.indi.chart', ['id' => $id, 'nama' => $nama, 'indi' => $indikator->nama_targetumur])}}" class="btn btn-primary btn-sm">&nbsp Chart &nbsp</a>
 		                    </div>
 		                </div>
@@ -408,15 +471,15 @@
 		                            <thead>
 		                                <tr align="center" style="font-size: 14px">
 		                                	<th>No</th>
-		                                    <th>Tahun</th>
+		                                    <th>tahun</th>
 		                                    <th>Pencapaian (N)</th>
 		                                    <th>Cakupan (%)</th>
 		                                    <th>Jumlah Sasaran (N)</th>
 		                                    <th>Target (%)</th>
 		                                    <th>Adequasi Effort</th>
 		                                    <th>Adequasi Performance</th>
-		                                    <th>Sensitivitas dan Spesifitas</th>
-		                                    <th>Kategori</th>
+		                                    <th>sensitivitas</th>
+		                                    <th>spesifitas</th>
 		                                    <th>Hasil</th>
 		                                    <th colspan="2">Action</th>
 		                                </tr>
@@ -435,8 +498,8 @@
 			                                    <td>{{$data2->target}}%</td>
 			                                    <td>{{$data2->adequasi_effort}}%</td>
 			                                    <td>{{$data2->adequasi_peformance}}%</td>
-			                                    <td>{{$data2->sensitivitas}}</td>
-			                                    <td>{{$data2->spesifitas}}</td>
+			                                    <td>{{$data2->sensitivitas}}%</td>
+			                                    <td>{{$data2->spesifitas}}%</td>
 			                                    <td>{{$data2->hasil}}</td>
 			                                    <td style="width: 1%; ">
 			                                    	<a href="{{route('data.edit2', ['id' => $data2->id, 'nama'=> $nama])}}" class="btn btn-warning btn-sm">&nbsp Edit &nbsp</a>

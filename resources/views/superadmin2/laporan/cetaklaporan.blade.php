@@ -89,8 +89,8 @@
                                     <th>Target (%)</th>
                                     <th>Adequasi Effort</th>
                                     <th>Adequasi Performance</th>
-                                    <th>sensitivitas</th>
-                                    <th>spesifitas</th>
+                                    <th>Sensitivitas dan Spesifitas</th>
+                                    <th>Kategori</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -103,8 +103,8 @@
                                             <td align="center">{{$indi['target']}}%</td>
                                             <td align="center">{{$indi['adequasi_effort']}}%</td>
                                             <td align="center">{{$indi['adequasi_peformance']}}%</td>
-                                            <td align="center">{{$indi['sensitivitas']}}%</td>
-                                            <td align="center">{{$indi['spesifitas']}}%</td>
+                                            <td align="center">{{$indi['sensitivitas']}}</td>
+                                            <td align="center">{{$indi['spesifitas']}}</td>
                                         </tr>
                                     @endif
                                 @endforeach
@@ -127,8 +127,8 @@
                                     <th>Target (%)</th>
                                     <th>Adequasi Effort</th>
                                     <th>Adequasi Performance</th>
-                                    <th>sensitivitas</th>
-                                    <th>spesifitas</th>
+                                    <th>Sensitivitas dan Spesifitas</th>
+                                    <th>Kategori</th>
                                     <th>Hasil</th>
                                     
                                 </tr>

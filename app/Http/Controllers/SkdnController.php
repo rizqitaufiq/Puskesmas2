@@ -66,6 +66,7 @@ class SkdnController extends Controller
     {
         if(Auth::check()){
             if(Auth::user()->pos == 'admin'){
+                $id = Auth::user()->puskesmas;
                 $skdn = new Skdn();
                 $skdn->nama_puskesmas   = $request->get('nama_puskesmas');
                 $skdn->Data_S           = $request->get('data_s');
@@ -75,7 +76,7 @@ class SkdnController extends Controller
                 $skdn->tahun            = $request->get('tahun');
                 $skdn->save();
 
-                return redirect('dashboard/data')->with('alert-success','Data Berhasil di Masukkan');
+               return redirect('dashboard/data/'.$id.'/SKDN/')->with('alert-success', 'Data berhasil dimasukkan');
             }
             else{
                 return redirect('dashboard');

@@ -72,7 +72,7 @@
                                 <label for="exampleInputuname">Target Indikator</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                    <select name="target" id="nama_targetumur" class="form-control" required>
+                                    <select name="nama_targetumur" id="nama_targetumur" class="form-control" required>
                                         <option value="">Pilih salah satu</option>
                                     </select>
                                 </div>
@@ -123,7 +123,7 @@
 			                    <label for="exampleInputuname">Target Indikator</label>
 			                    <div class="input-group">
 			                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
-			                        <select name="target" id="nama_targetumur" class="form-control" required>
+			                        <select name="nama_targetumur" id="nama_targetumur" class="form-control" required>
 			                        	<option value="">Pilih salah satu</option>
 									</select>
 			                    </div>

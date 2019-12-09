@@ -317,10 +317,10 @@
                                             <!-- <th>Nilai</th> -->
                                             <th style="text-align: center">Adequasi Effort</th>
                                             <th style="text-align: center">Adequasi Performance</th>
-                                            <!-- <th>Progress</th> -->
-                                            <th style="text-align: center">Sensitivitas dan Spesifitas</th>
-                                            <th style="text-align: center">Kategori</th>
-                                            <th style="text-align: center">Hasil</th>
+                                            <!-- <th>Progress</th>
+                                            <th>sensitivitas</th>
+                                            <th>spesifitas</th> -->
+                                            <!-- <th>Target</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -337,16 +337,67 @@
                                                 <!-- <td>{{$data2->nilai}}</td> -->
                                                 <td>{{$data2->adequasi_effort}}%</td>
                                                 <td>{{$data2->adequasi_peformance}}%</td>
-                                                <!-- <td>{{$data2->progress}}</td> -->
+                                                <!-- <td>{{$data2->progress}}</td>
                                                 <td>{{$data2->sensitivitas}}</td>
-                                                <td>{{$data2->spesifitas}}</td>
-                                                <td>{{$data2->hasil}}</td>
+                                                <td>{{$data2->spesifitas}}</td> -->
+                                               <!--  <td>{{$data2->hasil}}</td> -->
                                             </tr>
                                             @endif
                                         @endforeach
                                     </tbody>
                                 </table>
-                                
+                                <div class="row">
+                                        <div class="col">
+                                            <section class="" >
+                                                <div class="card-body text-secondary">
+                                                    <h4 align="center" style="color: #777777"> Sensifitas</h4>
+                                                    <table class="table" style="margin-bottom: 0px">
+                                                        <thead>
+                                                            <tr align="center" style="font-size: 14px">
+                                                                <th style="text-align: center">Tahun</th>
+                                                                <th style="text-align: center">Hasil</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($spsn as $sp)
+                                                            @if($sp['indikator'] == $indikator->nama_indikator)
+                                                            <tr align="center" style="font-size: 12px">
+                                                                <td>{{$sp['tahun']}}</td>
+                                                                <td>{{$sp['sens']}}%</td>
+                                                            </tr>
+                                                            @endif
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </section>
+                                        </div>
+                                        <div class="col">
+                                            <section class="">
+                                                <div class="card-body text-secondary">
+                                                    <h4 align="center" style="color: #777777"> Spesifitas</h4>
+                                                    <table class="table" style="margin-bottom: 0px">
+                                                        <thead>
+                                                            <tr align="center" style="font-size: 14px">
+                                                                <th style="text-align: center">Tahun</th>
+                                                                <th style="text-align: center">Hasil</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($spsn as $sp)
+                                                            @if($sp['indikator'] == $indikator->nama_indikator)
+                                                            <tr align="center" style="font-size: 12px">
+                                                                <td>{{$sp['tahun']}}</td>
+                                                                <td>{{$sp['spes']}}%</td>
+                                                            </tr>
+                                                            @endif
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
                                 <a href="{{route('puskesmas.data.chart', ['id' => $id, 'nama' => $nama, 'indi' => $indikator->nama_targetumur])}}" class="btn btn-primary">&nbsp Chart &nbsp</a>
                             </div>
                         </div>
@@ -369,7 +420,7 @@
                                     <thead align="center">
                                         <tr align="center">
                                             <th style="text-align: center">No</th>
-                                            <th style="text-align: center">Tahun</th>
+                                            <th style="text-align: center">tahun</th>
                                             <th style="text-align: center">Cakupan (%)</th>
                                             <th style="text-align: center">Pencapaian</th>
                                             <th style="text-align: center">Total Sasaran</th>
@@ -378,8 +429,8 @@
                                             <th style="text-align: center">Adequasi Effort</th>
                                             <th style="text-align: center">Adequasi Performance</th>
                                             <!-- <th style="text-align: center">Progress</th> -->
-                                            <th style="text-align: center">Sensitivitas dan Spesifitas</th>
-                                            <th style="text-align: center">Kategori</th>
+                                            <th style="text-align: center">sensitivitas</th>
+                                            <th style="text-align: center">spesifitas</th>
                                             <th style="text-align: center">Target</th>
                                         </tr>
                                     </thead>
@@ -398,7 +449,7 @@
                                                 <td>{{$data2->adequasi_effort}}%</td>
                                                 <td>{{$data2->adequasi_peformance}}%</td>
                                                 <!-- <td>{{$data2->progress}}</td> -->
-                                                <td>{{$data2->sensitivitas}}</td>
+                                                <td>{{$data2->sensitivitas}}%</td>
                                                 <td>{{$data2->spesifitas}}%</td>
                                                 <td>{{$data2->hasil}}</td>
                                             </tr>
