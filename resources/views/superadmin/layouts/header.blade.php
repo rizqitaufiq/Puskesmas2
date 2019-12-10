@@ -15,7 +15,8 @@
                     {!! $notif = \Illuminate\Support\Facades\DB::table('notif')
                             ->where('notif.id_puskesmas', Auth::user()->puskesmas)
                             ->join('program', 'program.id', '=', 'notif.id_program')
-                            ->select('program.nama_program', 'notif.tahun', 'notif.id_program')
+                            ->join('indikator', 'indikator.id', '=', 'notif.id_indikator')
+                            ->select('program.nama_program', 'notif.tahun', 'notif.id_program', 'notif.id_indikator', 'indikator.nama_indikator')
                             ->get(); !!}
                 </div>
                 @if(!$notif->isEmpty())
@@ -29,7 +30,7 @@
                             @foreach($notif as $notif2)
                             <a class="dropdown-item media" href="{{route ('notif', $notif2->id_program)}}">
                                 <i class="fa fa-warning"></i>
-                                <p>Tahun {{$notif2->tahun}} {{$notif2->nama_program}} tidak memenuhi target.</p>
+                                <p>Tahun {{$notif2->tahun}} {{$notif2->nama_program}} ({{$notif2->nama_indikator}}) belum mencapai target.</p>
                             </a>
                             @endforeach
                     </div>

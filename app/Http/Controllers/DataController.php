@@ -77,6 +77,7 @@ class DataController extends Controller
                         $notif = new Notif();
                         $notif->id_puskesmas = $id;
                         $notif->id_program = $request->get('program');
+                        $notif->id_indikator = $request->get('indikator');
                         $notif->dibaca = "0";
                         $notif->tahun = $request->get('tahun');
                         $notif->save();
@@ -227,6 +228,7 @@ class DataController extends Controller
                 $notif_id = DB::table('notif')
                     ->where('id_program', $data1->nama_program)
                     ->where('id_puskesmas', $data1->nama_puskesmas)
+                    ->where('id_indikator', $data1->nama_indikator)
                     ->where('tahun', $data1->tahun)
                     ->select('id')
                     ->get();
@@ -234,6 +236,7 @@ class DataController extends Controller
                     $notif = Notif::find($notif_id[0]->id);
                     $notif->id_puskesmas = $data1->nama_puskesmas;
                     $notif->id_program = $data1->nama_program;
+                    $notif->id_indikator = $data1->nama_indikator;
                     $notif->dibaca = "0";
                     $notif->tahun = $data1->tahun;
                     $notif->save();     
@@ -242,6 +245,7 @@ class DataController extends Controller
                     $notif = new Notif();
                     $notif->id_puskesmas = $data1->nama_puskesmas;
                     $notif->id_program = $data1->nama_program;
+                    $notif->id_indikator = $data1->nama_indikator;
                     $notif->dibaca = "0";
                     $notif->tahun = $data1->tahun;
                     $notif->save();
@@ -254,6 +258,7 @@ class DataController extends Controller
                 $notif_id = DB::table('notif')
                     ->where('id_program', $data1->nama_program)
                     ->where('id_puskesmas', $data1->nama_puskesmas)
+                    ->where('id_indikator', $data1->nama_indikator)
                     ->where('tahun', $data1->tahun)
                     ->select('id')
                     ->get();

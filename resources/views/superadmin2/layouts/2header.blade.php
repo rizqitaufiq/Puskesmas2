@@ -16,7 +16,8 @@
                         ->where('dibaca', '0')
                         ->join('program', 'program.id', '=', 'notif.id_program')
                         ->join('puskesmas', 'puskesmas.id', '=', 'notif.id_puskesmas')
-                        ->select('program.nama_program', 'notif.tahun', 'puskesmas.nama_puskesmas', 'notif.id_program')
+                        ->join('indikator', 'indikator.id', '=', 'notif.id_indikator')
+                        ->select('program.nama_program', 'notif.tahun', 'puskesmas.nama_puskesmas', 'notif.id_program', 'notif.id_indikator', 'indikator.nama_indikator')
                         ->get(); !!}
                 </div>
                 @if(!$notif->isEmpty())
@@ -30,7 +31,7 @@
                             @foreach($notif as $notif2)
                             <a class="dropdown-item media" href="{{route ('notif', $notif2->id_program)}}">
                                 <i class="fa fa-warning"></i>
-                                <p>Tahun {{$notif2->tahun}} {{$notif2->nama_puskesmas}} program {{$notif2->nama_program}} tidak memenuhi target.</p>
+                                <p>Tahun {{$notif2->tahun}} {{$notif2->nama_puskesmas}} program {{$notif2->nama_program}} ({{$notif2->nama_indikator}}) tbelum mencapai target.</p>
                             </a>
                             @endforeach
                     </div>

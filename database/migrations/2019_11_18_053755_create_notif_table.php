@@ -17,6 +17,7 @@ class CreateNotifTable extends Migration
             $table->bigIncrements('id');
             $table->string('id_puskesmas')->nullable();
             $table->string('id_program')->nullable();
+            $table->string('id_indikator')->nullable();
             $table->string('dibaca')->->nullable();
             $table->string('tahun')->nullable();
             $table->timestamps();

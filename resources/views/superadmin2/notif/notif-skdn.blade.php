@@ -56,7 +56,7 @@
                                 	Motivasi Kader, Ibu Hamil, dan Ibu Balita.
                                 </li>
                                 <li class="card-body" style="padding: 10px 0 0 15px">
-                            		Dukungan tokoh masyarakat dan swadaya masyarakat dalam kegiatan posyandu.
+                            		Dukungan tokoh masyarakat dan swadaya masyarakat dalam kegiatan posyandu serta membantu dalam menggiatkan kader dalam mengelola kegiatan Posyandu.
                             	</li>
                             	<li class="card-body" style="padding: 10px 0 0 15px">
                             		Kegiatan tambahan.
@@ -79,11 +79,26 @@
                             	<li class="card-body" style="padding: 10px 0 0 15px">
                             		Melakukan pendampingan kepada balita yang menerima PMT untuk mengetahui bahwa PMT telah dikonsumsi oleh balita yang tepat serta memantau pertumbuhan dan perkembangan balita.
                             	</li>
+                                <li class="card-body" style="padding: 10px 0 0 15px">
+                                    Mengoptimalkan jumlah kader sesusai persyaratan dalam pedoman Pengelolaan Posyandu.
+                                </li>
+                                <li class="card-body" style="padding: 10px 0 0 15px">
+                                    Perlu evaluasi terhadap keterampilan kader dalam pengukuran.
+                                </li>
+                                <li class="card-body" style="padding: 10px 0 0 15px">
+                                    Perhatikan kondisi alat antrophometri mengenai kelayakan dan kesesuaian penggunaan.
+                                </li>
                           </ul>
                           <h4 class="card-body" style="padding-bottom: 0 "><strong>Jika Sudah Mencapai Target</strong></h4>
                             <ul style="margin-left: 15px">
-                                <li class="card-body" style="padding: 10px 0 20px 15px">
+                                <li class="card-body" style="padding: 10px 0 0px 15px">
                                     Mempertahankan metode yang sudah dilakukan dan tetap dilakukan pemantauan secara terus menerus dan sistematis.
+                                </li>
+                                <li class="card-body" style="padding: 10px 0 0px 15px">
+                                    Tetap menjalin kerja sama dengan masyarakat dengan baik.
+                                </li>
+                                <li class="card-body" style="padding: 10px 0 20px 15px">
+                                    Tetap mengikuti pedoman yang sudah berlaku.
                                 </li>
                           </ul>
                       </div>
