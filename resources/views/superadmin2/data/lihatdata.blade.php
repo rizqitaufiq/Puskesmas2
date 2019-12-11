@@ -78,6 +78,12 @@
 			                                    <th> K</th>
 			                                    <th> D</th>
 			                                    <th> N</th>
+			                                    
+			                                    <th> K/S</th>
+			                                    <th> D/K</th>
+			                                    <th> N/D</th>
+			                                    <th> D/S </th>
+			                                    <th> N/S</th>
 			                                    <th colspan="2">Action</th>
 			                                </tr>
 			                            </thead>
@@ -89,6 +95,12 @@
 			                                    <td>{{$skdn2->Data_K}}</td>
 			                                    <td>{{$skdn2->Data_D}}</td>
 			                                    <td>{{$skdn2->Data_N}}</td>
+
+			                                    <td>{{number_format($skdn2->Data_K/$skdn2->Data_S*100,2)}}%</td>
+			                                    <td>{{number_format($skdn2->Data_D/$skdn2->Data_K*100,2)}}%</td>
+			                                    <td>{{number_format($skdn2->Data_N/$skdn2->Data_D*100,2)}}%</td>
+			                                    <td>{{number_format($skdn2->Data_D/$skdn2->Data_S*100,2)}}%</td>
+			                                    <td>{{number_format($skdn2->Data_N/$skdn2->Data_S*100,2)}}%</td>
 			                                    <td style="width: 1%; padding-right: 0; padding-left: 2"><a href="{{route('skdn.edit', $skdn2->id)}}" class="btn btn-warning btn-sm">&nbsp Edit &nbsp</a></td>
 			                                    <td style="width: 1%; padding-right: 0; padding-left: 2">
 			                                        <form action="{{action('SkdnController@destroy', $skdn2->id)}}" method="post">

@@ -584,9 +584,9 @@ class DataController extends Controller
                      $dataindikator = array();
                      $datatarget = array();
                      $datatahun = array();
-                     array_push($dataindikator, 0);
-                     array_push($datatahun, 0);
-                     array_push($datatarget, 0);
+                     // array_push($dataindikator, 0);
+                     // array_push($datatahun, 0);
+                     // array_push($datatarget, 0);
                      foreach ($data as $data2) {
                          array_push($dataindikator, $data2->cakupan);
                          array_push($datatarget, $data2->target);
@@ -619,9 +619,9 @@ class DataController extends Controller
                      $dataindikator = array();
                      $datatarget = array();
                      $datatahun = array();
-                     array_push($dataindikator, 0);
-                     array_push($datatahun, 0);
-                     array_push($datatarget, 0);
+                     // array_push($dataindikator, 0);
+                     // array_push($datatahun, 0);
+                     // array_push($datatarget, 0);
                      foreach ($data as $data2) {
                          array_push($dataindikator, $data2->cakupan);
                          array_push($datatarget, $data2->target);
