@@ -62,7 +62,7 @@
 	                                    </li>
 	                                </ul>
                                 </li>
-                                <li class="card-body" style="padding: 10px 0 0 15px">
+                                <li class="card-body" style="padding: 10px 0 20px 15px">
                                     <strong> Rekomendasi Distribusi tablet Fe untuk Remaja putri </strong>
                                     <ul class="vue-list-inner" align = "justify" style="padding-right: 30px">
 	                                    <li>
@@ -71,12 +71,12 @@
 	                                </ul>
                                 </li>
                           </ul>
-                          <h4 class="card-body" style="padding-bottom: 0 "><strong>Jika Sudah Mencapai Target</strong></h4>
+                          <!-- <h4 class="card-body" style="padding-bottom: 0 "><strong>Jika Sudah Mencapai Target</strong></h4>
                             <ul style="margin-left: 15px;padding-right: 30px" class="vue-list-inner" align = "justify">
                                 <li class="card-body" style="padding: 10px 0 20px 15px">
                                     Mempertahankan dengan cara memberikan tablet tersebut secara rutin dan tetap mengawasi Remaja putri mengonsumsinya.
                                 </li>
-                          </ul>
+                          </ul> -->
                       </div>
 	                </div>
 		        </div>

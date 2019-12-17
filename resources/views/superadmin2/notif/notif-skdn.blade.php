@@ -85,11 +85,11 @@
                                 <li class="card-body" style="padding: 10px 0 0 15px">
                                     Perlu evaluasi terhadap keterampilan kader dalam pengukuran.
                                 </li>
-                                <li class="card-body" style="padding: 10px 0 0 15px">
+                                <li class="card-body" style="padding: 10px 0 20px 15px">
                                     Perhatikan kondisi alat antrophometri mengenai kelayakan dan kesesuaian penggunaan.
                                 </li>
                           </ul>
-                          <h4 class="card-body" style="padding-bottom: 0 "><strong>Jika Sudah Mencapai Target</strong></h4>
+                          <!-- <h4 class="card-body" style="padding-bottom: 0 "><strong>Jika Sudah Mencapai Target</strong></h4>
                             <ul style="margin-left: 15px">
                                 <li class="card-body" style="padding: 10px 0 0px 15px">
                                     Mempertahankan metode yang sudah dilakukan dan tetap dilakukan pemantauan secara terus menerus dan sistematis.
@@ -100,7 +100,7 @@
                                 <li class="card-body" style="padding: 10px 0 20px 15px">
                                     Tetap mengikuti pedoman yang sudah berlaku.
                                 </li>
-                          </ul>
+                          </ul> -->
                       </div>
 	                </div>
 		        </div>

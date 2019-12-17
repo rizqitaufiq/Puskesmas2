@@ -87,8 +87,8 @@
                                     <th style="width: 27%">Jenis Kegiatan</th>
                                     <th>Cakupan (%)</th>
                                     <th>Target (%)</th>
-                                    <th>Adequasi Effort</th>
-                                    <th>Adequasi Performance</th>
+                                    <th>Adequasi of Effort (Kecukupan Upaya)</th>
+                                    <th>Adequasi of Performance (Kecukupan Kinerja)</th>
                                     <th>Sensitivitas dan Spesifitas</th>
                                     <th>Kategori</th>
                                 </tr>
@@ -125,8 +125,8 @@
                                     <th>Cakupan (%)</th>
                                     <th>Jumlah Sasaran (N)</th>
                                     <th>Target (%)</th>
-                                    <th>Adequasi Effort</th>
-                                    <th>Adequasi Performance</th>
+                                    <th>Adequasi of Effort (Kecukupan Upaya)</th>
+                                    <th>Adequasi of Performance (Kecukupan Kinerja)</th>
                                     <th>Sensitivitas dan Spesifitas</th>
                                     <th>Kategori</th>
                                     <th>Hasil</th>
@@ -158,7 +158,7 @@
             </div>
             <div style="margin-top: 3%">
                 <input class="btn btn-primary" type="button" onclick="printDiv('printableArea')" value="Cetak" />
-                <a class="btn btn-primary" href="{{route('user.save.data')}}">Simpan</a>
+                <a class="btn btn-primary" href="{{route('laporan.simpan', ['id' => $id, 'tahun' => $tahun])}}">Simpan</a>
             </div>
              
         </div>

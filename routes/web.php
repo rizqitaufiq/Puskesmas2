@@ -92,6 +92,7 @@ Route::get('dashboard/chartdata/{id}/{nama}/{tahun}', 'DataController@showchart'
 Route::get('dashboard/laporan', 'DataController@laporan')->name('data.laporan');
 Route::get('dashboard/laporan/{id}', 'DataController@laporandatatahun')->name('laporan.datatahun');
 Route::get('dashboard/laporan/{id}/{tahun}', 'DataController@cetaklaporan')->name('laporan.cetak');
+Route::get('dashboard/laporan/{id}/{tahun}/simpan', 'DataController@simpanlaporan')->name('laporan.simpan');
 //contoh pakai post
 Route::post('dashboard/data/chart', 'DataController@chart2')->name('data.indi.chart2');
 

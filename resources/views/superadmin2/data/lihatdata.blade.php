@@ -235,8 +235,8 @@
 		                                    <th>Tahun</th>
 		                                    <th>Cakupan (%)</th>
 		                                    <th>Target (%)</th>
-		                                    <th>Adequasi Effort</th>
-		                                    <th>Adequasi Performance</th>
+		                                    <th>Adequasi of Effort (Kecukupan Upaya)</th>
+		                                    <th>Adequasi of Performance (Kecukupan Kinerja)</th>
 		                                    <th>Sensitivitas dan Spesifitas</th>
 		                                    <th>Kategori</th>
 		                                    <th colspan="2">Action</th>
@@ -425,8 +425,8 @@
 		                                    <th>Cakupan (%)</th>
 		                                    <th>Jumlah Sasaran (N)</th>
 		                                    <th>Target (%)</th>
-		                                    <th>Adequasi Effort</th>
-		                                    <th>Adequasi Performance</th>
+		                                    <th>Adequasi of Effort (Kecukupan Upaya)</th>
+		                                    <th>Adequasi of Performance (Kecukupan Kinerja)</th>
 		                                    <th>Sensitivitas dan Spesifitas</th>
 		                                    <th>Kategori</th>
 		                                    <th>Hasil</th>

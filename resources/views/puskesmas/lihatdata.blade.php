@@ -315,8 +315,8 @@
                                             <th>Total Sasaran</th> -->
                                             <th style="text-align: center">Target (%)</th>
                                             <!-- <th>Nilai</th> -->
-                                            <th style="text-align: center">Adequasi Effort</th>
-                                            <th style="text-align: center">Adequasi Performance</th>
+                                            <th style="text-align: center">Adequasi of Effort (Kecukupan Upaya)</th>
+                                            <th style="text-align: center">Adequasi of Performance (Kecukupan Kinerja)</th>
                                             <!-- <th>Progress</th> -->
                                             <th style="text-align: center">Sensitivitas dan Spesifitas</th>
                                             <th style="text-align: center">Kategori</th>
@@ -375,8 +375,8 @@
                                             <th style="text-align: center">Total Sasaran</th>
                                             <th style="text-align: center">Target (%)</th>
                                             <!-- <th>Nilai</th> -->
-                                            <th style="text-align: center">Adequasi Effort</th>
-                                            <th style="text-align: center">Adequasi Performance</th>
+                                            <th style="text-align: center">Adequasi of Effort (Kecukupan Upaya)</th>
+                                            <th style="text-align: center">Adequasi of Performance (Kecukupan Kinerja)</th>
                                             <!-- <th style="text-align: center">Progress</th> -->
                                             <th style="text-align: center">Sensitivitas dan Spesifitas</th>
                                             <th style="text-align: center">Kategori</th>
