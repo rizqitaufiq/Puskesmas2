@@ -101,7 +101,7 @@
 	                                    				<li>
 	                                    					Dilakukan sosialisasi kepada bidan desa atau kelurahan dan kader mengenai program tablet fe. Dilakukan penyuluhan, konseling, dan pendampingan  pada ibu hamil  mengenai tablet fe dan kesehatan ibu hamil.  dilakukan pencatatan dan pelaporan kegiatan distribusi pemberian fe, mendata ibu hamil yang menerima, dan yang meminum tablet fe. Melakukan kunjungan kerumah – rumah untuk pemantauan konsumsi tablet FE.
 	                                    				</li>
-	                                    			</ul>
+	                                	            </ul>
 	                                    		</li>
 	                                    		<li>
 	                                    			<strong> Pemberian Tablet Fe Remaja Putri </strong>

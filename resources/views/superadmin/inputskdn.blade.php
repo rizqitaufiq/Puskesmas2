@@ -44,6 +44,11 @@
                         <div>{{Session::get('alert-success')}}</div>
                     </div>
                 @endif
+                @if(Session::has('alert-danger'))
+                    <div class="alert alert-danger">
+                        <div>{{Session::get('alert-danger')}}</div>
+                    </div>
+                @endif
                 
                 <div class="card">
                     <div class="card-header">

@@ -53,7 +53,7 @@ class DataController extends Controller
         if(Auth::check()){
             if(Auth::user()->pos == 'admin'){
                 // dd($request->all());
-               $data = Data::all()->where('nama_targetumur', $request->target)->where('tahun', $request->tahun)->where('nama_puskesmas', Auth::user()->puskesmas);
+               $data = Data::all()->where('nama_targetumur', $request->nama_targetumur)->where('tahun', $request->tahun)->where('nama_puskesmas', Auth::user()->puskesmas);
 
                $a = number_format((($request->get('target')-$request->get('cakupan'))/$request->get('target')*100),2);
                if($a >= 0 && $a <= 25){
@@ -153,7 +153,7 @@ class DataController extends Controller
                     
                }
                else{
-                    return redirect('dashboard/data/input')->with('alert-danger','Data sudah ada');
+                    return redirect('dashboard/data/input/'.$request->get('nama_program'))->with('alert-danger','Data sudah ada');
                }
             }
             else{

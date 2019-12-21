@@ -66,17 +66,24 @@ class SkdnController extends Controller
     {
         if(Auth::check()){
             if(Auth::user()->pos == 'admin'){
-                $id = Auth::user()->puskesmas;
-                $skdn = new Skdn();
-                $skdn->nama_puskesmas   = $request->get('nama_puskesmas');
-                $skdn->Data_S           = $request->get('data_s');
-                $skdn->Data_K           = $request->get('data_k');
-                $skdn->Data_D           = $request->get('data_d');
-                $skdn->Data_N           = $request->get('data_n');
-                $skdn->tahun            = $request->get('tahun');
-                $skdn->save();
+                $data = Skdn::all()->where('nama_puskesmas', $request->get('nama_puskesmas'))->where('tahun', $request->get('tahun'));
+                if(count($data) === 0){
+                    $id = Auth::user()->puskesmas;
+                    $skdn = new Skdn();
+                    $skdn->nama_puskesmas   = $request->get('nama_puskesmas');
+                    $skdn->Data_S           = $request->get('data_s');
+                    $skdn->Data_K           = $request->get('data_k');
+                    $skdn->Data_D           = $request->get('data_d');
+                    $skdn->Data_N           = $request->get('data_n');
+                    $skdn->tahun            = $request->get('tahun');
+                    $skdn->save();
 
-               return redirect('dashboard/data/'.$id.'/SKDN/')->with('alert-success', 'Data berhasil dimasukkan');
+                   return redirect('dashboard/data/'.$id.'/SKDN/')->with('alert-success', 'Data berhasil dimasukkan');
+                }
+                else{
+                    return redirect('dashboard/data/input/skdn/skdn')->with('alert-danger','Data sudah ada');
+                }
+                
             }
             else{
                 return redirect('dashboard');

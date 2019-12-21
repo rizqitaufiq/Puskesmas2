@@ -44,6 +44,11 @@
                         <div>{{Session::get('alert-success')}}</div>
                     </div>
                 @endif
+                @if(Session::has('alert-danger'))
+                    <div class="alert alert-danger">
+                        <div>{{Session::get('alert-danger')}}</div>
+                    </div>
+                @endif
                 
                 <div class="card">
                     <div class="card-header">
@@ -101,6 +106,7 @@
                                 </div>
                             </div>
                             <input type="number" id="nama_program" name="program" value="{{$id[0]->id}}" hidden>
+                            <input type="text" id="program" name="nama_program" value="{{$program}}" hidden>
                             <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Input</button>
                             <a href="{{ route('data.input')}}" class="btn btn-danger waves-effect waves-light m-r-10">Cancel</a>
                         </form>
@@ -164,6 +170,7 @@
 			                    </div>
 			                </div>
                             <input type="number" id="nama_program" name="program" value="{{$id[0]->id}}" hidden>
+                            <input type="text" id="program" name="nama_program" value="{{$program}}" hidden>
 			                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Input</button>
 			                <a href="{{ route('data.input')}}" class="btn btn-danger waves-effect waves-light m-r-10">Cancel</a>
 			            </form>

@@ -54,6 +54,9 @@
                                 <li class="card-body" style="padding: 10px 10px 0 15px">
                                   <strong> Rekomendasi Distribusi tablet Fe untuk ibu hamil </strong>
                                     <ul class="vue-list-inner" align = "justify" style="padding-right: 30px">
+                                        <li>
+                                            Diperlukan penyuluhan kesehatan dengan didukung materi Komunikasi, Informasi dan Edukasi (KIE) yang tepat untuk tenaga kesehatan.
+                                        </li>
 	                                    <li>
 	                                    	Tenaga kesehatan Puskesmas harus aktif dalam melayani ibu hamil yang datang, selain memberikan tablet Fe, tenaga kesehatan juga sebaiknya memberi edukasi mengenai manfaat dan dampak tablet Fe untuk ibu hamil dan memastikan ibu hamil tersebut benar benar mengonsumsi tablet Fe.
 	                                	</li>
