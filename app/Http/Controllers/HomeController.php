@@ -117,7 +117,7 @@ class HomeController extends Controller
                         $ptd = round($tahunmin[0]->Data_D*pow((1+$rd), 5), 2);
                         $rn  = round(($tahunmax[0]->Data_N/ $tahunmin[0]->Data_N)-1, 2);
                         $ptn = round($tahunmin[0]->Data_N*pow((1+$rn), 5), 2);
-                        
+                        $spsn = null;
                         return view('puskesmas.lihatdata', compact('spsn', 'cocheck', 'pts', 'ptk', 'ptd', 'ptn','skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
                     }
                     else{

@@ -146,7 +146,7 @@
                                             <td align="center">{{$indi['adequasi_effort']}}%</td>
                                             <td align="center">{{$indi['adequasi_peformance']}}%</td>
                                             <td align="center">{{$indi['sensitivitas']}}%</td>
-                                            <td align="center">{{$indi['spesifitas']}}%</td>
+                                            <td align="center">{{$indi['spesifitas']}}</td>
                                             <td align="center">{{$indi['hasil']}}</td>
                                         </tr>
                                     @endif

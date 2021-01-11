@@ -61,7 +61,7 @@
                                     <td align ="center">{{$a+=1}}</td>
                                     <td align ="center">{{$user->puskesmas}}</td>
                                     <td align ="center"><a href="{{route('data.dataprog', $user->nama_puskesmas)}}" class="btn btn-warning">Lihat</a> 
-                                        <a href="#" class="btn btn-danger">delete</></td>
+                                        <a href="{{route('data.delete', $user->nama_puskesmas)}}" class="btn btn-danger">delete</></td>
                                 </tr>
                                 @endforeach
                             </tbody>

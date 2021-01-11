@@ -81,6 +81,7 @@ Route::post('dashboard/target/fetch', 'TargetController@fetch')->name('target.fe
 Route::get('dashboard/puskesmas/{id}/delete', 'PuskesmasController@destroy');
 
 Route::get('dashboard/data/{id}/dataprogram', 'DataController@dataprog')->name('data.dataprog');
+Route::get('dashboard/data/{id}/delete', 'DataController@destroy')->name('data.delete');
 Route::get('dashboard/data/{id}/{nama}', 'DataController@data')->name('data.data');
 Route::get('dashboard/data/{id}/{nama}/{indi}', 'DataController@chart')->name('data.indi.chart');
 

@@ -335,18 +335,23 @@ class DataController extends Controller
 
     public function destroy($id){
         if(Auth::check()){
-            $data = Data::findOrFail($id);
-            $notif_id = DB::table('notif')
-                ->where('id_program', $data->nama_program)
-                ->where('id_puskesmas', $data->nama_puskesmas)
-                ->where('tahun', $data->tahun)
-                ->select('id')
-                ->get();
-            if(!$notif_id->isEmpty()){
-                $notif = Notif::find($notif_id[0]->id);
-                $notif->delete();
-            }   
-            $data->delete();
+            // $data = Data::findOrFail($id);
+            $data = DB::table('data')->where('nama_puskesmas', $id)->delete();
+            $notif = DB::table('notif')->where('id_puskesmas', $id)->delete();
+            $skdn = DB::table('skdn')->where('nama_puskesmas', $id)->delete();
+            
+            // $notif_id = DB::table('notif')
+            //     ->where('id_program', $data->nama_program)
+            //     ->where('id_puskesmas', $data->nama_puskesmas)
+            //     ->where('tahun', $data->tahun)
+            //     ->select('id')
+            //     ->get();
+            // if(!$notif->isEmpty()){
+            //     // $notif = Notif::find($notif_id[0]->id);
+            //     $notif->delete();
+            //     echo "done";
+            // } 
+            
             return redirect('dashboard/data')->with('alert-success', 'Data Berhasil di Hapus');
         }
     }
@@ -424,7 +429,7 @@ class DataController extends Controller
                             $ptd = round($tahunmin[0]->Data_D*pow((1+$rd), 5), 2);
                             $rn  = round(($tahunmax[0]->Data_N/ $tahunmin[0]->Data_N)-1, 2);
                             $ptn = round($tahunmin[0]->Data_N*pow((1+$rn), 5), 2);
-                            
+                            $spsn = null;
                             return view('superadmin2.data.lihatdata', compact('spsn', 'cocheck', 'pts', 'ptk', 'ptd', 'ptn','skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
                         }
                         else{
@@ -497,7 +502,7 @@ class DataController extends Controller
                             $ptd = round($tahunmin[0]->Data_D*pow((1+$rd), 5), 2);
                             $rn  = round(($tahunmax[0]->Data_N/ $tahunmin[0]->Data_N)-1, 2);
                             $ptn = round($tahunmin[0]->Data_N*pow((1+$rn), 5), 2);
-                            
+                            $spsn = null;
                             return view('superadmin2.data.lihatdata', compact('spsn', 'cocheck', 'pts', 'ptk', 'ptd', 'ptn','skdn', 'id', 'nama','extends', 'section', 'indikator', 'data'));
                         }
                         else{
